@@ -6,27 +6,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/Container"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:background="#FFFFFF"
-        app:layout_constraintBottom_toTopOf="@+id/ButtonLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+<!--    지도 출력을 위한 레이아웃 -->
+    <fragment
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/map"
+        tools:context=".MapsActivity"
+        android:name="com.google.android.gms.maps.SupportMapFragment" />
 
+    <!--    지도 출력을 위한 레이아웃, 차후 이 레이아웃 사용해야 함 -->
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginBottom="50dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--    </RelativeLayout>-->
+
+    <!-- 하단바 레이아웃 -->
     <LinearLayout
-        android:id="@+id/ButtonLayout"
+        android:id="@+id/linearLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Container">
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/CategoryButton"
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -38,7 +50,7 @@
             app:srcCompat="@drawable/category" />
 
         <ImageButton
-            android:id="@+id/RegisterButton"
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -50,7 +62,7 @@
             app:srcCompat="@drawable/editbutton" />
 
         <ImageButton
-            android:id="@+id/MapButton"
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -59,11 +71,10 @@
             android:maxWidth="50dp"
             android:maxHeight="50dp"
             android:scaleType="fitCenter"
-            app:srcCompat="@drawable/placeholder"
-            tools:ignore="SpeakableTextPresentCheck" />
+            app:srcCompat="@drawable/placeholder" />
 
         <ImageButton
-            android:id="@+id/MypageButton"
+            android:id="@+id/imageView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
