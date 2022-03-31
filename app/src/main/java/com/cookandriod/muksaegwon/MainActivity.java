@@ -7,10 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-
-import net.daum.mf.map.api.MapView;
 
 public class MainActivity extends AppCompatActivity {
 
