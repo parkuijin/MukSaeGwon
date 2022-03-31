@@ -8,7 +8,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MukSaeGwon">
+        android:theme="@style/Theme.MukSaeGwon"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -18,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <meta-data android:name="com.kakao.sdk.AppKey" android:value="871350c8db8fc6d03bc0ba3f1628d833"/>
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="871350c8db8fc6d03bc0ba3f1628d833"/>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET">
