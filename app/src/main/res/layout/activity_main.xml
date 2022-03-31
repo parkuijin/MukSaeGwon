@@ -8,13 +8,12 @@
 
     <RelativeLayout
         android:id="@+id/MapLayout"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="@+id/ButtonLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <RelativeLayout
             android:id="@+id/map_view"
@@ -24,12 +23,13 @@
 
     <LinearLayout
         android:id="@+id/ButtonLayout"
-        android:layout_width="409dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginStart="1dp"
+        android:layout_marginEnd="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/MapLayout">
+        tools:layout_editor_absoluteY="682dp">
 
         <ImageButton
             android:id="@+id/CategoryButton"
