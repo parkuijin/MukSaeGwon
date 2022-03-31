@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cookandriod.muksaegwon">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <meta-data android:name="com.kakao.sdk.AppKey" android:value="871350c8db8fc6d03bc0ba3f1628d833"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,5 +23,4 @@
             </intent-filter>
         </activity>
     </application>
-
-</manifest>
+    </manifest>
