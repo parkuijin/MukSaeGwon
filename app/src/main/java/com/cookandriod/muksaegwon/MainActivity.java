@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.ViewGroup;
 
-import com.google.android.gms.maps.MapView;
+import net.daum.mf.map.api.MapView;
 
 public class MainActivity extends AppCompatActivity {
 
