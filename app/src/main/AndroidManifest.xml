@@ -2,13 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cookandriod.muksaegwon">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-permission android:name="android.permission.INTERNET">
+    </uses-permission>
+
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION">
+    </uses-permission>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.MukSaeGwon">
+        android:theme="@style/Theme.MukSaeGwon"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -17,10 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+<!--        지도 설정을 위한 api 추가 -->
         <meta-data
-            android:name="com.kakao.sdk.AppKey"
-            android:value="871350c8db8fc6d03bc0ba3f1628d833"/>
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" />
     </application>
-    <uses-permission android:name="android.permission.INTERNET">
-    </uses-permission>
     </manifest>
