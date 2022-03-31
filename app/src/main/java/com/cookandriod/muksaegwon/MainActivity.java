@@ -25,22 +25,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         // HASH METHOD DELETED
 
+        MapFragment = new MapFragment();
+
         //ActionBar hide
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        //MapFragment 불러오기
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.Container, MapFragment);
         fragmentTransaction.commit();
 
-        MapView mapView = new MapView(this);
 
-        ViewGroup mapViewContainer = (ViewGroup) findViewById(R.id.mapView);
-
-        //지도 띄우기
-        mapViewContainer.addView(mapView);
 
     }
 
