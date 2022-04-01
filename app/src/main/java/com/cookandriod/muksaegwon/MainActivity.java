@@ -11,6 +11,7 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -32,8 +33,8 @@ public class MainActivity extends AppCompatActivity {
     MapFragment mapFragment;
     FragmentManager fragmentManager;
 
-    // weather
-    TextView weather;
+    // Button
+    ImageView CategoryButton, RegisterButton, MapButton, MypageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,41 +57,9 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Container, mapFragment, null);
         fragmentTransaction.commit();
 
-        // 날씨 부분
-        weather = (TextView)findViewById(R.id.weather);
-
-        String url = "https://api.openweathermap.org/data/2.5/weather?lat=37.56&lon=126.97&appid=f2b522c6912209a728b3fd17a2982016";
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jobj = new JSONObject(response);
-                            JSONArray jsonArray = jobj.getJSONArray("weather");
-                            JSONObject weatherArray = jsonArray.getJSONObject(0);
-                            String weatherString = weatherArray.getString("main");
-                            weather.setText(weatherString);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        return;
-                    }
-                }
-        );
-        requestQueue.add(stringRequest);
-
-
-
-        //
 
     }
+
     // 해쉬값을 얻기 위한 메소드
     private void getAppKeyHash() {
         try {
@@ -107,5 +76,5 @@ public class MainActivity extends AppCompatActivity {
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }
-    };
+    }
 };
