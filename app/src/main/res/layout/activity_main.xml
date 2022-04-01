@@ -23,11 +23,11 @@
     <!-- 하단바 레이아웃 -->
 
     <FrameLayout
-        android:id="@+id/container"
+        android:id="@+id/Container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ButtonLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
-        android:id="@+id/linearLayout"
+        android:id="@+id/ButtonLayout"
         android:layout_width="409dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="1dp"
@@ -56,7 +56,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <ImageButton
-            android:id="@+id/imageView"
+            android:id="@+id/CategoryButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -68,7 +68,7 @@
             app:srcCompat="@drawable/category" />
 
         <ImageButton
-            android:id="@+id/imageView2"
+            android:id="@+id/RegisterLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -80,7 +80,7 @@
             app:srcCompat="@drawable/editbutton" />
 
         <ImageButton
-            android:id="@+id/imageView3"
+            android:id="@+id/MapButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -92,7 +92,7 @@
             app:srcCompat="@drawable/placeholder" />
 
         <ImageButton
-            android:id="@+id/imageView4"
+            android:id="@+id/MypageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

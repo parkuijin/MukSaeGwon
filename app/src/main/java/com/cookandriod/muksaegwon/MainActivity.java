@@ -1,8 +1,7 @@
 package com.cookandriod.muksaegwon;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -41,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //ActionBar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         // 해쉬 메소드 호출
         getAppKeyHash();
 
@@ -50,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.replace(R.id.container, mapFragment, null);
+        fragmentTransaction.replace(R.id.Container, mapFragment, null);
         fragmentTransaction.commit();
 
         // 날씨 부분
