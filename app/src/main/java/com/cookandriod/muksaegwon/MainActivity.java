@@ -65,11 +65,10 @@ public class MainActivity extends AppCompatActivity {
         MypageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 
     // 해쉬값을 얻기 위한 메소드

@@ -3,8 +3,8 @@
     package="com.cookandriod.muksaegwon">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".SearchActivity"
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -32,10 +35,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 지도 설정을 위한 api 추가 -->
+        </activity>
+
+        <!-- 지도 설정을 위한 api 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" />
+
+        <!-- google service -->
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+
     </application>
 
 </manifest>
