@@ -48,10 +48,10 @@ public class MainActivity extends AppCompatActivity {
         // 해쉬 메소드 호출
         getAppKeyHash();
 
-        // Google Map 프래그먼트 출력
         mapFragment = new MapFragment();
         fragmentManager = getSupportFragmentManager();
 
+        // Google Map 프래그먼트 출력
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.replace(R.id.Container, mapFragment, null);
