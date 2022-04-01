@@ -1,6 +1,10 @@
 package com.cookandriod.muksaegwon;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -13,16 +17,30 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class MainActivity extends AppCompatActivity {
-
+    // MapFragment
+    MapFragment mapFragment;
+    FragmentManager fragmentManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // 해쉬 메소드 호출
         getAppKeyHash();
 
+        // Google Map 프래그먼트 출력
+        mapFragment = new MapFragment();
+        fragmentManager = getSupportFragmentManager();
 
-        // HASH METHOD DELETED
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.replace(R.id.container, mapFragment, null);
+        fragmentTransaction.commit();
+
+        //
+
     }
+    // 해쉬값을 얻기 위한 메소드
     private void getAppKeyHash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);

@@ -6,13 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    지도 출력을 위한 레이아웃 -->
-    <fragment
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/map"
-        tools:context=".MapsActivity"
-        android:name="com.google.android.gms.maps.SupportMapFragment" />
+
 
     <!--    지도 출력을 위한 레이아웃, 차후 이 레이아웃 사용해야 함 -->
 <!--    <RelativeLayout-->
@@ -27,6 +21,18 @@
 <!--    </RelativeLayout>-->
 
     <!-- 하단바 레이아웃 -->
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="409dp"

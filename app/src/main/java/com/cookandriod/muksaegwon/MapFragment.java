@@ -2,6 +2,7 @@ package com.cookandriod.muksaegwon;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,24 +17,23 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+
 public class MapFragment extends Fragment implements OnMapReadyCallback {
-    private GoogleMap mMap;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        // 지도 테스트 부분
-        SupportMapFragment mapFragment = (SupportMapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
+        // 지도 구현
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this::onMapReady);
         return v;
     }
 
-    // 지도 마커 테스트
     @Override
-    public void onMapReady(final GoogleMap googleMap) {
-        mMap = googleMap;
+    public void onMapReady(@NonNull GoogleMap googleMap) {
+        GoogleMap mMap = googleMap;
 
         LatLng SEOUL = new LatLng(37.56, 126.97);
 
