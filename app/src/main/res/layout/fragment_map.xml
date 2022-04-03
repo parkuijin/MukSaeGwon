@@ -47,6 +47,7 @@
         android:maxLines="1"
         android:inputType="text"
         android:ellipsize="end"
+        android:hint="위치를 입력하세요."
         android:textCursorDrawable="@drawable/text_cursor"/>
 
 </FrameLayout>

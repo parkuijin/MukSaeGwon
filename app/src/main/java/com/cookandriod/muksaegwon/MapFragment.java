@@ -119,7 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 switch (keyCode) {
                     case KeyEvent.KEYCODE_ENTER:
-                        // 검색창에서 텍스트를 가져온다
+
                         String searchText = searchBar.getText().toString();
 
                         Geocoder geocoder = new Geocoder(getContext());
