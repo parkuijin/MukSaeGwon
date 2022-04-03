@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".SearchActivity"
+            android:name=".RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".LoginActivity"
@@ -26,7 +26,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -35,18 +34,13 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- 지도 설정을 위한 api 추가 -->
+        </activity> <!-- 지도 설정을 위한 api 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" />
-
-        <!-- google service -->
+            android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" /> <!-- google service -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
     </application>
 
 </manifest>

@@ -2,6 +2,8 @@ package com.cookandriod.muksaegwon;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,10 +11,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,20 +48,22 @@ import java.util.List;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    private static int AUTOCOMPLETE_REQUEST_CODE = 1;
 
     // weather
     ImageView weather;
 
-    // texview
-    TextView searchBar;
+    // EditText
+    EditText searchBar;
+
+    // GoogleMap
+    GoogleMap mMap;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
-        searchBar = (TextView) v.findViewById(R.id.SearchBar);
+        searchBar = (EditText) v.findViewById(R.id.SearchBar);
 
         // 지도 구현
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -107,10 +113,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         );
         requestQueue.add(stringRequest);
 
-        searchBar.setOnClickListener(new View.OnClickListener() {
+        // EditText Enter EVENT 구현
+        searchBar.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_ENTER:
+                        // 검색창에서 텍스트를 가져온다
+                        String searchText = searchBar.getText().toString();
 
+                        Geocoder geocoder = new Geocoder(getContext());
+                        List<Address> addresses = null;
+
+                        try {
+                            addresses = geocoder.getFromLocationName(searchText, 3);
+                            if (addresses != null && !addresses.equals(" ")) {
+                                search(addresses);
+                            }
+                        } catch (Exception e) {
+                        }
+                        break;
+                }
+                return true;
             }
         });
 
@@ -119,7 +143,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
-        GoogleMap mMap = googleMap;
+        mMap = googleMap;
+
         try {
             // Customise the styling of the base map using a JSON object defined
             // in a raw resource file.
@@ -144,5 +169,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15)); // 줌의 정도
         googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // 지도 유형 설정
 
+    }
+
+    // 구글맵 주소 검색 메서드
+    protected void search (List<Address> addresses) {
+        Address address = addresses.get(0);
+        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+        String addressText = String.format(
+                "%s, %s",
+                address.getMaxAddressLineIndex() > 0 ? address
+                        .getAddressLine(0) : " ", address.getFeatureName());
+
+        /*searchBar.setText("Latitude" + address.getLatitude() + "Longitude" + address.getLongitude() + "\n" + addressText);*/
+
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 }

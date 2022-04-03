@@ -3,9 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.294" />
+        <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_edittext_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/searchbar_background.xml" value="0.249" />
+        <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/text_cursor.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_login.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_search.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
