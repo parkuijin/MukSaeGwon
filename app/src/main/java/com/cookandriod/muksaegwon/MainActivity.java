@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 가게 등록 액티비티 열기
         RegisterButton = (ImageView) findViewById(R.id.RegisterButton);
-        MypageButton.setOnClickListener(new View.OnClickListener() {
+        RegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
