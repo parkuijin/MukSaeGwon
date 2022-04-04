@@ -22,7 +22,6 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -31,11 +30,10 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- 지도 설정을 위한 api 추가 -->
+        <!-- 지도 설정을 위한 API 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" /> <!-- google service -->
@@ -43,5 +41,4 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
     </application>
-
 </manifest>
