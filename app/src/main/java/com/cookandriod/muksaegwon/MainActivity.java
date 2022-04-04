@@ -81,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    // 해쉬값을 얻기 위한 메소드
+    // 해쉬값을 얻기 위한 메소드.
     private void getAppKeyHash() {
         try {
             PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);

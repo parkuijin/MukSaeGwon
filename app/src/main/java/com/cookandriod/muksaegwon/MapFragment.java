@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -152,7 +153,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.style_json));
 
             if (!success) {
-                Log.e(TAG, "Style parsing failed.");
+                Toast.makeText(getContext(),"Style parsing failed.",Toast.LENGTH_LONG).show();
             }
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
@@ -167,7 +168,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL)); // 초기 위치
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15)); // 줌의 정도
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // 지도 유형 설정
 
     }
 
