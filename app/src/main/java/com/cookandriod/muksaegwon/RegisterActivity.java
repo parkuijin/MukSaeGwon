@@ -1,13 +1,20 @@
 package com.cookandriod.muksaegwon;
 
+import android.content.Intent;
+import android.content.res.Resources;
+import android.location.Address;
+import android.location.Geocoder;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -17,17 +24,25 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.List;
+
 public class RegisterActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private static final String TAG = MapFragment.class.getSimpleName();
 
     // GoogleMap
     GoogleMap mMap;
+    Button ftRegisterBtn;
+    ImageView regFinBtn;
+    TextView currentLoc;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        ftRegisterBtn = (Button) findViewById(R.id.FoodtruckRegister);
+        regFinBtn = (ImageView) findViewById(R.id.RegFinBtn);
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -37,11 +52,29 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
 
+        ftRegisterBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FoodTruckInfoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        regFinBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
     }
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+
+        currentLoc = (TextView) findViewById(R.id.CurrentLocation);
+        Geocoder geocoder = new Geocoder(getApplicationContext());
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -76,12 +109,35 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 foodTruck.title("마커 좌표");
                 Double latitude = point.latitude; // 위도
                 Double longitude = point.longitude; // 경도
+
                 // 마커의 스니펫(간단한 텍스트) 설정
                 foodTruck.snippet(latitude.toString() + ", " + longitude.toString());
+
                 // LatLng: 위도 경도 쌍을 나타냄
                 foodTruck.position(new LatLng(latitude, longitude));
+
                 // 마커 추가
                 mMap.addMarker(foodTruck);
+
+                // 현재 위치 설정
+                currentLoc.setText(latitude + " " + longitude);
+
+                // 역지오코딩
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 10);
+                } catch (Exception e) {
+                }
+                if (addresses != null) {
+                    if (addresses.size() == 0) {
+                        Toast.makeText(getApplicationContext(), "지명이 존재하지 않습니다.", Toast.LENGTH_LONG).show();
+                    } else {
+                        String city = addresses.get(0).getAdminArea();
+                        String country = addresses.get(0).getCountryName();
+                        /*Log.d("찾은 주소",addresses.get(0).toString());*/
+                        /*currentLoc.setText(addresses.get(0).getAddressLine(0));*/
+                    }
+                }
             }
         });
     }

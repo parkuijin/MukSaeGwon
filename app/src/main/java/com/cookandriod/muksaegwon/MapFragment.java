@@ -4,10 +4,6 @@ import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.Fragment;
-
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -16,6 +12,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -121,7 +120,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         try {
                             addresses = geocoder.getFromLocationName(searchText, 3);
                             if (addresses != null && !addresses.equals(" ")) {
-                                search(addresses);
+                                locSearch(addresses);
                             }
                         } catch (Exception e) {
                         }
@@ -165,7 +164,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     // 구글맵 주소 검색 메서드
-    protected void search (List<Address> addresses) {
+    protected void locSearch (List<Address> addresses) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
