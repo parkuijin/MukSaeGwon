@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cookandriod.muksaegwon">
+    package="com.cookandroid.muksaegwon">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -15,13 +15,13 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".FoodTruckInfoActivity"
+            android:name="com.cookandroid.muksaegwon.FoodTruckInfoActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterActivity"
+            android:name="com.cookandroid.muksaegwon.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name="com.cookandroid.muksaegwon.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.cookandroid.muksaegwon.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -1,4 +1,4 @@
-package com.cookandriod.muksaegwon;
+package com.cookandroid.muksaegwon;
 
 import org.junit.Test;
 

@@ -6,7 +6,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.cookandriod.muksaegwon"
+        applicationId "com.cookandroid.muksaegwon"
         minSdk 23
         targetSdk 28
         versionCode 1
