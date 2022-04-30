@@ -1,4 +1,4 @@
-package com.cookandriod.muksaegwon;
+package com.cookandroid.muksaegwon;
 
 import android.content.res.Resources;
 import android.location.Address;
