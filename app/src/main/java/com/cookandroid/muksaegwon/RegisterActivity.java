@@ -24,6 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.io.IOException;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -35,6 +36,10 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
     Button ftRegisterBtn;
     ImageView regFinBtn;
     TextView currentLoc;
+
+    Double latitude, longitude;
+
+    Geocoder geocoder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +79,6 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         mMap = googleMap;
 
         currentLoc = (TextView) findViewById(R.id.CurrentLocation);
-        Geocoder geocoder = new Geocoder(getApplicationContext());
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -107,8 +111,8 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 MarkerOptions foodTruck = new MarkerOptions();
                 // 마커 타이틀
                 foodTruck.title("마커 좌표");
-                Double latitude = point.latitude; // 위도
-                Double longitude = point.longitude; // 경도
+                latitude = point.latitude; // 위도
+                longitude = point.longitude; // 경도
 
                 // 마커의 스니펫(간단한 텍스트) 설정
                 foodTruck.snippet(latitude.toString() + ", " + longitude.toString());
@@ -119,25 +123,18 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 // 마커 추가
                 mMap.addMarker(foodTruck);
 
-                // 현재 위치 설정
-                currentLoc.setText(latitude + " " + longitude);
-
-                // 역지오코딩
+                geocoder = new Geocoder(getApplicationContext());
                 List<Address> addresses = null;
                 try {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 10);
-                } catch (Exception e) {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 5);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                if (addresses != null) {
-                    if (addresses.size() == 0) {
-                        Toast.makeText(getApplicationContext(), "지명이 존재하지 않습니다.", Toast.LENGTH_LONG).show();
-                    } else {
-                        String city = addresses.get(0).getAdminArea();
-                        String country = addresses.get(0).getCountryName();
-                        /*Log.d("찾은 주소",addresses.get(0).toString());*/
-                        /*currentLoc.setText(addresses.get(0).getAddressLine(0));*/
-                    }
-                }
+                String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
+                currentLoc.setText(cut[2] + " " + cut[1] + " " + cut[0]);
+
+                // 클릭한 위치 로그 표시
+                Log.i("CurrentLocation", cut[2] + " " + cut[1] + " " + cut[0]);
             }
         });
     }
