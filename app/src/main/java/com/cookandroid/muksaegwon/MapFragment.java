@@ -1,19 +1,35 @@
 package com.cookandroid.muksaegwon;
 
+
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
+
+import android.location.Location;
+import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+
+import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
 import androidx.annotation.NonNull;
+
+import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -22,6 +38,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -29,6 +49,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,7 +62,7 @@ import java.util.List;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-
+    private FusedLocationProviderClient fusedLocationProviderClient;
     // weather
     ImageView weather;
 
@@ -50,12 +72,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     // GoogleMap
     GoogleMap mMap;
 
+    Button curButton;
+    private LocationManager locationManager;
+    private static final int REQUEST_CODE_LOCATION = 2;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
+    private boolean requestingLocationUpdates = false;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         searchBar = (EditText) v.findViewById(R.id.SearchBar);
+
+        // 현재 위치 버튼 임시
+        curButton = (Button) v.findViewById(R.id.CurButton);
 
         // 지도 구현
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
@@ -130,12 +162,97 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        curButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //createLocationRequest();
+                getMyLocation();
+            }
+        });
+
         return v;
     }
 
+    public void getMyLocation() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            Log.d("Test", "GPS Location Latitude: " + location.getLatitude() +
+                                    ", Longitude: " + location.getLongitude());
+                        }
+                    }
+                });
+    }
+
+    // 위치 설정 변경
+    protected void createLocationRequest() {
+        locationRequest = LocationRequest.create();
+        locationRequest.setInterval(10000);
+        locationRequest.setFastestInterval(5000);
+        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        requestingLocationUpdates = true;
+        onResume();
+    }
+
+    // 위치 변경 요청
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (requestingLocationUpdates) {
+            startLocationUpdates();
+        }
+    }
+
+    // 변경 요청
+    private void startLocationUpdates() {
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationCallback = new LocationCallback() {
+            @Override
+            public void onLocationResult(LocationResult locationResult) {
+                if (locationResult == null) {
+                    return;
+                }
+                for (Location location : locationResult.getLocations()) {
+                    System.out.print(location.getLatitude());
+                }
+            }
+        };
+
+        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
+                locationCallback,
+                Looper.getMainLooper());
+    }
+
+    @SuppressLint("MissingPermission")
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.setMyLocationEnabled(true);
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -162,7 +279,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15)); // 줌의 정도
 
     }
-
+    
     // 구글맵 주소 검색 메서드
     protected void locSearch (List<Address> addresses) {
         Address address = addresses.get(0);

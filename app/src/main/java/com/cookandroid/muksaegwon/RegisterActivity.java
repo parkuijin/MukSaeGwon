@@ -131,10 +131,10 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                     e.printStackTrace();
                 }
                 String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
-                currentLoc.setText(cut[2] + " " + cut[1] + " " + cut[0]);
+                currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3]+" "+cut[4]);
 
                 // 클릭한 위치 로그 표시
-                Log.i("CurrentLocation", cut[2] + " " + cut[1] + " " + cut[0]);
+                Log.i("CurrentLocation",addresses.get(0).getAddressLine(0));
             }
         });
     }
