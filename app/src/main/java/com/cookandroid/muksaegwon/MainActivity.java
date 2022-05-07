@@ -1,19 +1,30 @@
 package com.cookandroid.muksaegwon;
 
+import static java.security.AccessController.getContext;
+
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -25,18 +36,19 @@ public class MainActivity extends AppCompatActivity {
 
     // Button
     ImageView CategoryButton, RegisterButton, MapButton, MypageButton;
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    private Button curButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        curButton = (Button)findViewById(R.id.CurButton);
+
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
-
-        // 해쉬 메소드 호출
-        getAppKeyHash();
 
         mapFragment = new MapFragment();
         fragmentManager = getSupportFragmentManager();
@@ -66,24 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
     }
 
-    // 해쉬값을 얻기 위한 메소드.
-    private void getAppKeyHash() {
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md;
-                md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                String something = new String(Base64.encode(md.digest(), 0));
-                Log.e("Hash key: ", something);
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-            Log.e("name not found", e.toString());
-        } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        }
-    }
-};
-//테스트
+}
