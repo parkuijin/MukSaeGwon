@@ -37,7 +37,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- 지도 설정을 위한 api 추가 -->
+        </activity>
+        <!-- 지도 설정을 위한 api 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" /> <!-- google service -->
@@ -45,7 +46,7 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-<!--         set_timerslack_ns Error-->
+        <!-- set_timerslack_ns Error -->
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false"/>
