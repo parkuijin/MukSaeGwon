@@ -244,7 +244,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setMyLocationEnabled(true);
 
         try {
             // Customise the styling of the base map using a JSON object defined
