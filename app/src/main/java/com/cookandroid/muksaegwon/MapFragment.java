@@ -71,6 +71,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private LocationCallback locationCallback;
     private boolean requestingLocationUpdates = false;
 
+    private LatLng ll;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,6 +89,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         // 날씨 부분
         weather = (ImageView) v.findViewById(R.id.Weather);
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
 
         String url = "https://api.openweathermap.org/data/2.5/weather?lat=37.56&lon=126.97&appid=f2b522c6912209a728b3fd17a2982016";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -154,12 +157,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
         curButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //createLocationRequest();
+                createLocationRequest();
                 getMyLocation();
             }
         });
@@ -176,7 +177,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-            return;
         }
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
