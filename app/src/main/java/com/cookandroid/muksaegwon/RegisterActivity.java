@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
     ImageView regFinBtn;
     TextView currentLoc;
 
-    Double latitude, longitude;
+    Double fLatitude, fLongitude;
 
     Geocoder geocoder;
 
@@ -101,32 +101,33 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL)); // 초기 위치
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15)); // 줌의 정도
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(17)); // 줌의 정도
 
         // 맵 터치 이벤트 구현
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng point) {
+
                 mMap.clear();
                 MarkerOptions foodTruck = new MarkerOptions();
                 // 마커 타이틀
                 foodTruck.title("마커 좌표");
-                latitude = point.latitude; // 위도
-                longitude = point.longitude; // 경도
+                fLatitude = point.latitude; // 위도
+                fLongitude = point.longitude; // 경도
 
                 // 마커의 스니펫(간단한 텍스트) 설정
-                foodTruck.snippet(latitude.toString() + ", " + longitude.toString());
+                foodTruck.snippet(fLatitude.toString() + ", " + fLongitude.toString());
 
                 // LatLng: 위도 경도 쌍을 나타냄
-                foodTruck.position(new LatLng(latitude, longitude));
+                foodTruck.position(new LatLng(fLatitude, fLongitude));
 
                 // 마커 추가
                 mMap.addMarker(foodTruck);
-
+                Log.i("POSITION",fLatitude+" "+fLongitude);
                 geocoder = new Geocoder(getApplicationContext());
                 List<Address> addresses = null;
                 try {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 5);
+                    addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
