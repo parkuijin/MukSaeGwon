@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -29,14 +30,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 1000;
     GoogleSignInClient mGoogleSignInClient;
     TextView tv;
-    Button btn;
-
+    ImageView profileIMG;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         tv = (TextView) findViewById(R.id.result);
-        btn = (Button) findViewById(R.id.testBtn);
+        profileIMG = (ImageView)findViewById(R.id.profileIMG);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -50,29 +50,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
         findViewById(R.id.sign_in_button).setOnClickListener(this);
-
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                String url = "http://172.111.97.158:8080/MukSaeGwonServer/test.jsp";
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                        url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                tv.setText(response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-                requestQueue.add(stringRequest);
-            }
-        });
 
 
     }
@@ -111,6 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Log.d(TAG, "Account received");
             tv.setText(account.getDisplayName());
+            updateUI(account);
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -119,15 +97,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-// UPDATE UI PART
-//    private void updateUI(GoogleSignInAccount account) {
-//        if (account!=null) {
-//            tw1.setText("OK");
-//            tw2.setText("Name: " + account.getGivenName() + ", Family name: " + account.getFamilyName() + ", Email: " + account.getEmail() /*+ " image: " +
-//                        account.getPhotoUrl()*/);
-//        }else {
-//            tw1.setText("SMTH wrong");
-//        }
-//
-//    }
+    private void updateUI(GoogleSignInAccount account) {
+        if (account!=null) {
+            System.out.print(account.getPhotoUrl());
+            profileIMG.setImageURI(account.getPhotoUrl());
+        }else {
+            System.out.print("FAILED");
+        }
+
+    }
 }
