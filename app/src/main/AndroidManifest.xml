@@ -15,7 +15,7 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.cookandroid.muksaegwon.FoodTruckInfoActivity"
+            android:name="com.cookandroid.muksaegwon.InfoRegisterActivity"
             android:exported="false" />
         <activity
             android:name="com.cookandroid.muksaegwon.RegisterActivity"
