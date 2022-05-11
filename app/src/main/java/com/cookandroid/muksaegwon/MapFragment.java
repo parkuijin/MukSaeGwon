@@ -258,7 +258,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+        LatLng SEOUL = new LatLng(37.5846, 126.9252);
 
         MarkerOptions markerOptions = new MarkerOptions(); // 마커 생성
         markerOptions.position(SEOUL);
