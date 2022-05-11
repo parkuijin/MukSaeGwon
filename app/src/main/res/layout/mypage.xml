@@ -7,49 +7,39 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/settings"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="50dp"
+    <ImageView
+        android:id="@+id/settingBtn"
+        android:layout_width="178dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="238dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="182dp"
+        app:layout_constraintBottom_toTopOf="@+id/heartBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/setting" />
+
+    <ImageView
+        android:id="@+id/heartBtn"
+        android:layout_width="166dp"
+        android:layout_height="0dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="279dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
+        app:srcCompat="@drawable/heart" />
+
+    <ImageView
+        android:id="@+id/reviewBtn"
+        android:layout_width="202dp"
+        android:layout_height="166dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="219dp"
+        android:layout_marginBottom="218dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/settingBtn"
-            android:layout_width="65dp"
-            android:layout_height="54dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/setting" />
-
-        <ImageView
-            android:id="@+id/reviewBtn"
-            android:layout_width="109dp"
-            android:layout_height="125dp"
-            app:srcCompat="@drawable/review"
-            tools:layout_editor_absoluteX="78dp"
-            tools:layout_editor_absoluteY="223dp" />
-
-        <ImageView
-            android:id="@+id/heartBtn"
-            android:layout_width="84dp"
-            android:layout_height="86dp"
-            app:srcCompat="@drawable/heart"
-            tools:layout_editor_absoluteX="246dp"
-            tools:layout_editor_absoluteY="241dp" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintGuide_begin="20dp" />
+        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
+        app:srcCompat="@drawable/bookmark" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
