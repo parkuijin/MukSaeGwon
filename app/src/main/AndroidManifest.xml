@@ -21,6 +21,9 @@
             android:name="com.cookandroid.muksaegwon.RegisterActivity"
             android:exported="false" />
         <activity
+            android:name="com.cookandroid.muksaegwon.mypageActivity"
+            android:exported="false" />
+        <activity
             android:name="com.cookandroid.muksaegwon.LoginActivity"
             android:exported="false">
             <!--<intent-filter>
