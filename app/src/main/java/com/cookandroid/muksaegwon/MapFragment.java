@@ -1,12 +1,16 @@
 package com.cookandroid.muksaegwon;
 
+import static java.lang.Thread.sleep;
+
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
@@ -51,7 +55,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
 
     private static final String TAG = MapFragment.class.getSimpleName();
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -65,13 +69,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap mMap;
 
     Button curButton;
-    private LocationManager locationManager;
-    private static final int REQUEST_CODE_LOCATION = 2;
-    private LocationRequest locationRequest;
-    private LocationCallback locationCallback;
-    private boolean requestingLocationUpdates = false;
+    LocationManager lm;
 
-    private LatLng ll;
+    Location myLocation;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -156,63 +157,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 return true;
             }
         });
+        checkLocationPermission();
 
         curButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                createLocationRequest();
-                getMyLocation();
+//                createLocationRequest();
+//                getMyLocation();
+                getCurrentLocation();
             }
         });
 
         return v;
     }
 
-    public void getMyLocation() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-        }
-        fusedLocationProviderClient.getLastLocation()
-                .addOnSuccessListener(getActivity(), new OnSuccessListener<Location>() {
-                    @Override
-                    public void onSuccess(Location location) {
-                        // Got last known location. In some rare situations this can be null.
-                        if (location != null) {
-                            // Logic to handle location object
-                            Log.d("Test", "GPS Location Latitude: " + location.getLatitude() +
-                                    ", Longitude: " + location.getLongitude());
-                        }
-                    }
-                });
-    }
-
-    // 위치 설정 변경
-    protected void createLocationRequest() {
-        locationRequest = LocationRequest.create();
-        locationRequest.setInterval(10000);
-        locationRequest.setFastestInterval(5000);
-        locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        requestingLocationUpdates = true;
-        onResume();
-    }
-
-    // 위치 변경 요청
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (requestingLocationUpdates) {
-            startLocationUpdates();
-        }
-    }
-
-    // 변경 요청
-    private void startLocationUpdates() {
+    private void getCurrentLocation() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -223,22 +182,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        locationCallback = new LocationCallback() {
-            @Override
-            public void onLocationResult(LocationResult locationResult) {
-                if (locationResult == null) {
-                    return;
-                }
-                for (Location location : locationResult.getLocations()) {
-                    System.out.print(location.getLatitude());
-                }
-            }
-        };
+        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
 
-        fusedLocationProviderClient.requestLocationUpdates(locationRequest,
-                locationCallback,
-                Looper.getMainLooper());
     }
+
 
     @SuppressLint("MissingPermission")
     @Override
@@ -285,5 +232,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
+    }
+
+    private void checkLocationPermission(){
+        lm = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
+        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
+        {
+            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
+        } else {
+            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
+        }
+    }
+
+    @Override
+    public synchronized void onLocationChanged(@NonNull Location location) {
+        while(myLocation != location){
+            try {
+                myLocation = location;
+                sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        Log.i("LOCATION ",myLocation.getLatitude()+" "+myLocation.getLongitude());
+        lm.removeUpdates(this);
     }
 }
