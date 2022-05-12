@@ -60,7 +60,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         ftRegisterBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FoodTruckInfoActivity.class);
+                Intent intent = new Intent(getApplicationContext(), InfoRegisterActivity.class);
                 startActivity(intent);
             }
         });

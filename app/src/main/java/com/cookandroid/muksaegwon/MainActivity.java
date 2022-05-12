@@ -36,12 +36,12 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Container, mapFragment, null);
         fragmentTransaction.commit();
 
-        // 로그인 액티비티 열기
+        // 마이페이지 액티비티 열기
         MypageButton = (ImageView) findViewById(R.id.MypageButton);
         MypageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                Intent intent = new Intent(getApplicationContext(), mypageActivity.class);
                 startActivity(intent);
             }
         });
