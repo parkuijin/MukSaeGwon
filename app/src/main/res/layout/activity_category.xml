@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".CategoryActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="61dp">
+
+    <TextView
+        android:id="@+id/CategoryTitle"
+        android:layout_width="360dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:text="이 안에 네 최애 어쩌구 "
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.49"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <TextView
+        android:id="@+id/Menu1"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="군옥수수"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="243dp" />
+
+    <TextView
+        android:id="@+id/Menu2"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="붕어빵"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="243dp" />
+
+    <TextView
+        android:id="@+id/Menu3"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="떡볶이"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="276dp"
+        tools:layout_editor_absoluteY="243dp" />
+
+    <TextView
+        android:id="@+id/Menu4"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="오뎅"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <TextView
+        android:id="@+id/Menu5"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="군고구마"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <TextView
+        android:id="@+id/Menu6"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="토스트"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="276dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <TextView
+        android:id="@+id/Menu7"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="타코야끼"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="38dp"
+        tools:layout_editor_absoluteY="670dp" />
+
+    <TextView
+        android:id="@+id/Menu8"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="와플"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="155dp"
+        tools:layout_editor_absoluteY="670dp" />
+
+    <TextView
+        android:id="@+id/Menu9"
+        android:layout_width="100dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="닭꼬치"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="276dp"
+        tools:layout_editor_absoluteY="670dp" />
+
+    <ImageView
+        android:id="@+id/sweet"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="305dp"
+        tools:srcCompat="@drawable/sweet" />
+
+    <ImageView
+        android:id="@+id/ggochi"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="305dp"
+        tools:srcCompat="@drawable/ggochi" />
+
+    <ImageView
+        android:id="@+id/sand"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="305dp"
+        tools:srcCompat="@drawable/sand" />
+
+    <ImageView
+        android:id="@+id/fish"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="90dp"
+        tools:srcCompat="@drawable/fish" />
+
+    <ImageView
+        android:id="@+id/corn"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="90dp"
+        tools:srcCompat="@drawable/corn" />
+
+    <ImageView
+        android:id="@+id/red"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="90dp"
+        tools:srcCompat="@drawable/red" />
+
+    <ImageView
+        android:id="@+id/sso"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="516dp"
+        tools:srcCompat="@drawable/sso" />
+
+    <ImageView
+        android:id="@+id/octopus"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="25dp"
+        tools:layout_editor_absoluteY="516dp"
+        tools:srcCompat="@drawable/octopus" />
+
+    <ImageView
+        android:id="@+id/wa"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        app:srcCompat="@drawable/sunny"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="516dp"
+        tools:srcCompat="@drawable/wa" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
