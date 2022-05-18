@@ -3,21 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_category.xml" value="0.152" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_favorite.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_food_truck_info.xml" value="0.24947916666666667" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_register.xml" value="0.264" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.2" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store2.xml" value="0.11145833333333334" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_intro.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_login.xml" value="0.2" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_my_page.xml" value="0.152" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_mypage.xml" value="0.11200000000000002" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_review.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/mypage.xml" value="0.1" />
+        <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_food_truck_info.xml" value="0.36614583333333334" />
+        <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.5" />
+        <entry key="..\:/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_edittext_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/searchbar_background.xml" value="0.249" />
@@ -27,6 +16,11 @@
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.20759493670886076" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_search.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_food_truck_info.xml" value="0.2712962962962963" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_login.xml" value="0.2712962962962963" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.2712962962962963" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
