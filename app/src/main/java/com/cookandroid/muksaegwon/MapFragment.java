@@ -185,7 +185,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         // Got last known location. In some rare situations this can be null.
                         if (location != null) {
                             // Logic to handle location object
-                            Log.d("Test", "GPS Location Latitude: " + location.getLatitude() +
+                            Log.i("Test", "GPS Location Latitude: " + location.getLatitude() +
                                     ", Longitude: " + location.getLongitude());
                         }
                     }
