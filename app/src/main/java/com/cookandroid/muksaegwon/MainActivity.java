@@ -36,22 +36,22 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.Container, mapFragment, null);
         fragmentTransaction.commit();
 
-        // 카테고리 액티비티 열기인데 지금은 테스트용 IntroActivity로 연결
+        // 카테고리 액티비티 열기
         CategoryButton = (ImageView) findViewById(R.id.CategoryButton);
         CategoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
+                Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
                 startActivity(intent);
             }
         });
 
-        // 마이페이지 액티비티 열기
+        // 로그인 액티비티 열기
         MypageButton = (ImageView) findViewById(R.id.MypageButton);
         MypageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), mypageActivity.class);
+                Intent intent = new Intent(getApplicationContext(),mypageActivity.class);
                 startActivity(intent);
             }
         });

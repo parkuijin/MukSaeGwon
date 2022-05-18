@@ -31,6 +31,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     GoogleSignInClient mGoogleSignInClient;
     TextView tv;
     ImageView profileIMG;
+    GoogleSignInAccount account;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,11 +85,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
-            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+            account = completedTask.getResult(ApiException.class);
 
             Log.d(TAG, "Account received");
             tv.setText(account.getDisplayName());
-            updateUI(account);
+            Log.i("IMG: ", String.valueOf(account.getPhotoUrl()));
+            updateUI();
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -97,10 +99,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void updateUI(GoogleSignInAccount account) {
+    private void updateUI() {
         if (account!=null) {
-            System.out.print(account.getPhotoUrl());
-            profileIMG.setImageURI(account.getPhotoUrl());
+            Log.i("ID: ",account.getDisplayName());
+            Log.i("ID: ",account.getId());
+
         }else {
             System.out.print("FAILED");
         }
