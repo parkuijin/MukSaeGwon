@@ -7,8 +7,8 @@
     tools:context=".IntroActivity">
 
     <ImageView
-        android:id="@+id/settingBtn"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/intro" />
+        app:srcCompat="@drawable/intro" />
 </androidx.constraintlayout.widget.ConstraintLayout>
