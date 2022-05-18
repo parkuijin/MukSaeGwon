@@ -21,7 +21,7 @@
             android:name="com.cookandroid.muksaegwon.RegisterActivity"
             android:exported="false" />
         <activity
-            android:name="com.cookandroid.muksaegwon.mypageActivity"
+            android:name="com.cookandroid.muksaegwon.ReviewActivity"
             android:exported="false" />
 
         <activity
@@ -63,6 +63,5 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false"/>
-
     </application>
 </manifest>

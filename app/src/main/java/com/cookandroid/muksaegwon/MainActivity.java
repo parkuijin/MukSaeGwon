@@ -46,12 +46,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        // 마이페이지 액티비티 열기
+        // 로그인 액티비티 열기
         MypageButton = (ImageView) findViewById(R.id.MypageButton);
         MypageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), mypageActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
                 startActivity(intent);
             }
         });
