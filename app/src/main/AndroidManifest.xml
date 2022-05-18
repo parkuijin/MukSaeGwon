@@ -23,6 +23,16 @@
         <activity
             android:name="com.cookandroid.muksaegwon.mypageActivity"
             android:exported="false" />
+
+        <activity
+            android:name="com.cookandroid.muksaegwon.IntroActivity"
+            android:exported="false">
+        <intent-filter>
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+
+
         <activity
             android:name="com.cookandroid.muksaegwon.LoginActivity"
             android:exported="false">

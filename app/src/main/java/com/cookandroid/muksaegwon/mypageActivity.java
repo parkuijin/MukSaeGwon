@@ -7,15 +7,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.cookandroid.muksaegwon.R;
-
 public class mypageActivity extends AppCompatActivity {
     ImageView setting,heart,review;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.mypage);
+        setContentView(R.layout.activity_mypage);
 
         // 셋팅 액티비티 열기
         /*
