@@ -16,19 +16,16 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".RecyclerView"
-            android:exported="false" />
-        <activity
-            android:name=".recyclerView"
-            android:exported="true"
-            android:label="@string/title_activity_recycler_view"
-            android:theme="@style/Theme.MukSaeGwon.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            android:name=".MainActivity"
+            android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
         </activity>
+        <activity
+            android:name=".mypageActivity"
+            android:exported="false" />
         <activity
             android:name=".InfoRegisterActivity"
             android:exported="false" />
@@ -39,42 +36,37 @@
             android:name=".ReviewActivity"
             android:exported="false" />
         <activity
+            android:name=".FavoriteActivity"
+            android:exported="false" />
+        <activity
             android:name=".IntroActivity"
             android:exported="false">
-            <intent-filter>
+            <!--<intent-filter>
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".LoginActivity"
             android:exported="false">
-
             <!--
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
             -->
         </activity>
-        <activity
-            android:name=".MainActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity> <!-- 지도 설정을 위한 api 추가 -->
+        <!-- 지도 설정을 위한 api 추가 -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBtjCrR9nyByxTumvLSYSyc7pwPqeNJAxM" /> <!-- google service -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" /> <!-- set_timerslack_ns Error -->
+        <meta-data
+            android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+            android:value="true"/>
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
 </manifest>
