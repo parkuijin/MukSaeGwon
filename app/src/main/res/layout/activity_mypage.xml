@@ -10,36 +10,76 @@
     <ImageView
         android:id="@+id/settingBtn"
         android:layout_width="178dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="238dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="182dp"
-        app:layout_constraintBottom_toTopOf="@+id/heartBtn"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/setting" />
+        android:layout_height="92dp"
+        android:visibility="invisible"
+        app:srcCompat="@drawable/setting"
+        tools:layout_editor_absoluteX="250dp"
+        tools:layout_editor_absoluteY="16dp" />
+
+    <ImageView
+        android:id="@+id/profile"
+        android:layout_width="249dp"
+        android:layout_height="571dp"
+        app:srcCompat="@drawable/user"
+        tools:layout_editor_absoluteX="81dp"
+        tools:layout_editor_absoluteY="1dp" />
 
     <ImageView
         android:id="@+id/heartBtn"
-        android:layout_width="166dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="279dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
-        app:srcCompat="@drawable/heart" />
+        android:layout_width="141dp"
+        android:layout_height="128dp"
+        app:srcCompat="@drawable/heart"
+        tools:layout_editor_absoluteX="227dp"
+        tools:layout_editor_absoluteY="467dp" />
 
     <ImageView
         android:id="@+id/reviewBtn"
-        android:layout_width="202dp"
-        android:layout_height="166dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="219dp"
-        android:layout_marginBottom="218dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/settingBtn"
-        app:srcCompat="@drawable/bookmark" />
+        android:layout_width="154dp"
+        android:layout_height="140dp"
+        app:srcCompat="@drawable/bookmark"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="455dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="136dp"
+        android:layout_height="124dp"
+        android:visibility="visible"
+        app:srcCompat="@drawable/intro"
+        tools:layout_editor_absoluteX="292dp"
+        tools:layout_editor_absoluteY="-16dp" />
+
+    <TextView
+        android:id="@+id/reviewText"
+        android:layout_width="154dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="찜한 가게"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="227dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+    <TextView
+        android:id="@+id/heartText"
+        android:layout_width="154dp"
+        android:layout_height="30dp"
+        android:fontFamily="sans-serif-black"
+        android:text="리뷰 "
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="618dp" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:fontFamily="sans-serif-black"
+        android:text="먹세권님, "
+        android:textAlignment="textStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="29dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
