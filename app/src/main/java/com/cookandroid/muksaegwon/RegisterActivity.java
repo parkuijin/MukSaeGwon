@@ -128,11 +128,15 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 List<Address> addresses = null;
                 try {
                     addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
+                    if (addresses != null) {
+                        String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
+                        currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
+                    }else
+                        Toast.makeText(getApplicationContext(),"해당되는 지명이 없습니다.",Toast.LENGTH_LONG).show();
                 } catch (IOException e) {
-                    e.printStackTrace();
+
                 }
-                String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
-                currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3]+" "+cut[4]);
+
 
                 // 클릭한 위치 로그 표시
                 Log.i("CurrentLocation",addresses.get(0).getAddressLine(0));
