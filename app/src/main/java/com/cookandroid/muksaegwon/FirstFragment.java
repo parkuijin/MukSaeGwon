@@ -1,3 +1,4 @@
+/*
 package com.cookandroid.muksaegwon;
 
 import android.os.Bundle;
@@ -44,4 +45,4 @@ public class FirstFragment extends Fragment {
         binding = null;
     }
 
-}
+}*/
