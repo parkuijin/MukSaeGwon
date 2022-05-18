@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "MukSaeGwon"
 include ':app'
+include ':recyclerview'
