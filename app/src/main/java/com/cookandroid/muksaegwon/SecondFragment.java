@@ -1,3 +1,4 @@
+/*
 package com.cookandroid.muksaegwon;
 
 import android.os.Bundle;
@@ -45,3 +46,5 @@ public class SecondFragment extends Fragment {
     }
 
 }
+
+ */
