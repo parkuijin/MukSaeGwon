@@ -49,10 +49,5 @@ public class mypageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
-
-
-
     }
 }
