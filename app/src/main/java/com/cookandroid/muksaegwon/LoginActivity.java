@@ -39,6 +39,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         tv = (TextView) findViewById(R.id.result);
         profileIMG = (ImageView)findViewById(R.id.profileIMG);
 
+        SignInButton signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
                 .build();
@@ -47,12 +51,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_WIDE);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
-
-
+        if (account != null){
+            signIn();
+        }
     }
 
     @Override

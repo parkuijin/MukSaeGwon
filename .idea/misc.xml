@@ -8,8 +8,7 @@
         <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.5" />
         <entry key="..\:/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_category.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_register.xml" value="0.16" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.128" />
+        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.1" />
         <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_mypage.xml" value="0.1" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_edittext_background.xml" value="0.294" />
@@ -25,8 +24,10 @@
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.2712962962962963" />
+        <entry key="app/src/main/res/layout/activity_category.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25126475548060706" />
+        <entry key="app/src/main/res/layout/activity_mypage.xml" value="0.14444444444444443" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
       </map>
     </option>
