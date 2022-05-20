@@ -1,10 +1,9 @@
 package com.cookandroid.muksaegwon;
 
-import static java.lang.Thread.sleep;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Address;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -39,14 +39,16 @@ import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.LocationSettingsRequest;
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.tasks.OnSuccessListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,10 +57,9 @@ import org.json.JSONObject;
 import java.util.List;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, LocationListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private static final String TAG = MapFragment.class.getSimpleName();
-    private FusedLocationProviderClient fusedLocationProviderClient;
     // weather
     ImageView weather;
 
@@ -73,6 +74,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
 
     Location myLocation;
 
+    // 현재 위치를 위한 변수 선언부
+    LocationRequest locationRequest;
+    LocationSettingsRequest.Builder builder;
+    FusedLocationProviderClient mFusedLocationClient;
+
+    private Marker currentMarker = null;
+    private int UPDATE_INTERVAL_MS = 1000;
+    private int FASTEST_UPDATE_INTERVAL_MS = 500;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -85,12 +95,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         curButton = (Button) v.findViewById(R.id.CurButton);
 
         // 지도 구현
+        checkPermission();
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
+        locationRequest = LocationRequest.create()
+                .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL_MS)
+                .setFastestInterval(FASTEST_UPDATE_INTERVAL_MS);
+
+        builder = new LocationSettingsRequest.Builder();
+        builder.addLocationRequest(locationRequest);
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
 
         // 날씨 부분
         weather = (ImageView) v.findViewById(R.id.Weather);
-        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
 
         String url = "https://api.openweathermap.org/data/2.5/weather?lat=37.56&lon=126.97&appid=f2b522c6912209a728b3fd17a2982016";
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -157,21 +176,21 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
                 return true;
             }
         });
-        checkLocationPermission();
 
         curButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                createLocationRequest();
-//                getMyLocation();
-                getCurrentLocation();
+
             }
         });
 
         return v;
     }
 
-    private void getCurrentLocation() {
+    private void startLocationUpdates(){
+        if (!checkLocationServicesStatus()) {
+            Log.d(TAG, "startLocationUpdates : call showDialogForLocationServiceSetting");
+        }
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -182,9 +201,72 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
-
+        Log.d("startLocationUpdates: ","call mFusedLocationClient.requestLocationUpdates");
+        mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
+        mMap.setMyLocationEnabled(true);
     }
+
+    public boolean checkLocationServicesStatus() {
+        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+                || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG, "onStart");
+
+        if (checkPermission()) {
+            Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates");
+            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+            if (mMap != null)
+                mMap.setMyLocationEnabled(true);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mFusedLocationClient != null) {
+            Log.d(TAG, "onStop : call stopLocationUpdates");
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
+        }
+    }
+
+    private boolean checkPermission(){
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public void setCurrentLocation(Location location, String markerTitle, String markerSnippet) {
+        if (currentMarker != null) currentMarker.remove();
+        LatLng currentLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(currentLatLng);
+        markerOptions.title(markerTitle);
+        markerOptions.snippet(markerSnippet);
+        markerOptions.draggable(true);
+
+        currentMarker = mMap.addMarker(markerOptions);
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+        mMap.moveCamera(cameraUpdate);
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);  //우측 상단에 나타남
+    }
+
+
 
 
     @SuppressLint("MissingPermission")
@@ -204,19 +286,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
-
-        LatLng SEOUL = new LatLng(37.5846, 126.9252);
-
-        MarkerOptions markerOptions = new MarkerOptions(); // 마커 생성
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울"); // 마커 제목
-        markerOptions.snippet("한국의 수도"); // 마커 설명
-        mMap.addMarker(markerOptions);
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL)); // 초기 위치
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15)); // 줌의 정도
-
+        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startLocationUpdates();
     }
+    LocationCallback locationCallback = new LocationCallback() {
+        @Override
+        public void onLocationResult(@NonNull LocationResult locationResult) {
+            super.onLocationResult(locationResult);
+            List<Location> locationList = locationResult.getLocations();
+
+            if (locationList.size() > 0){
+                myLocation = locationList.get(locationList.size()-1);
+                Log.d("CURRENT LOCATION: ",myLocation.getLatitude()+" "+myLocation.getLongitude());
+
+                // Marker 생성 필요
+                String makerTitle = "내 위치";
+                String markerSnippet = "위도:" + String.valueOf(myLocation.getLatitude())
+                        + " 경도:" + String.valueOf(myLocation.getLongitude());
+                setCurrentLocation(myLocation,makerTitle,markerSnippet);
+            }
+        }
+    };
     
     // 구글맵 주소 검색 메서드
     protected void locSearch (List<Address> addresses) {
@@ -234,27 +333,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Locatio
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
-    private void checkLocationPermission(){
-        lm = (LocationManager)getContext().getSystemService(Context.LOCATION_SERVICE);
-        if(ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED)
-        {
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 200);
-        } else {
-            lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,0,0,this);
-        }
-    }
-
-    @Override
-    public synchronized void onLocationChanged(@NonNull Location location) {
-        while(myLocation != location){
-            try {
-                myLocation = location;
-                sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        Log.i("LOCATION ",myLocation.getLatitude()+" "+myLocation.getLongitude());
-        lm.removeUpdates(this);
-    }
 }
