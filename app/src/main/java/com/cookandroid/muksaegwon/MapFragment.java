@@ -180,7 +180,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         curButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
             }
         });
 
@@ -262,8 +261,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         currentMarker = mMap.addMarker(markerOptions);
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
         mMap.moveCamera(cameraUpdate);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);  //우측 상단에 나타남
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
+        mMap.getUiSettings().setMyLocationButtonEnabled(true);
+
+        initFlag = false;
     }
 
 
@@ -298,6 +299,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         startLocationUpdates();
     }
+
+    private boolean initFlag = true;
     LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(@NonNull LocationResult locationResult) {
@@ -312,7 +315,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 String makerTitle = "내 위치";
                 String markerSnippet = "위도:" + String.valueOf(myLocation.getLatitude())
                         + " 경도:" + String.valueOf(myLocation.getLongitude());
-                setCurrentLocation(myLocation,makerTitle,markerSnippet);
+                if (initFlag)
+                    setCurrentLocation(myLocation,makerTitle,markerSnippet);
             }
         }
     };
