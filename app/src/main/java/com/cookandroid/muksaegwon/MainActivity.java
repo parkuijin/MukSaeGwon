@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
         MypageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),mypageActivity.class);
+                Intent intent = new Intent(getApplicationContext(),MypageActivity.class);
                 startActivity(intent);
             }
         });

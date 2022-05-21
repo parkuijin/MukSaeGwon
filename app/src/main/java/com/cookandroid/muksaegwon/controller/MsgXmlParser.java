@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 import com.cookandroid.muksaegwon.model.Favorite;
 import com.cookandroid.muksaegwon.model.Review;
+import com.cookandroid.muksaegwon.model.Store;
 
 public class MsgXmlParser {
     String data;
@@ -89,6 +90,63 @@ public class MsgXmlParser {
                 }
             }
         }catch(Exception e) {
+
+        }
+    }
+
+    public void xmlNearByPlaces(ArrayList<Store> s){
+        ArrayList<Store> stores = s;
+        try{
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            xpp = factory.newPullParser();
+            xpp.setInput(new StringReader(data));
+            eventType = xpp.getEventType();
+
+            boolean storeNameFlag=false, latFlag=false, lngFlag=false, menuFlag=false,
+                    payWayFlag=false, isRunningFlag=false, runDayFlag=false,
+                    rtFlag=false, otFlag=false;
+            String storeName="", payWay="", runDay="", openTime="", offTime="";
+            double lat=0, lng=0;
+            short isRunning=0;
+            String[] menu = null;
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                if(eventType == XmlPullParser.START_TAG){
+                    if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    else if (xpp.getName().equals("lat")) latFlag = true;
+                    else if (xpp.getName().equals("lng")) lngFlag = true;
+                    else if (xpp.getName().equals("menu")) menuFlag = true;
+                    else if (xpp.getName().equals("payWay")) payWayFlag = true;
+                    else if (xpp.getName().equals("isRunning")) isRunningFlag = true;
+                    else if (xpp.getName().equals("runDay")) runDayFlag = true;
+                    else if (xpp.getName().equals("openTime")) rtFlag = true;
+                    else if (xpp.getName().equals("offTime")) otFlag = true;
+                } else if (eventType == XmlPullParser.TEXT){
+                    if(storeNameFlag){
+                        storeName = xpp.getText();
+                    } else if (latFlag){
+                        lat = Double.parseDouble(xpp.getText());
+                    } else if (lngFlag){
+                        lng = Double.parseDouble(xpp.getText());
+                    } else if (menuFlag){
+                        // JSON PARSING
+                    } else if (payWayFlag){
+                        payWay = xpp.getText();
+                    } else if (isRunningFlag){
+                        isRunning = Short.parseShort(xpp.getText());
+                    } else if (runDayFlag){
+                        runDay = xpp.getText();
+                    } else if (rtFlag){
+                        openTime = xpp.getText();
+                    } else if (otFlag){
+                        offTime = xpp.getText();
+                        s.add(new Store(storeName,lat,lng,menu,payWay,isRunning,runDay,openTime,offTime));
+                    }
+                }
+                eventType = xpp.next();
+            }
+        } catch(Exception e) {
 
         }
     }
