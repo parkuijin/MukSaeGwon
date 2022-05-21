@@ -149,8 +149,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/ggochi"
         app:layout_constraintTop_toBottomOf="@+id/Menu2"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/sweet" />
+        app:srcCompat="@drawable/sweet" />
 
     <ImageView
         android:id="@+id/ggochi"
@@ -160,8 +159,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Menu1"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/ggochi" />
+        app:srcCompat="@drawable/ggochi" />
 
     <ImageView
         android:id="@+id/sand"
@@ -170,8 +168,7 @@
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/sweet"
         app:layout_constraintTop_toBottomOf="@+id/Menu3"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/sand" />
+        app:srcCompat="@drawable/sand" />
 
     <ImageView
         android:id="@+id/fish"
@@ -180,8 +177,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/corn"
         app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/fish" />
+        app:srcCompat="@drawable/fish" />
 
     <ImageView
         android:id="@+id/corn"
@@ -191,8 +187,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/corn" />
+        app:srcCompat="@drawable/corn" />
 
     <ImageView
         android:id="@+id/red"
@@ -201,8 +196,7 @@
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/fish"
         app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/red" />
+        app:srcCompat="@drawable/red" />
 
     <ImageView
         android:id="@+id/sso"
@@ -211,8 +205,7 @@
         android:layout_marginTop="31dp"
         app:layout_constraintStart_toEndOf="@+id/wa"
         app:layout_constraintTop_toBottomOf="@+id/Menu6"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/sso" />
+        app:srcCompat="@drawable/sso" />
 
     <ImageView
         android:id="@+id/octopus"
@@ -222,8 +215,7 @@
         android:layout_marginTop="31dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Menu4"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/octopus" />
+        app:srcCompat="@drawable/octopus" />
 
     <ImageView
         android:id="@+id/wa"
@@ -232,7 +224,6 @@
         android:layout_marginTop="31dp"
         app:layout_constraintStart_toEndOf="@+id/octopus"
         app:layout_constraintTop_toBottomOf="@+id/Menu5"
-        app:srcCompat="@drawable/sunny"
-        tools:srcCompat="@drawable/wa" />
+        app:srcCompat="@drawable/wa" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,6 @@ package com.cookandroid.muksaegwon;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -10,11 +9,6 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-import com.cookandroid.muksaegwon.controller.MsgXmlParser;
-import com.cookandroid.muksaegwon.model.Review;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     // MapFragment
@@ -71,6 +65,19 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // 테스트용 가게 정보 액티비티 열기
+        MapButton = (ImageView) findViewById(R.id.MapButton);
+        MapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+
     }
 
 }
