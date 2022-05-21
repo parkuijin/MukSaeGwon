@@ -49,6 +49,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -259,11 +260,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         markerOptions.draggable(true);
 
         currentMarker = mMap.addMarker(markerOptions);
-        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-        mMap.moveCamera(cameraUpdate);
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(15.0f));
-        mMap.getUiSettings().setMyLocationButtonEnabled(true);
-
+        if (initFlag){
+            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
+            mMap.moveCamera(cameraUpdate);
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
+            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+        }
         initFlag = false;
     }
 
@@ -298,6 +300,41 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         startLocationUpdates();
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(@NonNull LatLng latLng) {
+                initFlag = false;
+            }
+        });
+
+        // Marker Cluster (영역에 보이는 마커 찍기)
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+            @Override
+            public void onCameraMove() {
+                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
+                double left = vr.latLngBounds.southwest.longitude;
+                double bottom = vr.latLngBounds.southwest.latitude;
+                double right = vr.latLngBounds.northeast.longitude;
+                double top = vr.latLngBounds.northeast.latitude;
+
+                String markerUrl = "";
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                        markerUrl,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+            }
+        });
     }
 
     private boolean initFlag = true;
@@ -306,7 +343,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
             List<Location> locationList = locationResult.getLocations();
-
             if (locationList.size() > 0){
                 myLocation = locationList.get(locationList.size()-1);
                 Log.d("CURRENT LOCATION: ",myLocation.getLatitude()+" "+myLocation.getLongitude());
@@ -315,11 +351,13 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 String makerTitle = "내 위치";
                 String markerSnippet = "위도:" + String.valueOf(myLocation.getLatitude())
                         + " 경도:" + String.valueOf(myLocation.getLongitude());
-                if (initFlag)
-                    setCurrentLocation(myLocation,makerTitle,markerSnippet);
+                setCurrentLocation(myLocation,makerTitle,markerSnippet);
             }
         }
     };
+
+
+
     
     // 구글맵 주소 검색 메서드
     protected void locSearch (List<Address> addresses) {
@@ -336,5 +374,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
+
 
 }
