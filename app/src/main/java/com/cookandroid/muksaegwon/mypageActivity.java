@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 public class MypageActivity extends AppCompatActivity {
     ImageView setting,heart,review;
+    // 주석
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
