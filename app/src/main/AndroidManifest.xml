@@ -35,7 +35,10 @@
 
         <activity
             android:name=".mypageActivity"
-            android:exported="false" />
+            android:exported="false">
+        
+        </activity>
+
         <activity
             android:name=".CategoryActivity"
             android:exported="false" />
@@ -43,6 +46,11 @@
         <activity
             android:name=".InfoRegisterActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".InfoStoreActivity"
+            android:exported="false" />
+
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
