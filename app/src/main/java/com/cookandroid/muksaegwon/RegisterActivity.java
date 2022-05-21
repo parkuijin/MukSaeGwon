@@ -24,7 +24,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -40,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
     Double fLatitude, fLongitude;
 
     Geocoder geocoder;
+    List<Address> addresses = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +53,13 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
 
         ftRegisterBtn = (Button) findViewById(R.id.FoodtruckRegister);
         regFinBtn = (ImageView) findViewById(R.id.RegFinBtn);
+        currentLoc = (TextView) findViewById(R.id.CurrentLocation);
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        geocoder = new Geocoder(getApplicationContext());
         // 지도 구현
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
@@ -77,8 +84,6 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
-
-        currentLoc = (TextView) findViewById(R.id.CurrentLocation);
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -116,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 fLongitude = point.longitude; // 경도
 
                 // 마커의 스니펫(간단한 텍스트) 설정
-                foodTruck.snippet(fLatitude.toString() + ", " + fLongitude.toString());
+                foodTruck.snippet(fLatitude + ", " + fLongitude);
 
                 // LatLng: 위도 경도 쌍을 나타냄
                 foodTruck.position(new LatLng(fLatitude, fLongitude));
@@ -124,22 +129,16 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 // 마커 추가
                 mMap.addMarker(foodTruck);
                 Log.i("POSITION",fLatitude+" "+fLongitude);
-                geocoder = new Geocoder(getApplicationContext());
-                List<Address> addresses = null;
                 try {
                     addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
-                    if (addresses != null) {
+                    // 에뮬레이터 와이퍼이 해제해야 IOException 발생하지 않음
+                    if (addresses != null){
                         String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
                         currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
-                    }else
-                        Toast.makeText(getApplicationContext(),"해당되는 지명이 없습니다.",Toast.LENGTH_LONG).show();
+                    }
                 } catch (IOException e) {
-
+                    Log.e("ErrorLocationRequested: ",e.toString());
                 }
-
-
-                // 클릭한 위치 로그 표시
-                Log.i("CurrentLocation",addresses.get(0).getAddressLine(0));
             }
         });
     }

@@ -71,7 +71,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     GoogleMap mMap;
 
     Button curButton;
-    LocationManager lm;
 
     Location myLocation;
 
@@ -84,16 +83,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private int UPDATE_INTERVAL_MS = 1000;
     private int FASTEST_UPDATE_INTERVAL_MS = 500;
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         searchBar = (EditText) v.findViewById(R.id.SearchBar);
-
-        // 현재 위치 버튼 임시
-        curButton = (Button) v.findViewById(R.id.CurButton);
 
         // 지도 구현
         checkPermission();
@@ -105,9 +100,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
-
+        
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
+
 
         // 날씨 부분
         weather = (ImageView) v.findViewById(R.id.Weather);
@@ -178,12 +174,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        curButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-            }
-        });
-
         return v;
     }
 
@@ -203,7 +193,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         Log.d("startLocationUpdates: ","call mFusedLocationClient.requestLocationUpdates");
         mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
-        mMap.setMyLocationEnabled(true);
     }
 
     public boolean checkLocationServicesStatus() {
@@ -300,6 +289,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             return;
         }
         startLocationUpdates();
+
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(@NonNull LatLng latLng) {
@@ -308,33 +298,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         });
 
         // Marker Cluster (영역에 보이는 마커 찍기)
-        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-                double left = vr.latLngBounds.southwest.longitude;
-                double bottom = vr.latLngBounds.southwest.latitude;
-                double right = vr.latLngBounds.northeast.longitude;
-                double top = vr.latLngBounds.northeast.latitude;
-
-                String markerUrl = "";
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                        markerUrl,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-            }
-        });
+//        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
+//            @Override
+//            public void onCameraMove() {
+//                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
+//                double left = vr.latLngBounds.southwest.longitude;
+//                double bottom = vr.latLngBounds.southwest.latitude;
+//                double right = vr.latLngBounds.northeast.longitude;
+//                double top = vr.latLngBounds.northeast.latitude;
+//                Log.i("lbrt: ",left+" " +bottom+" " +right+" " +top);
+//
+//                String markerUrl = "http://192.168.0.22:8080/MukSaeGwonServer/markerCluster.jsp";
+//                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+//                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+//                        markerUrl,
+//                        new Response.Listener<String>() {
+//                            @Override
+//                            public void onResponse(String response) {
+//
+//                            }
+//                        },
+//                        new Response.ErrorListener() {
+//                            @Override
+//                            public void onErrorResponse(VolleyError error) {
+//
+//                            }
+//                        });
+//                //requestQueue.add(stringRequest);
+//            }
+//        });
     }
 
     private boolean initFlag = true;
