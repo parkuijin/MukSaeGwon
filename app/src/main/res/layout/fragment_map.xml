@@ -50,10 +50,4 @@
         android:ellipsize="end"
         android:textCursorDrawable="@drawable/text_cursor"/>
 
-    <Button
-        android:id="@+id/CurButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Button" />
-
 </FrameLayout>
