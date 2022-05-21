@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class mypageActivity extends AppCompatActivity {
+public class MypageActivity extends AppCompatActivity {
     ImageView setting,heart,review;
 
     @Override
@@ -49,5 +49,10 @@ public class mypageActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+
+
+
     }
 }
