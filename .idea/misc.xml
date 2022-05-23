@@ -30,6 +30,7 @@
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_toast_style.xml" value="0.3315" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_topokki_style.xml" value="0.3315" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_waffle_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/menu_item_background.xml" value="0.3315" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_background_selector.xml" value="0.3315" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_checked_background.xml" value="0.3315" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.3315" />
@@ -40,6 +41,8 @@
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.25" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.2712962962962963" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_layout.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_menu.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
