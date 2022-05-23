@@ -215,7 +215,7 @@
         android:layout_marginTop="31dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Menu4"
-        app:srcCompat="@drawable/octopus" />
+        app:srcCompat="@drawable/takoyaki" />
 
     <ImageView
         android:id="@+id/wa"
