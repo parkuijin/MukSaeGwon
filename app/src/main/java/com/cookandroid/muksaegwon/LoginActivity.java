@@ -18,6 +18,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.model.Member;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -32,6 +33,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     TextView tv;
     ImageView profileIMG;
     GoogleSignInAccount account;
+    private Member member;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,8 +93,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
             Log.d(TAG, "Account received");
             tv.setText(account.getDisplayName());
-            Log.i("IMG: ", String.valueOf(account.getPhotoUrl()));
-            updateUI();
+            updateInfo(account.getId(), account.getDisplayName());
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -100,11 +102,26 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
     }
 
-    private void updateUI() {
+    private void updateInfo(String id, String name) {
+        String url = "http://:8080/MukSaeGwonServer/idCheck.jsp?uId="+id+"&uName="+name;
         if (account!=null) {
-            Log.i("ID: ",account.getDisplayName());
-            Log.i("ID: ",account.getId());
+            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+            StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            Log.i("INFO:",response);
+                            member = new Member(id,name);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
+                        }
+                    });
+            requestQueue.add(stringRequest);
         }else {
             System.out.print("FAILED");
         }

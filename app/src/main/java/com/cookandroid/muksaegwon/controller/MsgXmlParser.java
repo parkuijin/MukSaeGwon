@@ -2,12 +2,15 @@ package com.cookandroid.muksaegwon.controller;
 
 import android.util.Log;
 
+import androidx.recyclerview.widget.RecyclerView;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.StringReader;
 import java.util.ArrayList;
 
+import com.cookandroid.muksaegwon.adapter.ReviewAdapter;
 import com.cookandroid.muksaegwon.model.Favorite;
 import com.cookandroid.muksaegwon.model.Review;
 import com.cookandroid.muksaegwon.model.Store;

@@ -34,9 +34,8 @@
         -->
 
         <activity
-            android:name=".mypageActivity"
+            android:name=".MypageActivity"
             android:exported="false">
-        
         </activity>
 
         <activity
@@ -67,14 +66,6 @@
         <activity
             android:name=".LoginActivity"
             android:exported="false">
-
-            <!--
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            -->
         </activity>
         <activity
             android:name=".MainActivity"
@@ -91,6 +82,7 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" /> <!-- set_timerslack_ns Error -->
+
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
