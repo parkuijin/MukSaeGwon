@@ -635,7 +635,27 @@
                 android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/menuAddLayout"></LinearLayout>
+                app:layout_constraintTop_toBottomOf="@+id/menuAddLayout">
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="830dp"
+                app:layout_constraintTop_toBottomOf="@+id/menuItemLayout">
+
+                <Button
+                    android:id="@+id/regInfoSubmitBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:backgroundTint="#FFFFFF"
+                    app:cornerRadius="20dp"
+                    android:text="등록"
+                    android:textColor="#000000" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

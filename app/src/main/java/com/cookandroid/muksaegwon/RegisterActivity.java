@@ -24,11 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -131,9 +127,9 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 Log.i("POSITION",fLatitude+" "+fLongitude);
                 try {
                     addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
-                    // 에뮬레이터 와이퍼이 해제해야 IOException 발생하지 않음
+                    // 에뮬레이터 와이파이 해제해야 IOException 발생하지 않음
                     if (addresses != null){
-                        String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
+                       String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
                         currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
                     }
                 } catch (IOException e) {

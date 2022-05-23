@@ -2,8 +2,10 @@ package com.cookandroid.muksaegwon;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class InfoRegisterActivity extends AppCompatActivity {
 
+    Button submitBtn;
     ImageView infoRegFinBtn, plusMenu, minusMenu;
     CheckBox cash, creditCard, account, mon, tue, wed, thu, fri, sat, sun;
     EditText storeName;
@@ -36,7 +39,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
         plusMenu = (ImageView) findViewById(R.id.plusMenuBtn);
         minusMenu = (ImageView) findViewById(R.id.minusMenuBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayout);
-
+        storeName = (EditText) findViewById(R.id.etStroeName);
+        storeLocation = (TextView) findViewById(R.id.tvStoreRocation);
+        submitBtn = (Button) findViewById(R.id.regInfoSubmitBtn);
         infoRegFinBtn = (ImageView) findViewById(R.id.regInfoFinBtn);
         cash = (CheckBox) findViewById(R.id.checkCash);
         creditCard = (CheckBox) findViewById(R.id.checkCreditCard);
@@ -59,26 +64,53 @@ public class InfoRegisterActivity extends AppCompatActivity {
         plusMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TextView tvMenuName, tvMenuPrice;
-                EditText etMenuName, etMenuPrice;
 
                 // LayoutInflater inflater = LayoutInflater.from(MenuActivity.this);
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
                 inflater.inflate(R.layout.item_menu, menuContainer, true);
-                tvMenuName = menuContainer.findViewById(R.id.tvMenuName);
-                etMenuName = menuContainer.findViewById(R.id.etMenuName);
-                tvMenuPrice = menuContainer.findViewById(R.id.tvMenuPrice);
-                etMenuPrice = menuContainer.findViewById(R.id.etMenuPrice);
+
             }
         });
 
         minusMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                
+                // 인덱스 번호가 큰 레이아웃부터 삭제
+                menuContainer.removeViewAt(menuContainer.getChildCount() - 1);
             }
         });
 
+        submitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                // 가게 주소 가져오기
+                storeLocation.getText().toString();
+
+                // 입력한 가게 이름 가져오기
+                storeName.getText().toString();
+
+                // 결제 방식 가져오기
+
+                // 출몰 요일 가져오기
+
+                // 카테고리 가져오기
+
+                // 입력한 메뉴 가져오기
+                for (int i = 0; i < menuContainer.getChildCount(); i++) {
+                    View v = menuContainer.getChildAt(i);
+
+                    // TextView tvMenuName = v.findViewById(R.id.tvMenuName);
+                    EditText etMenuName = v.findViewById(R.id.etMenuName);
+                    // TextView tvMenuPrice = v.findViewById(R.id.tvMenuPrice);
+                    EditText etMenuPrice = v.findViewById(R.id.etMenuPrice);
+
+                    Log.i("테스트",etMenuName.getText().toString()
+                            +" "+etMenuPrice.getText().toString());
+
+                }
+            }
+        });
     }
 }
