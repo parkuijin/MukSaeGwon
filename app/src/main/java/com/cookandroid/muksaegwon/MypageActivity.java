@@ -1,14 +1,15 @@
 package com.cookandroid.muksaegwon;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class mypageActivity extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MypageActivity extends AppCompatActivity {
     ImageView setting,heart,review;
+    // 주석
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
