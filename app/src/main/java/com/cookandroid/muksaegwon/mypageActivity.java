@@ -7,9 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-public class MypageActivity extends AppCompatActivity {
+public class mypageActivity extends AppCompatActivity {
     ImageView setting,heart,review;
-    // 주석
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
