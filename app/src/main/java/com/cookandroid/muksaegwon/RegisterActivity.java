@@ -24,11 +24,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class RegisterActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -68,7 +64,14 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoRegisterActivity.class);
-                startActivity(intent);
+                if (currentLoc.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "주소가 선택되지 않았습니다.", Toast.LENGTH_LONG).show();
+                } else {
+                    intent.putExtra("lat", fLatitude);
+                    intent.putExtra("lon", fLongitude);
+                    intent.putExtra("loc", currentLoc.getText().toString());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -128,17 +131,31 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
 
                 // 마커 추가
                 mMap.addMarker(foodTruck);
-                Log.i("POSITION",fLatitude+" "+fLongitude);
-                try {
-                    addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
-                    // 에뮬레이터 와이퍼이 해제해야 IOException 발생하지 않음
-                    if (addresses != null){
-                        String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
-                        currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
+                Log.i("POSITION", fLatitude + " " + fLongitude);
+
+                new Thread() {
+                    public void run() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    addresses = geocoder.getFromLocation(fLatitude, fLongitude, 5);
+                                    // 에뮬레이터 와이파이 해제해야 IOException 발생하지 않음
+                                    if (addresses != null) {
+                                        String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
+                                        currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
+                                    } else if (addresses == null) {
+                                        Toast.makeText(getApplicationContext(), "지명이 없습니다.", Toast.LENGTH_LONG).show();
+                                    }
+                                } catch (
+                                        IOException e) {
+                                    Log.e("ErrorLocationRequested: ", e.toString());
+                                }
+                            }
+                        });
                     }
-                } catch (IOException e) {
-                    Log.e("ErrorLocationRequested: ",e.toString());
-                }
+                }.start();
+
             }
         });
     }
