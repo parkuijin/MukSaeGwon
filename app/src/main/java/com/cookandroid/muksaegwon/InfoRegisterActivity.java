@@ -2,10 +2,7 @@ package com.cookandroid.muksaegwon;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -17,9 +14,12 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
-import java.util.List;
+import com.cookandroid.muksaegwon.model.Store;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class InfoRegisterActivity extends AppCompatActivity {
 
@@ -30,10 +30,13 @@ public class InfoRegisterActivity extends AppCompatActivity {
     TextView storeLocation;
 
     LinearLayout menuContainer;
-    ConstraintLayout a;
 
-    Geocoder geocoder;
-    List<Address> addresses = null;
+    JSONObject menu;
+    JSONArray menus;
+
+    JSONObject payWay;
+
+    JSONObject date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +96,8 @@ public class InfoRegisterActivity extends AppCompatActivity {
             }
         });
 
+        Store store = new Store(); // model - Store 객체 생성
+
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -104,7 +109,15 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 storeName.getText().toString();
 
                 // 결제 방식 가져오기
-                cash.isChecked();
+                try {
+                    payWay = new JSONObject();
+                    payWay.put("cash", cash.isChecked());
+                    payWay.put("card", creditCard.isChecked());
+                    payWay.put("account", account.isChecked());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // 출몰 요일 가져오기
 
@@ -119,10 +132,24 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     // TextView tvMenuPrice = v.findViewById(R.id.tvMenuPrice);
                     EditText etMenuPrice = v.findViewById(R.id.etMenuPrice);
 
-                    Log.i("테스트",etMenuName.getText().toString()
-                            +" "+etMenuPrice.getText().toString());
+                    try {
+                        menu = new JSONObject();
+                        menu.put("name", etMenuName.getText().toString());
+                        menu.put("price", etMenuPrice.getText().toString());
 
+                        menus = new JSONArray();
+                        menus.put(menu);
+
+                        // JsonObject 초기화
+                        menu = new JSONObject();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
                 }
+
+
+
             }
         });
     }
