@@ -1,16 +1,19 @@
 package com.cookandroid.muksaegwon.model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class Store {
     private String storeName;
     private double lat;
     private double lng;
-    private String[] menu;
-    private String payWay;
+    private JSONArray menu; // org.json 사용
+    private JSONObject payWay;
     private short isRunning;
-    private String runDay;
+    private String runDay; // JsonObject 변경 예정
     private String openTime, offTime;
 
-    public Store(String storeName, double lat, double lng, String[] menu, String payWay, short isRunning, String runDay, String openTime, String offTime) {
+    public Store(String storeName, double lat, double lng, JSONArray menu, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
@@ -20,6 +23,9 @@ public class Store {
         this.runDay = runDay;
         this.openTime = openTime;
         this.offTime = offTime;
+    }
+
+    public Store() {
     }
 
     public String getStoreName() {
@@ -46,19 +52,19 @@ public class Store {
         this.lng = lng;
     }
 
-    public String[] getMenu() {
+    public JSONArray getMenu() {
         return menu;
     }
 
-    public void setMenu(String[] menu) {
+    public void setMenu(JSONArray menu) {
         this.menu = menu;
     }
 
-    public String getPayWay() {
+    public JSONObject getPayWay() {
         return payWay;
     }
 
-    public void setPayWay(String payWay) {
+    public void setPayWay(JSONObject payWay) {
         this.payWay = payWay;
     }
 
