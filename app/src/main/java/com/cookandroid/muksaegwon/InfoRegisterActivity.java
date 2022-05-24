@@ -1,6 +1,9 @@
 package com.cookandroid.muksaegwon;
 
 import android.content.Context;
+import android.content.Intent;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,6 +19,8 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import java.util.List;
+
 public class InfoRegisterActivity extends AppCompatActivity {
 
     Button submitBtn;
@@ -26,6 +31,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
     LinearLayout menuContainer;
     ConstraintLayout a;
+
+    Geocoder geocoder;
+    List<Address> addresses = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +61,10 @@ public class InfoRegisterActivity extends AppCompatActivity {
         fri = (CheckBox) findViewById(R.id.checkFri);
         sat = (CheckBox) findViewById(R.id.checkSat);
         sun = (CheckBox) findViewById(R.id.checkSun);
+
+        Intent intent = getIntent();
+
+        storeLocation.setText(intent.getStringExtra("loc"));
 
         infoRegFinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +104,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 storeName.getText().toString();
 
                 // 결제 방식 가져오기
+                cash.isChecked();
 
                 // 출몰 요일 가져오기
 
