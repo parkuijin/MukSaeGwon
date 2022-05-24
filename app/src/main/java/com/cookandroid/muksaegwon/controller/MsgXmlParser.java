@@ -2,18 +2,17 @@ package com.cookandroid.muksaegwon.controller;
 
 import android.util.Log;
 
-import androidx.recyclerview.widget.RecyclerView;
+import com.cookandroid.muksaegwon.model.Favorite;
+import com.cookandroid.muksaegwon.model.Review;
+import com.cookandroid.muksaegwon.model.Store;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.StringReader;
 import java.util.ArrayList;
-
-import com.cookandroid.muksaegwon.adapter.ReviewAdapter;
-import com.cookandroid.muksaegwon.model.Favorite;
-import com.cookandroid.muksaegwon.model.Review;
-import com.cookandroid.muksaegwon.model.Store;
 
 public class MsgXmlParser {
     String data;
@@ -109,10 +108,11 @@ public class MsgXmlParser {
             boolean storeNameFlag=false, latFlag=false, lngFlag=false, menuFlag=false,
                     payWayFlag=false, isRunningFlag=false, runDayFlag=false,
                     rtFlag=false, otFlag=false;
-            String storeName="", payWay="", runDay="", openTime="", offTime="";
+            String storeName="", runDay="", openTime="", offTime="";
             double lat=0, lng=0;
             short isRunning=0;
-            String[] menu = null;
+            JSONObject payWay = new JSONObject();
+            JSONArray menu = new JSONArray();
 
             while(eventType != XmlPullParser.END_DOCUMENT){
                 if(eventType == XmlPullParser.START_TAG){
@@ -135,7 +135,7 @@ public class MsgXmlParser {
                     } else if (menuFlag){
                         // JSON PARSING
                     } else if (payWayFlag){
-                        payWay = xpp.getText();
+                        // JSON PARSING
                     } else if (isRunningFlag){
                         isRunning = Short.parseShort(xpp.getText());
                     } else if (runDayFlag){

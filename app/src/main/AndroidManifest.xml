@@ -16,23 +16,6 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
 
-        <!--
-        <activity
-            android:name=".RecyclerView"
-            android:exported="false" />
-        <activity
-            android:name=".recyclerView"
-            android:exported="true"
-            android:label="@string/title_activity_recycler_view"
-            android:theme="@style/Theme.MukSaeGwon.NoActionBar">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        -->
-
         <activity
             android:name=".MypageActivity"
             android:exported="false">

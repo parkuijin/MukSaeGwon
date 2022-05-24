@@ -4,18 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#D3D3D3"
     tools:context=".InfoRegisterActivity">
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/radiobutton_background_selector"
+        android:button="@android:color/transparent"
+        android:drawableTop="@drawable/button_category_takoyaki_style"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkEomuk" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/infoRegTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#FFFFFF"
+        android:background="@drawable/bottom_rounded"
+        android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:elevation="10dp">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/regInfoFinBtn"
@@ -37,6 +50,7 @@
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="가게 정보 등록"
+            android:textColor="#000000"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -71,8 +85,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:text="가게 주소"
+                android:textColor="#000000"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -87,7 +102,7 @@
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/search_bar_background"
                 android:gravity="center|left"
-                android:hint="가게 주소"
+                android:hint="가게 주소를 선택하세요."
                 android:paddingLeft="10dp"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -95,28 +110,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/StoreRocation" />
 
             <TextView
-                android:id="@+id/storeInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:text="가게 정보"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvStoreRocation" />
-
-            <TextView
                 android:id="@+id/storeName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="가게 이름"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/storeInfo" />
+                app:layout_constraintTop_toBottomOf="@+id/tvStoreRocation" />
 
             <EditText
                 android:id="@+id/etStroeName"
@@ -140,8 +144,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:text="결제방식 (다중선택 가능)"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -197,8 +202,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="16dp"
                 android:text="출몰요일 (다중선택 가능)"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
@@ -310,97 +316,346 @@
                 app:layout_constraintTop_toBottomOf="@+id/runningDay" />
 
             <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="700dp"
-                android:layout_marginEnd="28dp"
-                android:text="TextView"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
                 android:id="@+id/categoryAdd"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="카테고리 추가 (다중선택 가능)"
+                android:textColor="#000000"
                 android:textSize="16sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/storeCategory" />
-
-            <TextView
-                android:id="@+id/menuAdd"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
-                android:text="메뉴 추가"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/categoryAdd" />
-
-            <TextView
-                android:id="@+id/storeCategory"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:text="카테고리"
-                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkMon" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/MenuRegister"
+            <LinearLayout
+                android:id="@+id/cornLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
+
+                <CheckBox
+                    android:id="@+id/checkCorn"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_corn_style"
+                    android:paddingTop="5dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="군옥수수" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/fishLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintLeft_toRightOf="@id/cornLayout"
+                app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
+
+                <CheckBox
+                    android:id="@+id/checkFish"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_fish_style"
+                    android:paddingTop="5dp" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="붕어빵" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/topokkiLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/fishLayout"
+                app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
+
+                <CheckBox
+                    android:id="@+id/checkTopokki"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_topokki_style"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="떡볶이" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/eomukLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/cornLayout">
+
+                <CheckBox
+                    android:id="@+id/checkEomuk"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_eomuk_style"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="어묵" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/sweetpotatoLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/eomukLayout"
+                app:layout_constraintTop_toBottomOf="@+id/fishLayout">
+
+                <CheckBox
+                    android:id="@+id/checkSweetPotato"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_sweetpotato_style"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="군고구마" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/toastLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/sweetpotatoLayout"
+                app:layout_constraintTop_toBottomOf="@+id/topokkiLayout">
+
+                <CheckBox
+                    android:id="@+id/checkToast"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_toast_style"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="토스트" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/takoyakiLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eomukLayout">
+
+                <CheckBox
+                    android:id="@+id/checkTakoyaki"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_takoyaki_style" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="타코야키" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/waffleLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/takoyakiLayout"
+                app:layout_constraintTop_toBottomOf="@+id/sweetpotatoLayout">
+
+                <CheckBox
+                    android:id="@+id/checkWaffle"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_waffle_style"
+                    android:paddingLeft="1dp"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="와플" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/dakggochiLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toEndOf="@+id/waffleLayout"
+                app:layout_constraintTop_toBottomOf="@+id/toastLayout">
+
+                <CheckBox
+                    android:id="@+id/checkDakggochi"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:drawableTop="@drawable/button_category_dakggochi_style"
+                    android:paddingTop="8dp" />
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|center"
+                    android:layout_marginTop="8dp"
+                    android:text="닭꼬치" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/menuAddLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/waffleLayout">
+
+                <TextView
+                    android:id="@+id/menuAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|left"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:text="메뉴 추가"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
+
+                <ImageView
+                    android:id="@+id/plusMenuBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="8dp"
+                    app:srcCompat="@drawable/plus" />
+
+                <ImageView
+                    android:id="@+id/minusMenuBtn"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center|right"
+                    android:layout_marginRight="16dp"
+                    app:srcCompat="@drawable/minus" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/menuItemLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/menuAddLayout">
+
+            </LinearLayout>
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
-                app:layout_constraintTop_toBottomOf="@+id/menuAdd"
-                tools:layout_editor_absoluteX="0dp">
+                android:orientation="vertical"
+                tools:layout_editor_absoluteY="830dp"
+                app:layout_constraintTop_toBottomOf="@+id/menuItemLayout">
 
-                <TextView
-                    android:id="@+id/textView11"
+                <Button
+                    android:id="@+id/regInfoSubmitBtn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    tools:layout_editor_absoluteY="23dp" />
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:ems="5"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/textView11"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView12"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName2"
-                    tools:layout_editor_absoluteY="23dp" />
-
-                <EditText
-                    android:id="@+id/editTextTextPersonName3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ems="5"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    app:layout_constraintStart_toEndOf="@+id/textView12"
-                    tools:layout_editor_absoluteY="12dp" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    android:layout_gravity="bottom|center"
+                    android:backgroundTint="#FFFFFF"
+                    app:cornerRadius="20dp"
+                    android:text="등록"
+                    android:textColor="#000000" />
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
