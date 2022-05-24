@@ -3,13 +3,11 @@ package com.cookandroid.muksaegwon;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
@@ -25,7 +23,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -49,7 +46,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.VisibleRegion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -100,7 +96,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
-        
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
 
@@ -177,7 +173,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return v;
     }
 
-    private void startLocationUpdates(){
+    private void startLocationUpdates() {
         if (!checkLocationServicesStatus()) {
             Log.d(TAG, "startLocationUpdates : call showDialogForLocationServiceSetting");
         }
@@ -191,7 +187,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             // for ActivityCompat#requestPermissions for more details.
             return;
         }
-        Log.d("startLocationUpdates: ","call mFusedLocationClient.requestLocationUpdates");
+        Log.d("startLocationUpdates: ", "call mFusedLocationClient.requestLocationUpdates");
         mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 
@@ -224,7 +220,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
-    private boolean checkPermission(){
+    private boolean checkPermission() {
         if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -249,7 +245,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         markerOptions.draggable(true);
 
         currentMarker = mMap.addMarker(markerOptions);
-        if (initFlag){
+        if (initFlag) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
             mMap.moveCamera(cameraUpdate);
             mMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
@@ -257,8 +253,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         initFlag = false;
     }
-
-
 
 
     @SuppressLint("MissingPermission")
@@ -273,7 +267,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.style_json));
 
             if (!success) {
-                Toast.makeText(getContext(),"Style parsing failed.",Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Style parsing failed.", Toast.LENGTH_LONG).show();
             }
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
@@ -335,24 +329,22 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
             List<Location> locationList = locationResult.getLocations();
-            if (locationList.size() > 0){
-                myLocation = locationList.get(locationList.size()-1);
-                Log.d("CURRENT LOCATION: ",myLocation.getLatitude()+" "+myLocation.getLongitude());
+            if (locationList.size() > 0) {
+                myLocation = locationList.get(locationList.size() - 1);
+                Log.d("CURRENT LOCATION: ", myLocation.getLatitude() + " " + myLocation.getLongitude());
 
                 // Marker 생성 필요
                 String makerTitle = "내 위치";
                 String markerSnippet = "위도:" + String.valueOf(myLocation.getLatitude())
                         + " 경도:" + String.valueOf(myLocation.getLongitude());
-                setCurrentLocation(myLocation,makerTitle,markerSnippet);
+                setCurrentLocation(myLocation, makerTitle, markerSnippet);
             }
         }
     };
 
 
-
-    
     // 구글맵 주소 검색 메서드
-    protected void locSearch (List<Address> addresses) {
+    protected void locSearch(List<Address> addresses) {
         Address address = addresses.get(0);
         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
