@@ -3,6 +3,7 @@ package com.cookandroid.muksaegwon;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -15,17 +16,26 @@ import android.widget.TextView;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.cookandroid.muksaegwon.model.Store;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class InfoRegisterActivity extends AppCompatActivity {
 
     Button submitBtn;
     ImageView infoRegFinBtn, plusMenu, minusMenu;
     CheckBox cash, creditCard, account, mon, tue, wed, thu, fri, sat, sun;
+    CheckBox corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi;
     EditText storeName;
     TextView storeLocation;
 
@@ -36,7 +46,11 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
     JSONObject payWay;
 
-    JSONObject date;
+    JSONObject runningDate;
+
+    JSONObject selectedCategory;
+
+    RequestQueue requestQueue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +61,15 @@ public class InfoRegisterActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        corn = (CheckBox) findViewById(R.id.checkCorn);
+        fish = (CheckBox) findViewById(R.id.checkFish);
+        topokki = (CheckBox) findViewById(R.id.checkTopokki);
+        eomuk = (CheckBox) findViewById(R.id.checkEomuk);
+        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotato);
+        toast = (CheckBox) findViewById(R.id.checkToast);
+        takoyaki = (CheckBox) findViewById(R.id.checkTakoyaki);
+        waffle = (CheckBox) findViewById(R.id.checkWaffle);
+        dakggochi = (CheckBox) findViewById(R.id.checkDakggochi);
         plusMenu = (ImageView) findViewById(R.id.plusMenuBtn);
         minusMenu = (ImageView) findViewById(R.id.minusMenuBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayout);
@@ -64,6 +87,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
         fri = (CheckBox) findViewById(R.id.checkFri);
         sat = (CheckBox) findViewById(R.id.checkSat);
         sun = (CheckBox) findViewById(R.id.checkSun);
+
+        requestQueue = Volley.newRequestQueue(this);
+        String url = "";
 
         Intent intent = getIntent();
 
@@ -96,17 +122,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
             }
         });
 
-        Store store = new Store(); // model - Store 객체 생성
-
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // 가게 주소 가져오기
-                storeLocation.getText().toString();
-
-                // 입력한 가게 이름 가져오기
-                storeName.getText().toString();
 
                 // 결제 방식 가져오기
                 try {
@@ -120,8 +138,37 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 }
 
                 // 출몰 요일 가져오기
+                try {
+                    runningDate = new JSONObject();
+                    runningDate.put("mon", mon.isChecked());
+                    runningDate.put("tue", tue.isChecked());
+                    runningDate.put("wed", wed.isChecked());
+                    runningDate.put("thu", thu.isChecked());
+                    runningDate.put("fri", fri.isChecked());
+                    runningDate.put("sat", sat.isChecked());
+                    runningDate.put("sun", sun.isChecked());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 // 카테고리 가져오기
+                try {
+                    selectedCategory = new JSONObject();
+                    selectedCategory.put("corn", corn.isChecked());
+                    selectedCategory.put("fish", fish.isChecked());
+                    selectedCategory.put("topokki", topokki.isChecked());
+                    selectedCategory.put("eomuk", eomuk.isChecked());
+                    selectedCategory.put("sweetpotato", sweetpotato.isChecked());
+                    selectedCategory.put("toast", toast.isChecked());
+                    selectedCategory.put("takoyaki", takoyaki.isChecked());
+                    selectedCategory.put("waffle", waffle.isChecked());
+                    selectedCategory.put("dakggochi", dakggochi.isChecked());
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
 
                 // 입력한 메뉴 가져오기
                 for (int i = 0; i < menuContainer.getChildCount(); i++) {
@@ -146,11 +193,53 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                }
+                } // for
 
+                // Volley Post
+                StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
 
+                            }
+                        }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
+                    }
+                }) {
+                    @Override
+                    protected Map<String, String> getParams() {
+                        Map<String, String> params = new HashMap<>();
+
+                        // 가게 주소 가져오기
+                        params.put("StoreLocation", storeLocation.getText().toString());
+
+                        // 가게 위도, 경도 가져오기
+                        params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
+                        params.put("lat", String.valueOf(intent.getDoubleExtra("lon", 0)));
+
+                        // 입력한 가게 이름 가져오기
+                        params.put("StoreName", storeName.getText().toString());
+
+                        // 결제 방식 가져오기
+                        params.put("PayWay", payWay.toString());
+
+                        // 출몰 요일 가져오기
+                        params.put("RunningDate", runningDate.toString());
+
+                        // 카테고리 가져오기
+                        params.put("SelectedCategory", selectedCategory.toString());
+
+                        // 입력한 메뉴 가져오기
+                        params.put("menus", menus.toString());
+                        Log.i("menus", menus.toString());
+
+                        return params;
+                    }
+                };
             }
-        });
+        }); // ClickListener
     }
 }
