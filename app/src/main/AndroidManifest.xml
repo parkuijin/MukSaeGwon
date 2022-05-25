@@ -28,9 +28,11 @@
         <activity
             android:name=".InfoRegisterActivity"
             android:exported="false" />
-
         <activity
             android:name=".InfoStoreActivity"
+            android:exported="false" />
+        <activity
+            android:name=".FavoriteActivity"
             android:exported="false" />
 
         <activity

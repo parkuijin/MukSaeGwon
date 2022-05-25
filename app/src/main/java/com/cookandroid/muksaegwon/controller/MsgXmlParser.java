@@ -65,9 +65,10 @@ public class MsgXmlParser {
         }
     }
     public void xmlParsingFFM(ArrayList<Favorite> f){
+        String storeName=null;
         ArrayList<Favorite> favorites = f;
         int storeId=0;
-        String storeName="";
+
 
         try{
             factory = XmlPullParserFactory.newInstance();
@@ -84,12 +85,14 @@ public class MsgXmlParser {
                 } else if (eventType == XmlPullParser.TEXT){
                     if(storeIdFlag){
                         storeId = Integer.parseInt(xpp.getText());
+                        storeIdFlag = false;
                     } else if (storeNameFlag){
                         storeName = xpp.getText();
+                        storeNameFlag = false;
                         favorites.add(new Favorite(storeId,storeName));
                     }
-                    eventType = xpp.next();
                 }
+                eventType = xpp.next();
             }
         }catch(Exception e) {
 
