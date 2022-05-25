@@ -5,7 +5,9 @@ import static android.content.ContentValues.TAG;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,6 +29,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
+import java.util.prefs.Preferences;
+
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 1000;
     GoogleSignInClient mGoogleSignInClient;
@@ -34,6 +38,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     ImageView profileIMG;
     GoogleSignInAccount account;
     private Member member;
+    SharedPreferences Preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,16 +108,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateInfo(String id, String name) {
-        String url = "http://:8080/MukSaeGwonServer/idCheck.jsp?uId="+id+"&uName="+name;
-        if (account!=null) {
+        String url = "http://:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        if (account != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
                     url,
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.i("INFO:",response);
-                            member = new Member(id,name);
+                            Log.i("INFO:", response);
+                            member = new Member(id, name);
                         }
                     },
                     new Response.ErrorListener() {
@@ -122,9 +127,14 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     });
             requestQueue.add(stringRequest);
-        }else {
+        } else {
             System.out.print("FAILED");
         }
 
+        //SharedPreference
+        Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        String uName = Preferences.getString("name", "");
+
     }
+
 }

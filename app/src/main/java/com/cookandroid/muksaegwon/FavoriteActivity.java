@@ -1,9 +1,6 @@
 package com.cookandroid.muksaegwon;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -30,16 +27,5 @@ public class FavoriteActivity extends AppCompatActivity {
         favorites = new ArrayList<Favorite>();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-        //뒤로가기 버튼 누르면 FavoriteActivity전환
-        ImageView imageView = (ImageView) findViewById(R.id.btn_back2);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
-                startActivity(intent);
-
-            }
-        });
     }
 }

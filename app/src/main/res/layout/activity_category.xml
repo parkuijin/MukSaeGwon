@@ -144,27 +144,48 @@
 
     <ImageView
         android:id="@+id/sweet"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/ggochi"
         app:layout_constraintTop_toBottomOf="@+id/Menu2"
         app:srcCompat="@drawable/sweet" />
 
     <ImageView
+        android:id="@+id/corn"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
+        app:srcCompat="@drawable/corn" />
+
+    <ImageView
         android:id="@+id/ggochi"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="52dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Menu1"
         app:srcCompat="@drawable/ggochi" />
 
     <ImageView
+        android:id="@+id/octopus"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Menu4"
+        app:srcCompat="@drawable/takoyaki" />
+
+    <ImageView
         android:id="@+id/sand"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/sweet"
         app:layout_constraintTop_toBottomOf="@+id/Menu3"
@@ -172,27 +193,18 @@
 
     <ImageView
         android:id="@+id/fish"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/corn"
         app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
         app:srcCompat="@drawable/fish" />
 
     <ImageView
-        android:id="@+id/corn"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="24dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
-        app:srcCompat="@drawable/corn" />
-
-    <ImageView
         android:id="@+id/red"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         app:layout_constraintStart_toEndOf="@+id/fish"
         app:layout_constraintTop_toBottomOf="@+id/CategoryTitle"
@@ -200,28 +212,20 @@
 
     <ImageView
         android:id="@+id/sso"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="31dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/wa"
         app:layout_constraintTop_toBottomOf="@+id/Menu6"
         app:srcCompat="@drawable/sso" />
 
     <ImageView
-        android:id="@+id/octopus"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="31dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Menu4"
-        app:srcCompat="@drawable/takoyaki" />
-
-    <ImageView
         android:id="@+id/wa"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:layout_marginTop="31dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toEndOf="@+id/octopus"
         app:layout_constraintTop_toBottomOf="@+id/Menu5"
         app:srcCompat="@drawable/wa" />
