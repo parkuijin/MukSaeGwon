@@ -48,7 +48,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         setContentView(R.layout.activity_register);
 
         ftRegisterBtn = (Button) findViewById(R.id.FoodtruckRegister);
-        regFinBtn = (ImageView) findViewById(R.id.RegFinBtn);
+        regFinBtn = (ImageView) findViewById(R.id.CategoryMapFinBtn);
         currentLoc = (TextView) findViewById(R.id.CurrentLocation);
 
         // ActionBar hide
@@ -56,6 +56,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         actionBar.hide();
 
         geocoder = new Geocoder(getApplicationContext());
+
         // 지도 구현
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
