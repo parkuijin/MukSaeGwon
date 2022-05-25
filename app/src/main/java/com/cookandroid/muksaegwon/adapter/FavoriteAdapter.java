@@ -29,7 +29,7 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
+        holder.getTvFavoriteStore().setText(data.get(position).getStoreName());
     }
 
     @Override
@@ -37,16 +37,17 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
         return data.size();
     }
 
+
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView tvExam;
+        private TextView tvFavoriteStore;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvExam = (TextView) itemView.findViewById(R.id.tvexam);
+            tvFavoriteStore = (TextView) itemView.findViewById(R.id.tvFavoriteStore);
         }
 
-        public TextView getTvExam() {
-            return tvExam;
+        public TextView getTvFavoriteStore() {
+            return tvFavoriteStore;
         }
     }
 }

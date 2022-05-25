@@ -46,6 +46,7 @@ public class ReviewActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response)
                     {
+                        Log.i("RESPONSE: ",response);
                         msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingRFM(reviews);
 
