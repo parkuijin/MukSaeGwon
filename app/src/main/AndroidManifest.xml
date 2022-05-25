@@ -15,16 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
-
+        <activity
+            android:name=".CategoryMapActivity"
+            android:exported="false" />
         <activity
             android:name=".MypageActivity"
-            android:exported="false">
-        </activity>
-
+            android:exported="false"></activity>
         <activity
             android:name=".CategoryActivity"
             android:exported="false" />
-
         <activity
             android:name=".InfoRegisterActivity"
             android:exported="false" />
@@ -34,7 +33,6 @@
         <activity
             android:name=".FavoriteActivity"
             android:exported="false" />
-
         <activity
             android:name=".RegisterActivity"
             android:exported="false" />
@@ -50,8 +48,7 @@
         </activity>
         <activity
             android:name=".LoginActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -67,12 +64,9 @@
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" /> <!-- set_timerslack_ns Error -->
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
-
 
 </manifest>
