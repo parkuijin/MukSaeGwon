@@ -4,8 +4,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -24,6 +29,11 @@ public class ReviewActivity extends AppCompatActivity {
     ReviewAdapter reviewAdapter;
     ArrayList<Review> reviews;
     MsgXmlParser msgXmlParser;
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,5 +70,17 @@ public class ReviewActivity extends AppCompatActivity {
                     }
                 });
         requestQueue.add(stringRequest);
+
+
+        //뒤로가기 버튼 누르면 ReviewActivity전환
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        }
     }
-}
