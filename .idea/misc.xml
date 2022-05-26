@@ -7,13 +7,10 @@
         <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.5" />
         <entry key="..\:/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_category.xml" value="0.128" />
+        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_category.xml" value="0.1" />
         <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_register.xml" value="0.16" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.16799999999999998" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_mypage.xml" value="0.176" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_review.xml" value="0.1" />
-        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.1" />
+        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.128" />
+        <entry key="..\:/Users/bsb94/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_mypage.xml" value="0.1" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/search_edittext_background.xml" value="0.294" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/drawable/searchbar_background.xml" value="0.249" />
@@ -23,21 +20,37 @@
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.20759493670886076" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/activity_search.xml" value="0.36614583333333334" />
         <entry key="..\:/Users/uijin/AndroidStudioProjects/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/bottom_rounded.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_corn_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_dakggochi_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_eomuk_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_fish_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_octopus_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_sweetpotato_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_toast_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_topokki_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_category_waffle_style.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/button_info_reg_submit.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/edittext_background.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/menu_item_background.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_background_selector.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_checked_background.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_textcolor_selector.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/radiobutton_unchecked_background.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/drawable/search_bar_background.xml" value="0.3315" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_category.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_category_map.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_food_truck_info.xml" value="0.2712962962962963" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_info_register.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_login.xml" value="0.2712962962962963" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
-        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.25" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.2712962962962963" />
-        <entry key="app/src/main/res/layout/activity_category.xml" value="0.22407407407407406" />
-        <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.22407407407407406" />
-        <entry key="app/src/main/res/layout/activity_info_register.xml" value="0.21354166666666666" />
-        <entry key="app/src/main/res/layout/activity_info_store.xml" value="0.22407407407407406" />
-        <entry key="app/src/main/res/layout/activity_intro.xml" value="0.22407407407407406" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_layout.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_menu.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
-        <entry key="app/src/main/res/layout/item_layout.xml" value="0.21354166666666666" />
-        <entry key="app/src/main/res/layout/item_menu.xml" value="0.21354166666666666" />
       </map>
     </option>
   </component>
