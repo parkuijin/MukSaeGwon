@@ -31,6 +31,8 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
 
     private static final String TAG = MapFragment.class.getSimpleName();
 
+    public static RegisterActivity registerActivity;
+
     // GoogleMap
     GoogleMap mMap;
     Button ftRegisterBtn;
@@ -50,6 +52,8 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         ftRegisterBtn = (Button) findViewById(R.id.FoodtruckRegister);
         regFinBtn = (ImageView) findViewById(R.id.CategoryMapFinBtn);
         currentLoc = (TextView) findViewById(R.id.CurrentLocation);
+
+        registerActivity = RegisterActivity.this;
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -103,11 +107,6 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
         }
 
         LatLng SEOUL = new LatLng(37.584645,126.9251867);
-        MarkerOptions markerOptions = new MarkerOptions(); // 마커 생성
-        markerOptions.position(SEOUL);
-        markerOptions.title("서울"); // 마커 제목
-        markerOptions.snippet("한국의 수도"); // 마커 설명
-        mMap.addMarker(markerOptions);
 
         mMap.moveCamera(CameraUpdateFactory.newLatLng(SEOUL)); // 초기 위치
         mMap.animateCamera(CameraUpdateFactory.zoomTo(17)); // 줌의 정도

@@ -33,6 +33,7 @@
         android:src="@drawable/sunny" />
 
     <EditText
+        android:hint="주소를 입력하세요."
         android:id="@+id/SearchBar"
         android:layout_width="250dp"
         android:layout_height="35dp"
