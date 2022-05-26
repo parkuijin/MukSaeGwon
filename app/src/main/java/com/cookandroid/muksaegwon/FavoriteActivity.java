@@ -40,6 +40,29 @@ public class FavoriteActivity extends AppCompatActivity {
         favorites = new ArrayList<Favorite>();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        String url = "http://172.111.113.13:8080/MukSaeGwonServer/reviewFromMember.jsp?uId=1000";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response)
+                    {
+                        Log.i("RESPONSE: ",response);
+                        msgXmlParser = new MsgXmlParser(response);
+                        msgXmlParser.xmlParsingRFM(favorites);
+
+                        favoriteAdapter = new ReviewAdapter(favorites);
+                        favoriteRecyclerView.setAdapter(favoriteAdapter);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
 
 
 
