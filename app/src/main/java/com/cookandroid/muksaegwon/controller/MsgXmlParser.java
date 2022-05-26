@@ -5,6 +5,9 @@ import android.util.Log;
 import com.cookandroid.muksaegwon.model.Favorite;
 import com.cookandroid.muksaegwon.model.Review;
 import com.cookandroid.muksaegwon.model.Store;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -12,6 +15,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
 import java.io.StringReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MsgXmlParser {
@@ -101,6 +105,49 @@ public class MsgXmlParser {
 
     public void xmlNearByPlaces(ArrayList<Store> s){
         ArrayList<Store> stores = s;
+
+        try{
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            xpp = factory.newPullParser();
+            xpp.setInput(new StringReader(data));
+            eventType = xpp.getEventType();
+
+            boolean storeNameFlag=false, latFlag=false, lngFlag=false;
+
+            String storeName="";
+            double lat=0, lng=0;
+            short isRunning=0;
+
+            while(eventType != XmlPullParser.END_DOCUMENT){
+                if(eventType == XmlPullParser.START_TAG){
+                    if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    else if (xpp.getName().equals("lat")) latFlag = true;
+                    else if (xpp.getName().equals("lng")) lngFlag = true;
+
+                } else if (eventType == XmlPullParser.TEXT){
+                    if(storeNameFlag){
+                        storeName = xpp.getText();
+                        storeNameFlag = false;
+                    } else if (latFlag){
+                        lat = Double.parseDouble(xpp.getText());
+                        latFlag = false;
+                    } else if (lngFlag){
+                        lng = Double.parseDouble(xpp.getText());
+                        lngFlag = false;
+                        stores.add(new Store(storeName, lat, lng));
+                    }
+                }
+                eventType = xpp.next();
+            }
+        } catch(Exception e) {
+
+        }
+
+    }
+
+    public void xmlNearByPlaces_temp(ArrayList<Store> s){
+        ArrayList<Store> stores = s;
         try{
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
@@ -117,6 +164,7 @@ public class MsgXmlParser {
             JSONObject payWay = new JSONObject();
             JSONArray menu = new JSONArray();
 
+
             while(eventType != XmlPullParser.END_DOCUMENT){
                 if(eventType == XmlPullParser.START_TAG){
                     if (xpp.getName().equals("storeName")) storeNameFlag = true;
@@ -131,22 +179,29 @@ public class MsgXmlParser {
                 } else if (eventType == XmlPullParser.TEXT){
                     if(storeNameFlag){
                         storeName = xpp.getText();
+                        storeNameFlag = false;
                     } else if (latFlag){
                         lat = Double.parseDouble(xpp.getText());
+                        latFlag = false;
                     } else if (lngFlag){
                         lng = Double.parseDouble(xpp.getText());
+                        lngFlag = false;
                     } else if (menuFlag){
                         // JSON PARSING
                     } else if (payWayFlag){
                         // JSON PARSING
                     } else if (isRunningFlag){
                         isRunning = Short.parseShort(xpp.getText());
+                        isRunningFlag = false;
                     } else if (runDayFlag){
                         runDay = xpp.getText();
+                        runDayFlag = false;
                     } else if (rtFlag){
                         openTime = xpp.getText();
+                        rtFlag = false;
                     } else if (otFlag){
                         offTime = xpp.getText();
+                        otFlag = false;
                         s.add(new Store(storeName,lat,lng,menu,payWay,isRunning,runDay,openTime,offTime));
                     }
                 }

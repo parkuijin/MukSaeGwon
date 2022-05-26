@@ -5,6 +5,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
@@ -31,6 +33,8 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.controller.MsgXmlParser;
+import com.cookandroid.muksaegwon.model.Store;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -42,15 +46,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.VisibleRegion;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -78,6 +85,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Marker currentMarker = null;
     private int UPDATE_INTERVAL_MS = 1000;
     private int FASTEST_UPDATE_INTERVAL_MS = 500;
+
+    ArrayList<Marker> markers = new ArrayList<>();
+    Marker marker = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -146,29 +156,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         requestQueue.add(stringRequest);
 
         // EditText Enter EVENT 구현
-        searchBar.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                switch (keyCode) {
-                    case KeyEvent.KEYCODE_ENTER:
-
-                        String searchText = searchBar.getText().toString();
-
-                        Geocoder geocoder = new Geocoder(getContext());
-                        List<Address> addresses = null;
-
-                        try {
-                            addresses = geocoder.getFromLocationName(searchText, 3);
-                            if (addresses != null && !addresses.equals(" ")) {
-                                locSearch(addresses);
-                            }
-                        } catch (Exception e) {
-                        }
-                        break;
-                }
-                return true;
-            }
-        });
+//        searchBar.setOnKeyListener(new View.OnKeyListener() {
+//            @Override
+//            public boolean onKey(View v, int keyCode, KeyEvent event) {
+//                switch (keyCode) {
+//                    case KeyEvent.KEYCODE_ENTER:
+//
+//                        String searchText = searchBar.getText().toString();
+//
+//                        Geocoder geocoder = new Geocoder(getContext());
+//                        List<Address> addresses = null;
+//
+//                        try {
+//                            addresses = geocoder.getFromLocationName(searchText, 3);
+//                            if (addresses != null && !addresses.equals(" ")) {
+//                                locSearch(addresses);
+//                            }
+//                        } catch (Exception e) {
+//                        }
+//                        break;
+//                }
+//                return true;
+//            }
+//        });
 
         return v;
     }
@@ -206,8 +216,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (checkPermission()) {
             Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates");
             mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
-            if (mMap != null)
-                mMap.setMyLocationEnabled(true);
         }
     }
 
@@ -244,14 +252,49 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
 
+        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker_dot);
+        Bitmap b=bitmapdraw.getBitmap();
+        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+
         currentMarker = mMap.addMarker(markerOptions);
+
         if (initFlag) {
             CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
             mMap.moveCamera(cameraUpdate);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(18.0f));
-            mMap.getUiSettings().setMyLocationButtonEnabled(true);
+            mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
         }
         initFlag = false;
+
+        IntroActivity introActivity = (IntroActivity) IntroActivity.activity;
+        introActivity.finish();
+    }
+    public void nearPlaces(String response){
+        ArrayList<Store> stores=new ArrayList<>();
+//        String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
+//                + "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58225 +"</lat><lng>"+ 126.92612 +"</lng></store>";
+        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+        msgXmlParser.xmlNearByPlaces(stores);
+
+        LatLng latLng;
+        MarkerOptions markerOptions = new MarkerOptions();
+
+
+        // 모든 마커 지우기
+        if(marker != null){
+            for(int i=0; i<markers.size();i++){
+                markers.get(i).remove();
+            }
+        }
+
+        for(int i=0;i<stores.size();i++){
+            latLng = new LatLng(stores.get(i).getLat(),stores.get(i).getLng());
+            markerOptions.position(latLng);
+            markerOptions.title(stores.get(i).getStoreName());
+            markerOptions.draggable(true);
+            marker = mMap.addMarker(markerOptions);
+            markers.add(marker);
+        }
     }
 
 
@@ -284,43 +327,35 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         startLocationUpdates();
 
-        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+        // Marker Cluster (영역에 보이는 마커 찍기)
+        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
             @Override
-            public void onMapClick(@NonNull LatLng latLng) {
-                initFlag = false;
+            public void onCameraMove() {
+                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
+                double left = vr.latLngBounds.southwest.longitude;
+                double bottom = vr.latLngBounds.southwest.latitude;
+                double right = vr.latLngBounds.northeast.longitude;
+                double top = vr.latLngBounds.northeast.latitude;
+
+                String markerUrl = "http://172.111.113.13:8080/MukSaeGwonServer/markerCluster.jsp?left="+left+"&right="+right+"&top="+top+"&bottom="+bottom;
+                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                        markerUrl,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                nearPlaces(response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+                requestQueue.add(stringRequest);
             }
         });
-
-        // Marker Cluster (영역에 보이는 마커 찍기)
-//        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-//            @Override
-//            public void onCameraMove() {
-//                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-//                double left = vr.latLngBounds.southwest.longitude;
-//                double bottom = vr.latLngBounds.southwest.latitude;
-//                double right = vr.latLngBounds.northeast.longitude;
-//                double top = vr.latLngBounds.northeast.latitude;
-//                Log.i("lbrt: ",left+" " +bottom+" " +right+" " +top);
-//
-//                String markerUrl = "http://192.168.0.22:8080/MukSaeGwonServer/markerCluster.jsp";
-//                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-//                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-//                        markerUrl,
-//                        new Response.Listener<String>() {
-//                            @Override
-//                            public void onResponse(String response) {
-//
-//                            }
-//                        },
-//                        new Response.ErrorListener() {
-//                            @Override
-//                            public void onErrorResponse(VolleyError error) {
-//
-//                            }
-//                        });
-//                //requestQueue.add(stringRequest);
-//            }
-//        });
     }
 
     private boolean initFlag = true;

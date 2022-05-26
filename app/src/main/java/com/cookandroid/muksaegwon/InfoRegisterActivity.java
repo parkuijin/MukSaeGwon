@@ -89,6 +89,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         sun = (CheckBox) findViewById(R.id.checkSun);
 
         requestQueue = Volley.newRequestQueue(this);
+        // 172.111.113.13
         String url = "";
 
         Intent intent = getIntent();
@@ -151,6 +152,10 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    JSONArray jsonArray = new JSONArray("sdf");
+                }catch(Exception e){}
+
 
                 // 카테고리 가져오기
                 try {
@@ -165,6 +170,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     selectedCategory.put("waffle", waffle.isChecked());
                     selectedCategory.put("dakggochi", dakggochi.isChecked());
 
+                    // isChecked == true ->
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -218,7 +224,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
                         // 가게 위도, 경도 가져오기
                         params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
-                        params.put("lat", String.valueOf(intent.getDoubleExtra("lon", 0)));
+                        params.put("lng", String.valueOf(intent.getDoubleExtra("lon", 0)));
 
                         // 입력한 가게 이름 가져오기
                         params.put("StoreName", storeName.getText().toString());
@@ -235,6 +241,8 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         // 입력한 메뉴 가져오기
                         params.put("menus", menus.toString());
                         Log.i("menus", menus.toString());
+
+                        // RUNTIME, OFFTIME, isRunning(Default 0)
 
                         return params;
                     }
