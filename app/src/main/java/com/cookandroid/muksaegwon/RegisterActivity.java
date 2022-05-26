@@ -102,7 +102,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
             Log.e(TAG, "Can't find style. Error: ", e);
         }
 
-        LatLng SEOUL = new LatLng(37.56, 126.97);
+        LatLng SEOUL = new LatLng(37.584645,126.9251867);
         MarkerOptions markerOptions = new MarkerOptions(); // 마커 생성
         markerOptions.position(SEOUL);
         markerOptions.title("서울"); // 마커 제목
@@ -145,6 +145,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                                     if (addresses != null) {
                                         String cut[] = addresses.get(0).getAddressLine(0).split("\\s");
                                         currentLoc.setText(cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
+                                        Log.i("LOC: ",cut[1] + " " + cut[2] + " " + cut[3] + " " + cut[4]);
                                     } else if (addresses == null) {
                                         Toast.makeText(getApplicationContext(), "지명이 없습니다.", Toast.LENGTH_LONG).show();
                                     }

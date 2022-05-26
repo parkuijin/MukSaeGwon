@@ -8,10 +8,11 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="489dp"
+        app:layout_constraintBottom_toTopOf="@+id/ReviewText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -20,30 +21,40 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
+            android:layout_marginEnd="36dp"
+            android:layout_marginBottom="2dp"
             android:text="삭제 요청"
             android:textColor="#F39494"
             android:textSize="20sp"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/RetBtn" />
 
         <ImageView
             android:id="@+id/RetBtn"
-            android:layout_width="40dp"
-            android:layout_height="29dp"
-            android:layout_marginEnd="250dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="239dp"
             android:src="@drawable/leftarrow"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/DeleteRequest"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/scrollView3"
-        android:layout_width="match_parent"
-        android:layout_height="650dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="0dp">
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -57,147 +68,159 @@
                 android:id="@+id/StoreInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="133dp"
+                android:layout_marginEnd="11dp"
                 android:text="   가게 정보"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/Time"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/CategoryInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="37dp"
+                android:text="   카테고리 및 메뉴"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/PayText" />
 
             <TextView
                 android:id="@+id/CategoryName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginEnd="16dp"
                 android:text="카테고리명"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Pay" />
+                app:layout_constraintEnd_toStartOf="@+id/CategoryText"
+                app:layout_constraintTop_toTopOf="@+id/CategoryText" />
 
             <TextView
                 android:id="@+id/Time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginEnd="16dp"
                 android:text="출몰 시기"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/StoreInfo" />
+                app:layout_constraintEnd_toStartOf="@+id/TimeText"
+                app:layout_constraintTop_toTopOf="@+id/TimeText" />
 
             <TextView
                 android:id="@+id/TimeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="44dp"
                 android:text="아직 등록된 정보가 없어요."
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/PayText"
-                app:layout_constraintStart_toEndOf="@+id/Time" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/StoreInfo" />
 
             <TextView
                 android:id="@+id/PayText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginBottom="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:text="아직 등록된 정보가 없어요."
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/CategoryText"
-                app:layout_constraintStart_toEndOf="@+id/Pay" />
+                app:layout_constraintStart_toStartOf="@+id/TimeText"
+                app:layout_constraintTop_toBottomOf="@+id/TimeText" />
 
             <TextView
                 android:id="@+id/Pay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="8dp"
                 android:text="결제 방식"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/Time"
                 app:layout_constraintTop_toBottomOf="@+id/Time" />
 
             <TextView
                 android:id="@+id/CategoryText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginBottom="48dp"
+                android:layout_marginTop="36dp"
+                android:layout_marginEnd="24dp"
                 android:text="아직 등록된 정보가 없어요."
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toTopOf="@+id/VisitInfo"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/CategoryName" />
+                app:layout_constraintTop_toBottomOf="@+id/CategoryInfo" />
 
             <TextView
                 android:id="@+id/Menu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="88dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
                 android:text="메뉴"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/MenuText"
-                app:layout_constraintTop_toBottomOf="@+id/VisitInfo" />
+                app:layout_constraintStart_toStartOf="@+id/CategoryName"
+                app:layout_constraintTop_toBottomOf="@+id/CategoryName" />
 
             <TextView
                 android:id="@+id/MenuText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="20dp"
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="4dp"
                 android:text="아직 등록된 정보가 없어요."
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/VisitInfo" />
+                app:layout_constraintStart_toStartOf="@+id/CategoryText"
+                app:layout_constraintTop_toBottomOf="@+id/CategoryText" />
 
             <TextView
                 android:id="@+id/VisitInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="31dp"
                 android:text="   방문자 사진"
                 android:textSize="24sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/CategoryName"
-                tools:layout_editor_absoluteX="-1dp" />
-
-            <TextView
-                android:id="@+id/ReviewInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="50dp"
-                android:text="    리뷰"
-                android:textSize="24sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="@+id/MenuText"
-                tools:layout_editor_absoluteX="0dp" />
-
-            <TextView
-                android:id="@+id/ReviewText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="19dp"
-                android:layout_marginEnd="20dp"
-                android:text="아직 등록된 정보가 없어요."
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ReviewInfo" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/Menu" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/ReviewInfo"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="144dp"
+        android:text="    리뷰"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/ReviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="145dp"
+        android:text="아직 등록된 정보가 없어요."
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/ReviewInfo"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

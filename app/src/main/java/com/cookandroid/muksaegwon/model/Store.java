@@ -25,6 +25,12 @@ public class Store {
         this.offTime = offTime;
     }
 
+    public Store(String storeName, double lat, double lng) {
+        this.storeName = storeName;
+        this.lat = lat;
+        this.lng = lng;
+    }
+
     public Store() {
     }
 
