@@ -1,12 +1,24 @@
 package com.cookandroid.muksaegwon;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.cookandroid.muksaegwon.adapter.FavoriteAdapter;
+import com.cookandroid.muksaegwon.adapter.ReviewAdapter;
+import com.cookandroid.muksaegwon.controller.MsgXmlParser;
 import com.cookandroid.muksaegwon.model.Favorite;
 
 import java.util.ArrayList;
@@ -16,6 +28,7 @@ public class FavoriteActivity extends AppCompatActivity {
     RecyclerView favoriteRecyclerView;
     FavoriteAdapter favoriteAdapter;
     ArrayList<Favorite> favorites;
+    MsgXmlParser msgXmlParser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +39,19 @@ public class FavoriteActivity extends AppCompatActivity {
 
         favorites = new ArrayList<Favorite>();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+
+
+
+
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
