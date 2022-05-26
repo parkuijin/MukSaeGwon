@@ -26,23 +26,27 @@
         android:textColor="#070000"
         android:textSize="50sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="136dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="115dp" />
 
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="106dp"
         android:layout_height="96dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.052"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/star"
-        tools:layout_editor_absoluteX="30dp"
         tools:layout_editor_absoluteY="86dp" />
 
     <ImageView
         android:id="@+id/btn_back"
         android:layout_width="46dp"
         android:layout_height="54dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/leftarrow" />
@@ -57,7 +61,9 @@
         android:textColorHighlight="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="255dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.866"
+        app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="182dp" />
 
 
