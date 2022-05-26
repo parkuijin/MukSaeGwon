@@ -4,20 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#D3D3D3"
+    android:background="#FFFFFF"
     tools:context=".InfoRegisterActivity">
-
-    <CheckBox
-        android:id="@+id/checkBox9"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:background="@drawable/radiobutton_background_selector"
-        android:button="@android:color/transparent"
-        android:drawableTop="@drawable/button_category_takoyaki_style"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkEomuk" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/infoRegTitleLayout"
@@ -65,7 +53,7 @@
         android:id="@+id/scrollView2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#D3D3D3"
+        android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -88,7 +76,7 @@
                 android:layout_marginTop="16dp"
                 android:text="가게 주소"
                 android:textColor="#000000"
-                android:textSize="20sp"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -100,7 +88,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/search_bar_background"
+                android:background="@drawable/edittext_background"
                 android:gravity="center|left"
                 android:hint="가게 주소를 선택하세요."
                 android:paddingLeft="10dp"
@@ -129,7 +117,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="32dp"
-                android:background="@drawable/search_bar_background"
+                android:background="@drawable/edittext_background"
                 android:ems="10"
                 android:hint="가게 이름을 입력하세요."
                 android:inputType="textPersonName"
@@ -210,110 +198,162 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/checkCash" />
 
-            <CheckBox
-                android:id="@+id/checkMon"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="월"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
+            <LinearLayout
+                android:id="@+id/dateCheckLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                app:layout_constraintTop_toBottomOf="@+id/runningDay">
 
-            <CheckBox
-                android:id="@+id/checkTue"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="화"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkMon"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkWed"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="수"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
 
-            <CheckBox
-                android:id="@+id/checkWed"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="수"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkTue"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkMon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="월"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
 
-            <CheckBox
-                android:id="@+id/checkThu"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="목"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkWed"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkTue"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="화"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
 
-            <CheckBox
-                android:id="@+id/checkFri"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="금"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkThu"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkSun"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="일"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
 
-            <CheckBox
-                android:id="@+id/checkSat"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="토"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkFri"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkFri"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="금"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
 
-            <CheckBox
-                android:id="@+id/checkSun"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/radiobutton_background_selector"
-                android:button="@android:color/transparent"
-                android:text="일"
-                android:textAlignment="center"
-                android:textColor="@drawable/radiobutton_textcolor_selector"
-                android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkSat"
-                app:layout_constraintTop_toBottomOf="@+id/runningDay" />
+                <CheckBox
+                    android:id="@+id/checkSat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="토"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkThu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="목"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRunTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="영업 시간 (0 ~ 24)"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateCheckLayout" />
+
+            <LinearLayout
+                android:id="@+id/etRunTimeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
+
+                <EditText
+                    android:id="@+id/OpenTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#000000" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="To"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/CloseTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:hint="24"
+                    android:inputType="number" />
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/categoryAdd"
@@ -326,7 +366,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkMon" />
+                app:layout_constraintTop_toBottomOf="@+id/etRunTimeLayout" />
 
             <LinearLayout
                 android:id="@+id/cornLayout"
@@ -353,7 +393,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="군옥수수" />
+                    android:text="군옥수수"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -381,7 +422,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="붕어빵" />
+                    android:text="붕어빵"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -410,7 +452,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="떡볶이" />
+                    android:text="떡볶이"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -438,7 +481,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="어묵" />
+                    android:text="어묵"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -466,7 +510,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="군고구마" />
+                    android:text="군고구마"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -495,7 +540,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="토스트" />
+                    android:text="토스트"
+                    android:textColor="#000000" />
 
             </LinearLayout>
 
@@ -523,7 +569,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="타코야키" />
+                    android:text="타코야키"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -552,7 +599,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="와플" />
+                    android:text="와플"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
@@ -580,10 +628,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
-                    android:text="닭꼬치" />
+                    android:text="닭꼬치"
+                    android:textColor="#000000" />
             </LinearLayout>
 
             <LinearLayout
+                android:elevation="10dp"
                 android:id="@+id/menuAddLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -603,7 +653,8 @@
                     android:layout_marginBottom="16dp"
                     android:text="메뉴 추가"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
 
                 <View
                     android:layout_width="0dp"
@@ -641,9 +692,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="vertical"
-                tools:layout_editor_absoluteY="830dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/menuItemLayout">
 
                 <Button
@@ -651,8 +706,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="bottom|center"
-                    android:backgroundTint="#FFFFFF"
-                    app:cornerRadius="20dp"
+                    android:background="@drawable/button_info_reg_submit"
                     android:text="등록"
                     android:textColor="#000000" />
             </LinearLayout>

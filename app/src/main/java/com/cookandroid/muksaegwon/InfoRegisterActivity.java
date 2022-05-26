@@ -3,6 +3,7 @@ package com.cookandroid.muksaegwon;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.controller.InputFilterMinMax;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -36,7 +38,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
     ImageView infoRegFinBtn, plusMenu, minusMenu;
     CheckBox cash, creditCard, account, mon, tue, wed, thu, fri, sat, sun;
     CheckBox corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi;
-    EditText storeName;
+    EditText storeName, openTime, closeTime;
     TextView storeLocation;
 
     LinearLayout menuContainer;
@@ -61,6 +63,10 @@ public class InfoRegisterActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        RegisterActivity registerActivity = (RegisterActivity) RegisterActivity.registerActivity;
+
+        openTime = (EditText) findViewById(R.id.OpenTime);
+        closeTime = (EditText) findViewById(R.id.CloseTime);
         corn = (CheckBox) findViewById(R.id.checkCorn);
         fish = (CheckBox) findViewById(R.id.checkFish);
         topokki = (CheckBox) findViewById(R.id.checkTopokki);
@@ -88,11 +94,16 @@ public class InfoRegisterActivity extends AppCompatActivity {
         sat = (CheckBox) findViewById(R.id.checkSat);
         sun = (CheckBox) findViewById(R.id.checkSun);
 
+        Intent intent = getIntent();
+
+        // Runtime Input Filter
+        openTime.setFilters(new InputFilter[]{new InputFilterMinMax("0","24")});
+        closeTime.setFilters(new InputFilter[]{new InputFilterMinMax("0","24")});
+
         requestQueue = Volley.newRequestQueue(this);
+
         // 172.111.113.13
         String url = "";
-
-        Intent intent = getIntent();
 
         storeLocation.setText(intent.getStringExtra("loc"));
 
@@ -242,12 +253,22 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         params.put("menus", menus.toString());
                         Log.i("menus", menus.toString());
 
-                        // RUNTIME, OFFTIME, isRunning(Default 0)
+                        // OPENTIME, CLOSETIME
+                        params.put("OpenTime", openTime.getText().toString());
+                        params.put("CloseTime", closeTime.getText().toString());
+
+                        // isRunning (Default 0)
+                        params.put("isRunning", "0");
 
                         return params;
                     }
                 };
-            }
+
+                // 메인 화면으로 돌아가기 위한 Activity 종료
+                registerActivity.finish();
+                finish();
+
+            } // OnClick
         }); // ClickListener
     }
 }
