@@ -17,7 +17,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cookandroid.muksaegwon.adapter.FavoriteAdapter;
-import com.cookandroid.muksaegwon.adapter.ReviewAdapter;
 import com.cookandroid.muksaegwon.controller.MsgXmlParser;
 import com.cookandroid.muksaegwon.model.Favorite;
 
@@ -50,9 +49,9 @@ public class FavoriteActivity extends AppCompatActivity {
                     {
                         Log.i("RESPONSE: ",response);
                         msgXmlParser = new MsgXmlParser(response);
-                        msgXmlParser.xmlParsingRFM(favorites);
+                        msgXmlParser.xmlParsingFFM(favorites);
 
-                        favoriteAdapter = new ReviewAdapter(favorites);
+                        favoriteAdapter = new FavoriteAdapter(favorites);
                         favoriteRecyclerView.setAdapter(favoriteAdapter);
                     }
                 },
