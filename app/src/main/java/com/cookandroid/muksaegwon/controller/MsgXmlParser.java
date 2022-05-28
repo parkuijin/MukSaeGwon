@@ -5,6 +5,7 @@ import android.util.Log;
 import com.cookandroid.muksaegwon.model.Category;
 import com.cookandroid.muksaegwon.model.Favorite;
 import com.cookandroid.muksaegwon.model.Menu;
+import com.cookandroid.muksaegwon.model.PayWay;
 import com.cookandroid.muksaegwon.model.Review;
 import com.cookandroid.muksaegwon.model.Store;
 
@@ -162,6 +163,7 @@ public class MsgXmlParser {
             short isRunning = 0;
             JSONObject payWay = null;
             JSONArray menus = null;
+            JSONObject category = null;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
@@ -188,11 +190,13 @@ public class MsgXmlParser {
                     } else if (menuFlag) {
                         try {
                             menus = new JSONArray(xpp.getText());
+                            menuFlag = false;
                         } catch (Exception e) {
                         }
                     } else if (payWayFlag) {
                         try {
                             payWay = new JSONObject(xpp.getText());
+                            payWayFlag = false;
                         } catch (Exception e) {
                         }
                     } else if (isRunningFlag) {
@@ -207,13 +211,17 @@ public class MsgXmlParser {
                     } else if (otFlag) {
                         offTime = xpp.getText();
                         otFlag = false;
-                        stores.add(new Store(storeName, lat, lng, menus, payWay, isRunning, runDay, openTime, offTime));
+                    } else if (caFlag) {
+                        try {
+                            category = new JSONObject(xpp.getText());
+                            caFlag = false;
+                            stores.add(new Store(storeName, lat, lng, menus, payWay, isRunning, runDay, openTime, offTime, category));
+                        } catch (Exception e) {}
                     }
                 }
                 eventType = xpp.next();
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
     public void jsonParsingMNP(JSONArray MNP) {
@@ -225,8 +233,7 @@ public class MsgXmlParser {
                 String menuPrice = mObj.getString("price");
                 menus.add(new Menu(menuName, menuPrice));
             }
-        } catch (Exception e) {
-        }
+        } catch (Exception e) {}
     }
 
     public void jsonParsingCTG(JSONObject CTG) {
@@ -242,6 +249,16 @@ public class MsgXmlParser {
             String waffle = CTG.getString("waffle");
             String dakggochi = CTG.getString("dakggochi");
             categories.add(new Category(corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi));
+        } catch (Exception e) {}
+    }
+
+    public void jsonParsingPW(JSONObject PW) {
+        ArrayList<PayWay> payWays = null;
+        try {
+            String cash = PW.getString("cash");
+            String card = PW.getString("card");
+            String account = PW.getString("account");
+            payWays.add(new PayWay(cash, card, account));
         } catch (Exception e) {}
     }
 
