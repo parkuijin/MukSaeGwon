@@ -12,8 +12,9 @@ public class Store {
     private short isRunning;
     private String runDay; // JsonObject 변경 예정
     private String openTime, offTime;
+    private JSONObject category;
 
-    public Store(String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
+    public Store(String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime, JSONObject category) {
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
@@ -23,17 +24,7 @@ public class Store {
         this.runDay = runDay;
         this.openTime = openTime;
         this.offTime = offTime;
-    }
-
-    public Store(String storeName, double lat, double lng, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
-        this.storeName = storeName;
-        this.lat = lat;
-        this.lng = lng;
-        this.payWay = payWay;
-        this.isRunning = isRunning;
-        this.runDay = runDay;
-        this.openTime = openTime;
-        this.offTime = offTime;
+        this.category = category;
     }
 
     public Store(String storeName, double lat, double lng) {
@@ -115,5 +106,13 @@ public class Store {
 
     public void setOffTime(String offTime) {
         this.offTime = offTime;
+    }
+
+    public JSONObject getCategory() {
+        return category;
+    }
+
+    public void setCategory(JSONObject category) {
+        this.category = category;
     }
 }
