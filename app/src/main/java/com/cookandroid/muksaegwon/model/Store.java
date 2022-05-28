@@ -7,17 +7,28 @@ public class Store {
     private String storeName;
     private double lat;
     private double lng;
-    private JSONArray menu; // org.json 사용
+    private JSONArray menus; // org.json 사용
     private JSONObject payWay;
     private short isRunning;
     private String runDay; // JsonObject 변경 예정
     private String openTime, offTime;
 
-    public Store(String storeName, double lat, double lng, JSONArray menu, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
+    public Store(String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
-        this.menu = menu;
+        this.menus = menus;
+        this.payWay = payWay;
+        this.isRunning = isRunning;
+        this.runDay = runDay;
+        this.openTime = openTime;
+        this.offTime = offTime;
+    }
+
+    public Store(String storeName, double lat, double lng, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime) {
+        this.storeName = storeName;
+        this.lat = lat;
+        this.lng = lng;
         this.payWay = payWay;
         this.isRunning = isRunning;
         this.runDay = runDay;
@@ -58,12 +69,12 @@ public class Store {
         this.lng = lng;
     }
 
-    public JSONArray getMenu() {
-        return menu;
+    public JSONArray getMenus() {
+        return menus;
     }
 
-    public void setMenu(JSONArray menu) {
-        this.menu = menu;
+    public void setMenus(JSONArray menu) {
+        this.menus = menu;
     }
 
     public JSONObject getPayWay() {
