@@ -69,14 +69,18 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoRegisterActivity.class);
-                if (currentLoc.getText().toString().equals("")) {
+                /*if (currentLoc.getText().toString().equals("")) {
                     Toast.makeText(getApplicationContext(), "주소가 선택되지 않았습니다.", Toast.LENGTH_LONG).show();
                 } else {
                     intent.putExtra("lat", fLatitude);
                     intent.putExtra("lon", fLongitude);
                     intent.putExtra("loc", currentLoc.getText().toString());
                     startActivity(intent);
-                }
+                }*/
+                intent.putExtra("lat", fLatitude);
+                intent.putExtra("lon", fLongitude);
+                intent.putExtra("loc", currentLoc.getText().toString());
+                startActivity(intent);
             }
         });
 

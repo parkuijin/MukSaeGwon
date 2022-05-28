@@ -94,6 +94,8 @@ public class InfoRegisterActivity extends AppCompatActivity {
         sat = (CheckBox) findViewById(R.id.checkSat);
         sun = (CheckBox) findViewById(R.id.checkSun);
 
+        menus = new JSONArray();
+
         Intent intent = getIntent();
 
         // Runtime Input Filter
@@ -181,7 +183,6 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     selectedCategory.put("waffle", waffle.isChecked());
                     selectedCategory.put("dakggochi", dakggochi.isChecked());
 
-                    // isChecked == true ->
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -201,16 +202,14 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         menu.put("name", etMenuName.getText().toString());
                         menu.put("price", etMenuPrice.getText().toString());
 
-                        menus = new JSONArray();
                         menus.put(menu);
-
-                        // JsonObject 초기화
-                        menu = new JSONObject();
 
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 } // for
+
+                Log.i("JSONARRAYTEST", String.valueOf(menus));
 
                 // Volley Post
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
