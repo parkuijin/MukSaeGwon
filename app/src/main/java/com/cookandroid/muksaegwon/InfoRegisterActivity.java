@@ -65,8 +65,8 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
         RegisterActivity registerActivity = (RegisterActivity) RegisterActivity.registerActivity;
 
-        openTime = (EditText) findViewById(R.id.OpenTime);
-        closeTime = (EditText) findViewById(R.id.CloseTime);
+        openTime = (EditText) findViewById(R.id.openTimeTv);
+        closeTime = (EditText) findViewById(R.id.offTimeTv);
         corn = (CheckBox) findViewById(R.id.checkCorn);
         fish = (CheckBox) findViewById(R.id.checkFish);
         topokki = (CheckBox) findViewById(R.id.checkTopokki);
@@ -80,7 +80,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         minusMenu = (ImageView) findViewById(R.id.minusMenuBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayout);
         storeName = (EditText) findViewById(R.id.etStroeName);
-        storeLocation = (TextView) findViewById(R.id.tvStoreRocation);
+        storeLocation = (TextView) findViewById(R.id.storeLocationTv);
         submitBtn = (Button) findViewById(R.id.regInfoSubmitBtn);
         infoRegFinBtn = (ImageView) findViewById(R.id.regInfoFinBtn);
         cash = (CheckBox) findViewById(R.id.checkCash);
@@ -232,7 +232,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         // 가게 주소 가져오기
                         params.put("StoreLocation", storeLocation.getText().toString());
 
-                        // 가게 위도, 경도 가져오기
+                        // 가게 위도, 경도 가져오기, * 소수점 5자리 까지 *
                         params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
                         params.put("lng", String.valueOf(intent.getDoubleExtra("lon", 0)));
 

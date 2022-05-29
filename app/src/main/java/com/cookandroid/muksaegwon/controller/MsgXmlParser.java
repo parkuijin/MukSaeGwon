@@ -224,8 +224,8 @@ public class MsgXmlParser {
         } catch (Exception e) {}
     }
 
-    public void jsonParsingMNP(JSONArray MNP, ArrayList<Menu> m) {
-        ArrayList<Menu> menus = m;
+    public void jsonParsingMNP(JSONArray MNP) {
+        ArrayList<Menu> menus = null;
         try {
             for (int i = 0; i < MNP.length(); i++) {
                 JSONObject mObj = MNP.getJSONObject(i);
@@ -236,8 +236,8 @@ public class MsgXmlParser {
         } catch (Exception e) {}
     }
 
-    public void jsonParsingCTG(JSONObject CTG, ArrayList<Category> c) {
-        ArrayList<Category> categories = c;
+    public void jsonParsingCTG(JSONObject CTG) {
+        ArrayList<Category> categories = null;
         try {
             String corn = CTG.getString("corn");
             String fish = CTG.getString("fish");
@@ -252,8 +252,8 @@ public class MsgXmlParser {
         } catch (Exception e) {}
     }
 
-    public void jsonParsingPW(JSONObject PW, ArrayList<PayWay> p) {
-        ArrayList<PayWay> payWays = p;
+    public void jsonParsingPW(JSONObject PW) {
+        ArrayList<PayWay> payWays = null;
         try {
             String cash = PW.getString("cash");
             String card = PW.getString("card");
