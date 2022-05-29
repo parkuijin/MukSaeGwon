@@ -1,6 +1,8 @@
 package com.cookandroid.muksaegwon;
 
 import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +48,7 @@ public class InfoStoreActivity extends AppCompatActivity {
 
         reviewRegDialog = new Dialog(InfoStoreActivity.this);
         reviewRegDialog.setContentView(R.layout.dialog_review_register);
+        reviewRegDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         String url ="";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
