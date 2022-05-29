@@ -11,9 +11,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 
 public class CategoryMapActivity extends AppCompatActivity implements OnMapReadyCallback {
@@ -24,10 +27,20 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
 
     ImageView categoryMapFinBtn;
 
+    String category;
+    double lat, lng;
+    private CameraPosition cameraPosition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_map);
+
+        category = getIntent().getStringExtra("category");
+        Log.i("CATEGORY: ", category);
+        lat = getIntent().getDoubleExtra("lat",0);
+        lng = getIntent().getDoubleExtra("lng",0);
+        Log.i("LATLNG: ", lat+" "+lng);
 
         categoryMapFinBtn = (ImageView) findViewById(R.id.CategoryMapFinBtn);
 
@@ -45,9 +58,6 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
                 finish();
             }
         });
-
-
-
     }
 
     @Override
@@ -66,8 +76,10 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         } // try - catch
-
-
-
+        cameraPosition = new CameraPosition.Builder()
+                .target(new LatLng(lat,lng))
+                .zoom(17.0f)
+                .build();
+        mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
     }
 }

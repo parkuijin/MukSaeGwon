@@ -2,6 +2,7 @@ package com.cookandroid.muksaegwon;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,7 +13,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -24,10 +27,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.Request;
@@ -50,6 +58,7 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MapStyleOptions;
 import com.google.android.gms.maps.model.Marker;
@@ -62,9 +71,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private static final String TAG = MapFragment.class.getSimpleName();
     // weather
@@ -91,11 +101,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     ArrayList<Marker> markers = new ArrayList<>();
     Marker marker = null;
-    private static final int PERMISSIONS_REQUEST_CODE = 1;
-    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
-
-    private ActivityResultContracts.RequestMultiplePermissions multiplePermissionsContract;
-    private ActivityResultLauncher<String[]> multiplePermissionLauncher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -103,7 +108,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
 
         searchBar = (EditText) v.findViewById(R.id.SearchBar);
-
         // 지도 구현
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         locationRequest = LocationRequest.create()
@@ -113,19 +117,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
-
-        multiplePermissionsContract = new ActivityResultContracts.RequestMultiplePermissions();
-        multiplePermissionLauncher = registerForActivityResult(multiplePermissionsContract, isGranted -> {
-            Log.d("PERMISSIONS", "Launcher result: " + isGranted.toString());
-            if (isGranted.containsValue(false)) {
-                Log.d("PERMISSIONS", "At least one of the permissions was not granted, launching again...");
-                multiplePermissionLauncher.launch(REQUIRED_PERMISSIONS);
-            }
-        });
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this::onMapReady);
-
         // 날씨 부분
         weather = (ImageView) v.findViewById(R.id.Weather);
 
@@ -195,14 +186,18 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 //            }
 //        });
 
+        SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this::onMapReady);
+
         return v;
     }
 
-    private void startLocationUpdates() {
+    protected void startLocationUpdates() {
+        Log.i("FF","startlocationUpdates Started");
         if (!checkLocationServicesStatus()) {
             Log.d(TAG, "startLocationUpdates : call showDialogForLocationServiceSetting");
         }
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -221,30 +216,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
-    }
-
-
-    private void askPermissions(ActivityResultLauncher<String[]> multiplePermissionLauncher) {
-        if (!hasPermissions(REQUIRED_PERMISSIONS)) {
-            Log.d("PERMISSIONS", "Launching multiple contract permission launcher for ALL required permissions");
-            multiplePermissionLauncher.launch(REQUIRED_PERMISSIONS);
-        } else {
-            Log.d("PERMISSIONS", "All permissions are already granted");
-        }
-    }
-
-    private boolean hasPermissions(String[] permissions) {
-        if (permissions != null) {
-            for (String permission : permissions) {
-                if (ActivityCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d("PERMISSIONS", "Permission is not granted: " + permission);
-                    return false;
-                }
-                Log.d("PERMISSIONS", "Permission already granted: " + permission);
-            }
-            return true;
-        }
-        return false;
     }
 
     @Override
@@ -266,19 +237,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         markerOptions.draggable(true);
 
         BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker_dot);
-        Bitmap b=bitmapdraw.getBitmap();
-        Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
-        markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
-
-        currentMarker = mMap.addMarker(markerOptions);
-
-        if (initFlag) {
-            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLng(currentLatLng);
-            mMap.moveCamera(cameraUpdate);
-            mMap.animateCamera(CameraUpdateFactory.zoomTo(17.0f));
+        if (bitmapdraw != null){
+            Bitmap b=bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
         }
-        initFlag = false;
-
+        currentMarker = mMap.addMarker(markerOptions);
         loadComplete();
     }
 
@@ -322,6 +286,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mMap = googleMap;
         mMap.getUiSettings().setZoomControlsEnabled(true);
 
+        Log.i("MAP LOADED: ","true");
+
         try {
             // Customise the styling of the bas
             // style map using a JSON object defined
@@ -335,6 +301,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
+
+        startLocationUpdates();
 
         // Marker Cluster (영역에 보이는 마커 찍기)
         mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
@@ -365,16 +333,36 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 requestQueue.add(stringRequest);
             }
         });
-        askPermissions(multiplePermissionLauncher);
     }
 
     private boolean initFlag = true;
+    CameraPosition cameraPosition;
     LocationCallback locationCallback = new LocationCallback() {
         @Override
         public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
             List<Location> locationList = locationResult.getLocations();
             if (locationList.size() > 0) {
+                if (initFlag) {
+                    cameraPosition = new CameraPosition.Builder()
+                            .target(new LatLng(37.58464,126.92518))
+                            .zoom(17.0f)
+                            .build();
+                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                    ImageView categoryBtn = getActivity().findViewById(R.id.CategoryButton);
+                    categoryBtn.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getContext(), CategoryActivity.class);
+                            intent.putExtra("lat",myLocation.getLatitude());
+                            intent.putExtra("lng",myLocation.getLongitude());
+                            startActivity(intent);
+                        }
+                    });
+                }
+                initFlag = false;
+
                 myLocation = locationList.get(locationList.size() - 1);
                 Log.d("CURRENT LOCATION: ", myLocation.getLatitude() + " " + myLocation.getLongitude());
 

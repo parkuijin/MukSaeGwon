@@ -1,17 +1,28 @@
 package com.cookandroid.muksaegwon;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class MainActivity extends AppCompatActivity {
+    public static Activity activity;
     // MapFragment
     MapFragment mapFragment;
     FragmentManager fragmentManager;
@@ -19,30 +30,37 @@ public class MainActivity extends AppCompatActivity {
     // Button
     ImageView CategoryButton, RegisterButton, MapButton, MypageButton;
 
+    ActivityResultLauncher<Intent> startActivityLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    if (result.getResultCode() == Activity.RESULT_OK) {
+
+                    }
+                }
+            });
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        activity = this;
+
+        // ActionBar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
+
         Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
+        startActivityLauncher.launch(intent);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                // ActionBar hide
-                ActionBar actionBar = getSupportActionBar();
-                actionBar.hide();
+                mapFragment = new MapFragment();
 
-                mapFragment = new
-
-                        MapFragment();
-
-                fragmentManager =
-
-                        getSupportFragmentManager();
+                fragmentManager = getSupportFragmentManager();
 
                 // Google Map 프래그먼트 출력
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -51,16 +69,16 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.commit();
 
                 // 카테고리 액티비티 열기
-                CategoryButton = (ImageView)
-
-                        findViewById(R.id.CategoryButton);
-                CategoryButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
-                        startActivity(intent);
-                    }
-                });
+//                CategoryButton = (ImageView)
+//
+//                        findViewById(R.id.CategoryButton);
+//                CategoryButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
 
                 // 로그인 액티비티 열기
                 MypageButton = (ImageView)
@@ -98,6 +116,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, 1);
+        },1);
+    }
+
+    public void initCheckPermission(){
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+
+        }
     }
 }
