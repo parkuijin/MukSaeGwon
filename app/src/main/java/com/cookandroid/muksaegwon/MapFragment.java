@@ -3,6 +3,7 @@ package com.cookandroid.muksaegwon;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,6 +24,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -88,6 +91,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     ArrayList<Marker> markers = new ArrayList<>();
     Marker marker = null;
+    private static final int PERMISSIONS_REQUEST_CODE = 1;
+    String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
+
+    private ActivityResultContracts.RequestMultiplePermissions multiplePermissionsContract;
+    private ActivityResultLauncher<String[]> multiplePermissionLauncher;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,7 +105,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         searchBar = (EditText) v.findViewById(R.id.SearchBar);
 
         // 지도 구현
-        checkPermission();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext());
         locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
@@ -107,9 +114,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         builder = new LocationSettingsRequest.Builder();
         builder.addLocationRequest(locationRequest);
 
+        multiplePermissionsContract = new ActivityResultContracts.RequestMultiplePermissions();
+        multiplePermissionLauncher = registerForActivityResult(multiplePermissionsContract, isGranted -> {
+            Log.d("PERMISSIONS", "Launcher result: " + isGranted.toString());
+            if (isGranted.containsValue(false)) {
+                Log.d("PERMISSIONS", "At least one of the permissions was not granted, launching again...");
+                multiplePermissionLauncher.launch(REQUIRED_PERMISSIONS);
+            }
+        });
+
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
-
 
         // 날씨 부분
         weather = (ImageView) v.findViewById(R.id.Weather);
@@ -208,15 +223,28 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 || locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        Log.d(TAG, "onStart");
 
-        if (checkPermission()) {
-            Log.d(TAG, "onStart : call mFusedLocationClient.requestLocationUpdates");
-            mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, null);
+    private void askPermissions(ActivityResultLauncher<String[]> multiplePermissionLauncher) {
+        if (!hasPermissions(REQUIRED_PERMISSIONS)) {
+            Log.d("PERMISSIONS", "Launching multiple contract permission launcher for ALL required permissions");
+            multiplePermissionLauncher.launch(REQUIRED_PERMISSIONS);
+        } else {
+            Log.d("PERMISSIONS", "All permissions are already granted");
         }
+    }
+
+    private boolean hasPermissions(String[] permissions) {
+        if (permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(getContext(), permission) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("PERMISSIONS", "Permission is not granted: " + permission);
+                    return false;
+                }
+                Log.d("PERMISSIONS", "Permission already granted: " + permission);
+            }
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -225,21 +253,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         if (mFusedLocationClient != null) {
             Log.d(TAG, "onStop : call stopLocationUpdates");
             mFusedLocationClient.removeLocationUpdates(locationCallback);
-        }
-    }
-
-    private boolean checkPermission() {
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return false;
-        } else {
-            return true;
         }
     }
 
@@ -266,9 +279,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
         initFlag = false;
 
+        loadComplete();
+    }
+
+    public void loadComplete(){
         IntroActivity introActivity = (IntroActivity) IntroActivity.activity;
         introActivity.finish();
     }
+
     public void nearPlaces(String response){
         ArrayList<Store> stores=new ArrayList<>();
 //        String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
@@ -302,9 +320,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
         try {
-            // Customise the styling of the base map using a JSON object defined
+            // Customise the styling of the bas
+            // style map using a JSON object defined
             // in a raw resource file.
             boolean success = mMap.setMapStyle(
                     MapStyleOptions.loadRawResourceStyle(getContext(), R.raw.style_json));
@@ -315,17 +335,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
-        if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
-        startLocationUpdates();
 
         // Marker Cluster (영역에 보이는 마커 찍기)
         mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
@@ -356,6 +365,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 requestQueue.add(stringRequest);
             }
         });
+        askPermissions(multiplePermissionLauncher);
     }
 
     private boolean initFlag = true;
