@@ -7,13 +7,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <com.google.android.gms.common.SignInButton
+        android:id="@+id/sign_in_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="101dp"
+        app:layout_constraintEnd_toStartOf="@+id/logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+
     <ImageView
         android:id="@+id/profile"
         android:layout_width="186dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="57dp"
         app:layout_constraintBottom_toTopOf="@+id/heartBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/logo"
         app:srcCompat="@drawable/user" />
@@ -23,24 +35,25 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="42dp"
-        android:layout_marginEnd="55dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="51dp"
+        android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/heartText"
         app:layout_constraintEnd_toStartOf="@+id/heartBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleText"
+        app:layout_constraintTop_toBottomOf="@+id/nameTv"
         app:srcCompat="@drawable/bookmark" />
 
     <ImageView
         android:id="@+id/logo"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="122dp"
         android:layout_marginTop="1dp"
         android:layout_marginBottom="126dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/profile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/titleText"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/sign_in_button"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/intro" />
 
@@ -48,7 +61,8 @@
         android:id="@+id/heartBtn"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginEnd="51dp"
+        android:layout_marginEnd="54dp"
+        android:layout_marginBottom="25dp"
         app:layout_constraintBottom_toTopOf="@+id/reviewText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/reviewBtn"
@@ -58,9 +72,9 @@
     <TextView
         android:id="@+id/reviewText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="111dp"
         android:fontFamily="sans-serif-black"
         android:text="찜한 가게"
         android:textAlignment="center"
@@ -73,9 +87,10 @@
     <TextView
         android:id="@+id/heartText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="29dp"
+        android:layout_marginBottom="112dp"
         android:fontFamily="sans-serif-black"
         android:text="리뷰 "
         android:textAlignment="center"
@@ -86,15 +101,15 @@
         app:layout_constraintTop_toBottomOf="@+id/reviewBtn" />
 
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/nameTv"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:layout_marginEnd="9dp"
-        android:layout_marginBottom="371dp"
+        android:layout_marginBottom="372dp"
         android:fontFamily="sans-serif-black"
-        android:text="먹세권님, "
+        android:text="로그인이 필요합니다."
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/reviewBtn"

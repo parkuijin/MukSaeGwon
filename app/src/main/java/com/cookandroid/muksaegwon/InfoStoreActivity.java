@@ -1,5 +1,6 @@
 package com.cookandroid.muksaegwon;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,14 +12,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.model.Store;
 
 public class InfoStoreActivity extends AppCompatActivity {
     TextView storeNameTv, storeLocationTv, categoryTv, menuTv, payWayTv, isRunningSw, openTimeTv, offTimeTv;
+    Store store;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_store);
+
+        // ActionBar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         storeNameTv = (TextView) findViewById(R.id.storeNameTv);
         storeLocationTv = (TextView)findViewById(R.id.storeLocationTv);
