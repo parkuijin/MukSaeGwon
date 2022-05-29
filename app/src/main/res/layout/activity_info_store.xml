@@ -8,7 +8,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/infoRegTitleLayout"
+        android:id="@+id/reviewRegTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_rounded"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="@id/isRunningSwitch">
 
         <ImageView
-            android:id="@+id/regInfoFinBtn"
+            android:id="@+id/regReviewFinBtn"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
@@ -34,7 +34,6 @@
             android:id="@+id/storeNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="136dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="16dp"
             android:text="가게 정보"
@@ -43,8 +42,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/regInfoFinBtn"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -60,7 +58,7 @@
         android:textSize="16sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/infoRegTitleLayout" />
+        app:layout_constraintTop_toBottomOf="@id/reviewRegTitleLayout" />
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -369,6 +367,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="16dp"
@@ -385,13 +384,41 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/menuTv"
+                <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:text="Menu" />
+                    android:layout_marginStart="16dp" />
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="리뷰"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <Button
+                    android:id="@+id/reviewRegBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Button" />
             </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>

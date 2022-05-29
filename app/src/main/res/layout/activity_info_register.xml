@@ -8,18 +8,19 @@
     tools:context=".InfoRegisterActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/infoRegTitleLayout"
+        android:id="@+id/reviewRegTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_rounded"
         android:elevation="10dp"
         app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/regInfoFinBtn"
+            android:id="@+id/regReviewFinBtn"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
@@ -34,7 +35,6 @@
             android:id="@+id/storeNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="104dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="15dp"
             android:text="가게 정보 등록"
@@ -43,8 +43,7 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/regInfoFinBtn"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444" />
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -58,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/infoRegTitleLayout">
+        app:layout_constraintTop_toBottomOf="@+id/reviewRegTitleLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

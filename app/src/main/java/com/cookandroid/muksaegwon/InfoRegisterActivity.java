@@ -82,7 +82,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         storeName = (EditText) findViewById(R.id.etStroeName);
         storeLocation = (TextView) findViewById(R.id.storeLocationTv);
         submitBtn = (Button) findViewById(R.id.regInfoSubmitBtn);
-        infoRegFinBtn = (ImageView) findViewById(R.id.regInfoFinBtn);
+        infoRegFinBtn = (ImageView) findViewById(R.id.regReviewFinBtn);
         cash = (CheckBox) findViewById(R.id.checkCash);
         creditCard = (CheckBox) findViewById(R.id.checkCreditCard);
         account = (CheckBox) findViewById(R.id.checkAccountTransfer);
