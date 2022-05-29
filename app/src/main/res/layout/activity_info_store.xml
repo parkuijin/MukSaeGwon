@@ -4,223 +4,397 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FoodTruckInfoActivity">
+    tools:context=".InfoStoreActivity">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="489dp"
-        app:layout_constraintBottom_toTopOf="@+id/ReviewText"
+        android:id="@+id/infoRegTitleLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bottom_rounded"
+        android:elevation="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/DeleteRequest"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-
-            android:layout_marginEnd="36dp"
-            android:layout_marginBottom="2dp"
-            android:text="삭제 요청"
-            android:textColor="#F39494"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/RetBtn" />
+        app:layout_constraintTop_toTopOf="@id/isRunningSwitch">
 
         <ImageView
-            android:id="@+id/RetBtn"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="239dp"
+            android:id="@+id/regInfoFinBtn"
+            android:layout_width="33dp"
+            android:layout_height="33dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:src="@drawable/leftarrow"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/DeleteRequest"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <TextView
+            android:id="@+id/storeNameTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="136dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="가게 정보"
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/regInfoFinBtn"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.444" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView3"
-        android:layout_width="0dp"
+    <Switch
+        android:id="@+id/isRunningSwitch"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"
+        android:text="운영 여부"
+        android:textOff="영업종료"
+        android:textOn="영업중"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/infoRegTitleLayout" />
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/isRunningSwitch">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/editTextTextPersonName"
-            app:layout_constraintEnd_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintStart_toEndOf="@+id/editTextTextPersonName"
-            app:layout_constraintTop_toTopOf="@+id/editTextTextPersonName">
+            app:layout_constraintBottom_toTopOf="@+id/etStroeName"
+            app:layout_constraintEnd_toEndOf="@+id/etStroeName"
+            app:layout_constraintStart_toEndOf="@+id/etStroeName"
+            app:layout_constraintTop_toTopOf="@+id/etStroeName">
 
             <TextView
-                android:id="@+id/StoreInfo"
-                android:layout_width="match_parent"
+                android:id="@+id/StoreRocation"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="133dp"
-                android:layout_marginEnd="11dp"
-                android:text="   가게 정보"
-                android:textSize="24sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="가게 주소"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/Time"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/CategoryInfo"
-                android:layout_width="match_parent"
+                android:id="@+id/storeLocationTv"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="32dp"
+                android:background="@drawable/edittext_background"
+                android:gravity="center|left"
+                android:hint="가게 주소를 선택하세요."
+                android:paddingLeft="10dp"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/StoreRocation" />
+
+            <TextView
+                android:id="@+id/payWayTv"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="37dp"
-                android:text="   카테고리 및 메뉴"
-                android:textSize="24sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:text="결제방식"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/PayText" />
+                app:layout_constraintTop_toBottomOf="@+id/storeLocationTv" />
+
+            <CheckBox
+                android:id="@+id/checkCash"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/radiobutton_background_selector"
+                android:button="@android:color/transparent"
+                android:text="현금"
+                android:textAlignment="center"
+                android:textColor="@drawable/radiobutton_textcolor_selector"
+                android:textSize="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
+
+            <CheckBox
+                android:id="@+id/checkCreditCard"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/radiobutton_background_selector"
+                android:button="@android:color/transparent"
+                android:text="카드"
+                android:textAlignment="center"
+                android:textColor="@drawable/radiobutton_textcolor_selector"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/checkCash"
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
+
+            <CheckBox
+                android:id="@+id/checkAccountTransfer"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/radiobutton_background_selector"
+                android:button="@android:color/transparent"
+                android:text="계좌"
+                android:textAlignment="center"
+                android:textColor="@drawable/radiobutton_textcolor_selector"
+                android:textSize="15dp"
+                app:layout_constraintStart_toEndOf="@+id/checkCreditCard"
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <TextView
-                android:id="@+id/CategoryName"
+                android:id="@+id/runningDay"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="카테고리명"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/CategoryText"
-                app:layout_constraintTop_toTopOf="@+id/CategoryText" />
-
-            <TextView
-                android:id="@+id/Time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
-                android:text="출몰 시기"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toStartOf="@+id/TimeText"
-                app:layout_constraintTop_toTopOf="@+id/TimeText" />
-
-            <TextView
-                android:id="@+id/TimeText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:layout_marginEnd="44dp"
-                android:text="아직 등록된 정보가 없어요."
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/StoreInfo" />
-
-            <TextView
-                android:id="@+id/PayText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:text="아직 등록된 정보가 없어요."
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/TimeText"
-                app:layout_constraintTop_toBottomOf="@+id/TimeText" />
-
-            <TextView
-                android:id="@+id/Pay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="8dp"
-                android:text="결제 방식"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/Time"
-                app:layout_constraintTop_toBottomOf="@+id/Time" />
-
-            <TextView
-                android:id="@+id/CategoryText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:layout_marginEnd="24dp"
-                android:text="아직 등록된 정보가 없어요."
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/CategoryInfo" />
-
-            <TextView
-                android:id="@+id/Menu"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:text="메뉴"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/CategoryName"
-                app:layout_constraintTop_toBottomOf="@+id/CategoryName" />
-
-            <TextView
-                android:id="@+id/MenuText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:text="아직 등록된 정보가 없어요."
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/CategoryText"
-                app:layout_constraintTop_toBottomOf="@+id/CategoryText" />
-
-            <TextView
-                android:id="@+id/VisitInfo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="31dp"
-                android:text="   방문자 사진"
-                android:textSize="24sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="출몰요일"
+                android:textColor="#000000"
+                android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/Menu" />
+                app:layout_constraintTop_toBottomOf="@+id/checkCash" />
+
+            <LinearLayout
+                android:id="@+id/dateCheckLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/runningDay">
+
+                <CheckBox
+                    android:id="@+id/checkMon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="월"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkTue"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="화"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkWed"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="수"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkThu"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="목"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkFri"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="금"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkSat"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="토"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkSun"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="일"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRunTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="영업 시간"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/dateCheckLayout" />
+
+            <LinearLayout
+                android:id="@+id/etRunTimeLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
+
+                <EditText
+                    android:id="@+id/openTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:hint="0"
+                    android:inputType="number"
+                    android:textColor="#000000"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:text="To"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/offTimeTv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="30dp"
+                    android:background="@drawable/edittext_background"
+                    android:ems="2"
+                    android:gravity="center"
+                    android:hint="24"
+                    android:inputType="number"
+                    tools:ignore="TouchTargetSizeCheck" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etRunTimeLayout">
+
+                <TextView
+                    android:id="@+id/categoryAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="카테고리"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/categoryTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Category" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:text="메뉴"
+                    android:textColor="#000000"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/menuTv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:text="Menu" />
+
+            </LinearLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
-
-    <TextView
-        android:id="@+id/ReviewInfo"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="144dp"
-        android:text="    리뷰"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/ReviewText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="41dp"
-        android:layout_marginBottom="145dp"
-        android:text="아직 등록된 정보가 없어요."
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/ReviewInfo"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

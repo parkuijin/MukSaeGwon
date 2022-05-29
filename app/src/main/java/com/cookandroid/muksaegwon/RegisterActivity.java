@@ -124,7 +124,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
                 MarkerOptions foodTruck = new MarkerOptions();
                 // 마커 타이틀
                 foodTruck.title("마커 좌표");
-                fLatitude = point.latitude; // 위도
+                fLatitude = point.latitude;// 위도
                 fLongitude = point.longitude; // 경도
 
                 // 마커의 스니펫(간단한 텍스트) 설정

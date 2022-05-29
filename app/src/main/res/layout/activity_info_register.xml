@@ -31,7 +31,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/infoRegTitle"
+            android:id="@+id/storeNameTv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="104dp"
@@ -82,7 +82,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tvStoreRocation"
+                android:id="@+id/storeLocationTv"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
@@ -108,7 +108,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvStoreRocation" />
+                app:layout_constraintTop_toBottomOf="@+id/storeLocationTv" />
 
             <EditText
                 android:id="@+id/etStroeName"
@@ -128,7 +128,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/storeName" />
 
             <TextView
-                android:id="@+id/paymentMethods"
+                android:id="@+id/payWayTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -153,7 +153,7 @@
                 android:textColor="@drawable/radiobutton_textcolor_selector"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/paymentMethods" />
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <CheckBox
                 android:id="@+id/checkCreditCard"
@@ -168,7 +168,7 @@
                 android:textColor="@drawable/radiobutton_textcolor_selector"
                 android:textSize="15dp"
                 app:layout_constraintStart_toEndOf="@+id/checkCash"
-                app:layout_constraintTop_toBottomOf="@+id/paymentMethods" />
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <CheckBox
                 android:id="@+id/checkAccountTransfer"
@@ -183,7 +183,7 @@
                 android:textColor="@drawable/radiobutton_textcolor_selector"
                 android:textSize="15dp"
                 app:layout_constraintStart_toEndOf="@+id/checkCreditCard"
-                app:layout_constraintTop_toBottomOf="@+id/paymentMethods" />
+                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <TextView
                 android:id="@+id/runningDay"
@@ -205,19 +205,6 @@
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/runningDay">
-
-                <CheckBox
-                    android:id="@+id/checkWed"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/radiobutton_background_selector"
-                    android:button="@android:color/transparent"
-                    android:text="수"
-                    android:textAlignment="center"
-                    android:textColor="@drawable/radiobutton_textcolor_selector"
-                    android:textSize="15dp" />
 
                 <CheckBox
                     android:id="@+id/checkMon"
@@ -246,14 +233,27 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSun"
+                    android:id="@+id/checkWed"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/radiobutton_background_selector"
+                    android:button="@android:color/transparent"
+                    android:text="수"
+                    android:textAlignment="center"
+                    android:textColor="@drawable/radiobutton_textcolor_selector"
+                    android:textSize="15dp" />
+
+                <CheckBox
+                    android:id="@+id/checkThu"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
-                    android:text="일"
+                    android:text="목"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
                     android:textSize="15dp" />
@@ -285,17 +285,18 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkThu"
+                    android:id="@+id/checkSun"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
-                    android:text="목"
+                    android:text="일"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
                     android:textSize="15dp" />
+
             </LinearLayout>
 
             <TextView
@@ -322,7 +323,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
 
                 <EditText
-                    android:id="@+id/OpenTime"
+                    android:id="@+id/openTimeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/edittext_background"
@@ -344,7 +345,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/CloseTime"
+                    android:id="@+id/offTimeTv"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/edittext_background"
