@@ -42,20 +42,18 @@
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_category_map.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_food_truck_info.xml" value="0.2712962962962963" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_info_register.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_info_store.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_login.xml" value="0.2712962962962963" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_main.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/activity_register.xml" value="0.36614583333333334" />
+        <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/dialog_review_register.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/fragment_map.xml" value="0.2712962962962963" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_layout.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/item_menu.xml" value="0.36614583333333334" />
-        <entry key="app/src/main/res/layout/activity_category.xml" value="0.21354166666666666" />
-        <entry key="app/src/main/res/layout/activity_category_map.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/activity_info_register.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/layout/activity_info_store.xml" value="0.30129852294921877" />
-        <entry key="app/src/main/res/layout/activity_intro.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
-        <entry key="app/src/main/res/layout/activity_mypage.xml" value="0.21354166666666666" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.26296296296296295" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
       </map>
