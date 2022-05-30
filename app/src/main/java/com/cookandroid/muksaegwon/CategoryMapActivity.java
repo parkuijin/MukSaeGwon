@@ -221,23 +221,11 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
     public boolean onMarkerClick(@NonNull Marker marker) {
         String storeId = marker.getTag().toString();
         Log.i("STOREID: ", storeId);
-        String url = "http://:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+        Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
+        intent.putExtra("storeId", storeId);
+        startActivity(intent);
 
-                    }
-                });
-        //requestQueue.add(stringRequest);
         return false;
     }
 
@@ -287,7 +275,7 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
             markerOptions.title(stores.get(i).getStoreName());
             markerOptions.draggable(true);
             marker = mMap.addMarker(markerOptions);
-            marker.setTag(stores.get(i).getId());
+            marker.setTag(stores.get(i).getStoreId());
             markers.add(marker);
         }
     }

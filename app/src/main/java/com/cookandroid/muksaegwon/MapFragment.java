@@ -287,7 +287,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             markerOptions.title(stores.get(i).getStoreName());
             markerOptions.draggable(true);
             marker = mMap.addMarker(markerOptions);
-            marker.setTag(stores.get(i).getId());
+            marker.setTag(stores.get(i).getStoreId());
             markers.add(marker);
         }
     }
