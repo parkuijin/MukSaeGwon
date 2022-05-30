@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Store {
+    private String storeId;
     private String storeName;
     private double lat;
     private double lng;
@@ -14,7 +15,8 @@ public class Store {
     private String openTime, offTime;
     private JSONObject category;
 
-    public Store(String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime, JSONObject category) {
+    public Store(String id, String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime, JSONObject category) {
+        this.storeId = id;
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
@@ -27,13 +29,19 @@ public class Store {
         this.category = category;
     }
 
-    public Store(String storeName, double lat, double lng) {
+    public Store(String id, String storeName, double lat, double lng) {
+        this.storeId = id;
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
     }
 
-    public Store() {
+    public String getId() {
+        return storeId;
+    }
+
+    public void setId(String id) {
+        this.storeId = id;
     }
 
     public String getStoreName() {
@@ -64,8 +72,8 @@ public class Store {
         return menus;
     }
 
-    public void setMenus(JSONArray menu) {
-        this.menus = menu;
+    public void setMenus(JSONArray menus) {
+        this.menus = menus;
     }
 
     public JSONObject getPayWay() {

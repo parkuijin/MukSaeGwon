@@ -113,20 +113,22 @@ public class MsgXmlParser {
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
 
-            boolean storeNameFlag = false, latFlag = false, lngFlag = false;
+            boolean storeIdFlag=false, storeNameFlag = false, latFlag = false, lngFlag = false;
 
-            String storeName = "";
+            String storeName = "", storeId ="";
             double lat = 0, lng = 0;
-            short isRunning = 0;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
-                    if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    if (xpp.getName().equals("storeId")) storeIdFlag = true;
+                    else if (xpp.getName().equals("storeName")) storeNameFlag = true;
                     else if (xpp.getName().equals("lat")) latFlag = true;
                     else if (xpp.getName().equals("lng")) lngFlag = true;
-
                 } else if (eventType == XmlPullParser.TEXT) {
-                    if (storeNameFlag) {
+                    if (storeIdFlag) {
+                        storeId = xpp.getText();
+                        storeIdFlag = false;
+                    } else if (storeNameFlag) {
                         storeName = xpp.getText();
                         storeNameFlag = false;
                     } else if (latFlag) {
@@ -135,7 +137,7 @@ public class MsgXmlParser {
                     } else if (lngFlag) {
                         lng = Double.parseDouble(xpp.getText());
                         lngFlag = false;
-                        stores.add(new Store(storeName, lat, lng));
+                        stores.add(new Store(storeId, storeName, lat, lng));
                     }
                 }
                 eventType = xpp.next();
@@ -146,8 +148,8 @@ public class MsgXmlParser {
 
     }
 
-    public void xmlParsingSFM(ArrayList<Store> s) {
-        ArrayList<Store> stores = s;
+    public void xmlParsingSFM(Store s) {
+         Store store = s;
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
@@ -155,10 +157,10 @@ public class MsgXmlParser {
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
 
-            boolean storeNameFlag = false, latFlag = false, lngFlag = false, menuFlag = false,
+            boolean storeIdFlag=false, storeNameFlag = false, latFlag = false, lngFlag = false, menuFlag = false,
                     payWayFlag = false, isRunningFlag = false, runDayFlag = false,
                     rtFlag = false, otFlag = false, caFlag = false;
-            String storeName = "", runDay = "", openTime = "", offTime = "";
+            String storeId="", storeName = "", runDay = "", openTime = "", offTime = "";
             double lat = 0, lng = 0;
             short isRunning = 0;
             JSONObject payWay = null;
@@ -167,7 +169,8 @@ public class MsgXmlParser {
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
-                    if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    if (xpp.getName().equals("storeId")) storeIdFlag = true;
+                    else if (xpp.getName().equals("storeName")) storeNameFlag = true;
                     else if (xpp.getName().equals("lat")) latFlag = true;
                     else if (xpp.getName().equals("lng")) lngFlag = true;
                     else if (xpp.getName().equals("menu")) menuFlag = true;
@@ -178,7 +181,10 @@ public class MsgXmlParser {
                     else if (xpp.getName().equals("offTime")) otFlag = true;
                     else if (xpp.getName().equals("category")) caFlag = true;
                 } else if (eventType == XmlPullParser.TEXT) {
-                    if (storeNameFlag) {
+                    if (storeIdFlag) {
+                        storeId = xpp.getText();
+                        storeIdFlag = false;
+                    } else if (storeNameFlag) {
                         storeName = xpp.getText();
                         storeNameFlag = false;
                     } else if (latFlag) {
@@ -215,7 +221,7 @@ public class MsgXmlParser {
                         try {
                             category = new JSONObject(xpp.getText());
                             caFlag = false;
-                            stores.add(new Store(storeName, lat, lng, menus, payWay, isRunning, runDay, openTime, offTime, category));
+                            store = new Store(storeId,storeName, lat, lng, menus, payWay, isRunning, runDay, openTime, offTime, category);
                         } catch (Exception e) {}
                     }
                 }

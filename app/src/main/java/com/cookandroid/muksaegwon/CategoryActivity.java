@@ -40,7 +40,11 @@ public class CategoryActivity extends AppCompatActivity {
         fish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "fish");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -48,7 +52,11 @@ public class CategoryActivity extends AppCompatActivity {
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "topokki");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -56,7 +64,11 @@ public class CategoryActivity extends AppCompatActivity {
         ggochi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "eomuk");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -64,7 +76,11 @@ public class CategoryActivity extends AppCompatActivity {
         sweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "sweetpotato");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -72,7 +88,11 @@ public class CategoryActivity extends AppCompatActivity {
         sand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "toast");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -80,7 +100,11 @@ public class CategoryActivity extends AppCompatActivity {
         octopus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "takoyaki");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -88,7 +112,11 @@ public class CategoryActivity extends AppCompatActivity {
         wa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "waffle");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
 
@@ -96,7 +124,11 @@ public class CategoryActivity extends AppCompatActivity {
         sso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
+                intent.putExtra("category", "dakggochi");
+                intent.putExtra("lat",lat);
+                intent.putExtra("lng",lng);
+                startActivity(intent);
             }
         });
     }
