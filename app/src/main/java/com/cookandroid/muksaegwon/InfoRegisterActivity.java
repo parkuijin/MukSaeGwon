@@ -65,34 +65,34 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
         RegisterActivity registerActivity = (RegisterActivity) RegisterActivity.registerActivity;
 
-        openTime = (EditText) findViewById(R.id.openTimeTv);
-        closeTime = (EditText) findViewById(R.id.offTimeTv);
-        corn = (CheckBox) findViewById(R.id.checkCorn);
-        fish = (CheckBox) findViewById(R.id.checkFish);
-        topokki = (CheckBox) findViewById(R.id.checkTopokki);
-        eomuk = (CheckBox) findViewById(R.id.checkEomuk);
-        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotato);
-        toast = (CheckBox) findViewById(R.id.checkToast);
-        takoyaki = (CheckBox) findViewById(R.id.checkTakoyaki);
-        waffle = (CheckBox) findViewById(R.id.checkWaffle);
-        dakggochi = (CheckBox) findViewById(R.id.checkDakggochi);
+        openTime = (EditText) findViewById(R.id.openTimeTvStore);
+        closeTime = (EditText) findViewById(R.id.offTimeTvStore);
+        corn = (CheckBox) findViewById(R.id.checkCornStore);
+        fish = (CheckBox) findViewById(R.id.checkFishStore);
+        topokki = (CheckBox) findViewById(R.id.checkTopokkiStore);
+        eomuk = (CheckBox) findViewById(R.id.checkEomukStore);
+        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
+        toast = (CheckBox) findViewById(R.id.checkToastStore);
+        takoyaki = (CheckBox) findViewById(R.id.checkTakoyakiStore);
+        waffle = (CheckBox) findViewById(R.id.checkWaffleStore);
+        dakggochi = (CheckBox) findViewById(R.id.checkDakggochiStore);
         plusMenu = (ImageView) findViewById(R.id.plusMenuBtn);
         minusMenu = (ImageView) findViewById(R.id.minusMenuBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayout);
         storeName = (EditText) findViewById(R.id.etStroeName);
-        storeLocation = (TextView) findViewById(R.id.storeLocationTv);
+        storeLocation = (TextView) findViewById(R.id.StoreNameTv);
         submitBtn = (Button) findViewById(R.id.regInfoSubmitBtn);
-        infoRegFinBtn = (ImageView) findViewById(R.id.regReviewFinBtn);
-        cash = (CheckBox) findViewById(R.id.checkCash);
-        creditCard = (CheckBox) findViewById(R.id.checkCreditCard);
-        account = (CheckBox) findViewById(R.id.checkAccountTransfer);
-        mon = (CheckBox) findViewById(R.id.checkMon);
-        tue = (CheckBox) findViewById(R.id.checkTue);
-        wed = (CheckBox) findViewById(R.id.checkWed);
-        thu = (CheckBox) findViewById(R.id.checkThu);
-        fri = (CheckBox) findViewById(R.id.checkFri);
-        sat = (CheckBox) findViewById(R.id.checkSat);
-        sun = (CheckBox) findViewById(R.id.checkSun);
+        infoRegFinBtn = (ImageView) findViewById(R.id.infoStoreFinBtn);
+        cash = (CheckBox) findViewById(R.id.checkCashStore);
+        creditCard = (CheckBox) findViewById(R.id.checkCreditCardStore);
+        account = (CheckBox) findViewById(R.id.checkAccountTransferStore);
+        mon = (CheckBox) findViewById(R.id.checkMonStore);
+        tue = (CheckBox) findViewById(R.id.checkTueStore);
+        wed = (CheckBox) findViewById(R.id.checkWedStore);
+        thu = (CheckBox) findViewById(R.id.checkThuStore);
+        fri = (CheckBox) findViewById(R.id.checkFriStore);
+        sat = (CheckBox) findViewById(R.id.checkSatStore);
+        sun = (CheckBox) findViewById(R.id.checkSunStore);
 
         menus = new JSONArray();
 
@@ -193,9 +193,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     View v = menuContainer.getChildAt(i);
 
                     // TextView tvMenuName = v.findViewById(R.id.tvMenuName);
-                    EditText etMenuName = v.findViewById(R.id.etMenuName);
+                    EditText etMenuName = v.findViewById(R.id.MenuNameTv);
                     // TextView tvMenuPrice = v.findViewById(R.id.tvMenuPrice);
-                    EditText etMenuPrice = v.findViewById(R.id.etMenuPrice);
+                    EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
 
                     try {
                         menu = new JSONObject();
