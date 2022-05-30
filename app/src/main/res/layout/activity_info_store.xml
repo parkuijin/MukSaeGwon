@@ -115,6 +115,7 @@
                 android:background="@drawable/edittext_background"
                 android:gravity="center|left"
                 android:paddingLeft="10dp"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -132,6 +133,7 @@
                 android:gravity="center|left"
                 android:inputType="textPersonName"
                 android:paddingLeft="10dp"
+                android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -335,7 +337,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
 
-                <EditText
+                <TextView
                     android:id="@+id/openTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -343,7 +345,6 @@
                     android:ems="2"
                     android:gravity="center"
                     android:hint="0"
-                    android:inputType="number"
                     android:textColor="#000000"
                     tools:ignore="TouchTargetSizeCheck" />
 
@@ -358,7 +359,7 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <EditText
+                <TextView
                     android:id="@+id/offTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
@@ -366,7 +367,7 @@
                     android:ems="2"
                     android:gravity="center"
                     android:hint="24"
-                    android:inputType="number"
+                    android:textColor="#000000"
                     tools:ignore="TouchTargetSizeCheck" />
 
             </LinearLayout>

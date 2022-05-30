@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -24,6 +25,8 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cookandroid.muksaegwon.adapter.StoreReviewAdapter;
+import com.cookandroid.muksaegwon.controller.MsgXmlParser;
+import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
 
 import java.util.ArrayList;
@@ -31,9 +34,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InfoStoreActivity extends AppCompatActivity {
+    Store store = new Store();
 
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
-    CheckBox cashStore, creditCardStore, accountStore, monStore, tueStore, wedStore, thuStore, friStore, satStore, sunStore;
+    CheckBox[] payWays = new CheckBox[3];
+    CheckBox[] days = new CheckBox[7];
     CheckBox cornStore, fishStore, topokkiStore, eomukStore, sweetpotatoStore, toastStore, takoyakiStore, waffleStore, dakggochiStore;
     ImageView infoStoreFinBtn;
     Button reviewRegBtn;
@@ -47,10 +52,18 @@ public class InfoStoreActivity extends AppCompatActivity {
     StoreReviewAdapter storeReviewAdapter;
     ArrayList<StoreReview> storeReviews;
 
+    String storeId;
+    private ArrayList<Boolean> payWayBooleans = new ArrayList<>();
+    private ArrayList<Boolean> daysBooleans = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_store);
+
+        storeId = getIntent().getStringExtra("storeId");
+        Log.i("StoreId:", storeId+"");
+        loadStoreInfo(storeId);
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -74,17 +87,17 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeNameTv = (TextView) findViewById(R.id.StoreNameTv);
         storeLocationTv = (TextView) findViewById(R.id.StoreLocationTv);
 
-        monStore = (CheckBox) findViewById(R.id.checkMonStore);
-        tueStore = (CheckBox) findViewById(R.id.checkTueStore);
-        wedStore = (CheckBox) findViewById(R.id.checkWedStore);
-        thuStore = (CheckBox) findViewById(R.id.checkThuStore);
-        friStore = (CheckBox) findViewById(R.id.checkFriStore);
-        satStore = (CheckBox) findViewById(R.id.checkSatStore);
-        sunStore = (CheckBox) findViewById(R.id.checkSunStore);
+        days[0] = (CheckBox) findViewById(R.id.checkMonStore);
+        days[1] = (CheckBox) findViewById(R.id.checkTueStore);
+        days[2]= (CheckBox) findViewById(R.id.checkWedStore);
+        days[3]= (CheckBox) findViewById(R.id.checkThuStore);
+        days[4]= (CheckBox) findViewById(R.id.checkFriStore);
+        days[5]= (CheckBox) findViewById(R.id.checkSatStore);
+        days[6]= (CheckBox) findViewById(R.id.checkSunStore);
 
-        cashStore = (CheckBox) findViewById(R.id.checkCashStore);
-        creditCardStore = (CheckBox) findViewById(R.id.checkCreditCardStore);
-        accountStore = (CheckBox) findViewById(R.id.checkAccountTransferStore);
+        payWays[0] = (CheckBox) findViewById(R.id.checkCashStore);
+        payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardStore);
+        payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferStore);
 
         cornStore = (CheckBox) findViewById(R.id.checkCornStore);
         fishStore = (CheckBox) findViewById(R.id.checkFishStore);
@@ -111,6 +124,67 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         });
 
+        reviewRegBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                reviewRegDialog.show();
+            }
+        });
+    }
+    public void loadStoreInfo(String storeId){
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("response: ",response);
+                        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+                        msgXmlParser.xmlParsingForStore(store);
+                        msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
+                        msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
+                        updateUi(store);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+    }
+
+    public void updateUi(Store store){
+        storeLocationTv.setText(store.getStoreLocation());
+        storeNameTv.setText(store.getStoreName());
+        openTimeStore.setText(store.getOpenTime());
+        payWayChecking(payWayBooleans);
+        daysChecking(daysBooleans);
+
+        Log.i("OPENTIME: ", store.getOpenTime());
+        offTimeStore.setText(store.getOffTime());
+    }
+
+    public void payWayChecking(ArrayList<Boolean> bool){
+        for(int i=0;i<bool.size();i++){
+            if (bool.get(i)){
+                payWays[i].setChecked(true);
+            }
+        }
+    }
+
+    public void daysChecking(ArrayList<Boolean> bool){
+        for(int i=0;i<bool.size();i++){
+            if (bool.get(i)){
+                days[i].setChecked(true);
+            }
+        }
+    }
+
+
+    public void reviewRegister(){
         String url = "";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -138,13 +212,5 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         };
         requestQueue.add(stringRequest);
-
-        reviewRegBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                reviewRegDialog.show();
-            }
-        });
-
     }
 }

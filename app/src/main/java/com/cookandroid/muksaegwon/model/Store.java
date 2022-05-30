@@ -5,18 +5,23 @@ import org.json.JSONObject;
 
 public class Store {
     private String storeId;
+    private String storeLocation;
     private String storeName;
     private double lat;
     private double lng;
     private JSONArray menus; // org.json 사용
     private JSONObject payWay;
     private short isRunning;
-    private String runDay; // JsonObject 변경 예정
+    private JSONObject runDay; // JsonObject 변경 예정
     private String openTime, offTime;
     private JSONObject category;
 
-    public Store(String id, String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, String runDay, String openTime, String offTime, JSONObject category) {
-        this.storeId = id;
+    public Store() {
+    }
+
+    public Store(String storeId, String storeLocation, String storeName, double lat, double lng, JSONArray menus, JSONObject payWay, short isRunning, JSONObject runDay, String openTime, String offTime, JSONObject category) {
+        this.storeId = storeId;
+        this.storeLocation = storeLocation;
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
@@ -29,19 +34,27 @@ public class Store {
         this.category = category;
     }
 
-    public Store(String id, String storeName, double lat, double lng) {
-        this.storeId = id;
+    public Store(String storeId, String storeName, double lat, double lng) {
+        this.storeId = storeId;
         this.storeName = storeName;
         this.lat = lat;
         this.lng = lng;
     }
 
-    public String getId() {
+    public String getStoreId() {
         return storeId;
     }
 
-    public void setId(String id) {
-        this.storeId = id;
+    public void setStoreId(String storeId) {
+        this.storeId = storeId;
+    }
+
+    public String getStoreLocation() {
+        return storeLocation;
+    }
+
+    public void setStoreLocation(String storeLocation) {
+        this.storeLocation = storeLocation;
     }
 
     public String getStoreName() {
@@ -92,11 +105,11 @@ public class Store {
         this.isRunning = isRunning;
     }
 
-    public String getRunDay() {
+    public JSONObject getRunDay() {
         return runDay;
     }
 
-    public void setRunDay(String runDay) {
+    public void setRunDay(JSONObject runDay) {
         this.runDay = runDay;
     }
 
