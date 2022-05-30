@@ -74,7 +74,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, ActivityCompat.OnRequestPermissionsResultCallback {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private static final String TAG = MapFragment.class.getSimpleName();
     // weather
@@ -101,6 +101,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 
     ArrayList<Marker> markers = new ArrayList<>();
     Marker marker = null;
+
+    private VisibleRegion vr;
+    double left;
+    double bottom;
+    double right;
+    double top;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -236,9 +242,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         markerOptions.snippet(markerSnippet);
         markerOptions.draggable(true);
 
-        BitmapDrawable bitmapdraw=(BitmapDrawable)getResources().getDrawable(R.drawable.marker_dot);
-        if (bitmapdraw != null){
-            Bitmap b=bitmapdraw.getBitmap();
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_dot);
+        if (bitmapdraw != null) {
+            Bitmap b = bitmapdraw.getBitmap();
             Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
             markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
         }
@@ -246,13 +252,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         loadComplete();
     }
 
+
     public void loadComplete(){
         IntroActivity introActivity = (IntroActivity) IntroActivity.activity;
         introActivity.finish();
     }
 
+    @Override
+    public boolean onMarkerClick(@NonNull Marker marker) {
+        Log.i("MarkerTAG: ",marker.getTag()+"");
+        return false;
+    }
+
     public void nearPlaces(String response){
-        ArrayList<Store> stores=new ArrayList<>();
+        ArrayList<Store> stores= new ArrayList<>();
 //        String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
 //                + "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58225 +"</lat><lng>"+ 126.92612 +"</lng></store>";
         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
@@ -260,7 +273,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 
         LatLng latLng;
         MarkerOptions markerOptions = new MarkerOptions();
-
 
         // 모든 마커 지우기
         if(marker != null){
@@ -275,6 +287,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
             markerOptions.title(stores.get(i).getStoreName());
             markerOptions.draggable(true);
             marker = mMap.addMarker(markerOptions);
+            marker.setTag(stores.get(i).getId());
             markers.add(marker);
         }
     }
@@ -304,35 +317,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
 
         startLocationUpdates();
 
+        mMap.setOnMarkerClickListener(this);
         // Marker Cluster (영역에 보이는 마커 찍기)
-        mMap.setOnCameraMoveListener(new GoogleMap.OnCameraMoveListener() {
-            @Override
-            public void onCameraMove() {
-                VisibleRegion vr = mMap.getProjection().getVisibleRegion();
-                double left = vr.latLngBounds.southwest.longitude;
-                double bottom = vr.latLngBounds.southwest.latitude;
-                double right = vr.latLngBounds.northeast.longitude;
-                double top = vr.latLngBounds.northeast.latitude;
-
-                String markerUrl = "http://172.111.113.13:8080/MukSaeGwonServer/markerCluster.jsp?left="+left+"&right="+right+"&top="+top+"&bottom="+bottom;
-                RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                        markerUrl,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                nearPlaces(response);
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-                requestQueue.add(stringRequest);
-            }
-        });
     }
 
     private boolean initFlag = true;
@@ -348,9 +334,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
                             .target(new LatLng(37.58464,126.92518))
                             .zoom(17.0f)
                             .build();
-                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
                     ImageView categoryBtn = getActivity().findViewById(R.id.CategoryButton);
+
                     categoryBtn.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -360,8 +346,38 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
                             startActivity(intent);
                         }
                     });
+
+                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+                    vr = mMap.getProjection().getVisibleRegion();
+                    left = vr.latLngBounds.southwest.longitude;
+                    bottom = vr.latLngBounds.southwest.latitude;
+                    right = vr.latLngBounds.northeast.longitude;
+                    top = vr.latLngBounds.northeast.latitude;
+
+                    if (left != 0) {
+                        Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
+                        String markerUrl = "http://192.168.0.22:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
+                        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                                markerUrl,
+                                new Response.Listener<String>() {
+                                    @Override
+                                    public void onResponse(String response) {
+                                        Log.i("MARKER:", response);
+                                        nearPlaces(response);
+                                    }
+                                },
+                                new Response.ErrorListener() {
+                                    @Override
+                                    public void onErrorResponse(VolleyError error) {
+
+                                    }
+                                });
+                        requestQueue.add(stringRequest);
+                        initFlag = false;
+                    }
+
                 }
-                initFlag = false;
 
                 myLocation = locationList.get(locationList.size() - 1);
                 Log.d("CURRENT LOCATION: ", myLocation.getLatitude() + " " + myLocation.getLongitude());
@@ -391,6 +407,4 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, Activit
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
-
-
 }

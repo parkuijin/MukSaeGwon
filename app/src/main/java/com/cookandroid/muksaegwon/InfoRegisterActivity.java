@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -105,7 +106,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // 172.111.113.13
-        String url = "";
+        String url = "http://172.111.113.13:8080/MukSaeGwonServer/infoRegister.jsp";
 
         storeLocation.setText(intent.getStringExtra("loc"));
 
@@ -217,7 +218,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-
+                                Log.i("REGISTER : ", response);
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -229,6 +230,9 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
 
+                        // 입력한 가게 이름 가져오기
+                        params.put("StoreName", storeName.getText().toString());
+
                         // 가게 주소 가져오기
                         params.put("StoreLocation", storeLocation.getText().toString());
 
@@ -236,17 +240,13 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
                         params.put("lng", String.valueOf(intent.getDoubleExtra("lon", 0)));
 
-                        // 입력한 가게 이름 가져오기
-                        params.put("StoreName", storeName.getText().toString());
-
                         // 결제 방식 가져오기
                         params.put("PayWay", payWay.toString());
 
                         // 출몰 요일 가져오기
                         params.put("RunningDate", runningDate.toString());
 
-                        // 카테고리 가져오기
-                        params.put("SelectedCategory", selectedCategory.toString());
+
 
                         // 입력한 메뉴 가져오기
                         params.put("menus", menus.toString());
@@ -256,17 +256,26 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         params.put("OpenTime", openTime.getText().toString());
                         params.put("CloseTime", closeTime.getText().toString());
 
+                        // 카테고리 가져오기
+                        params.put("SelectedCategory", selectedCategory.toString());
+
                         // isRunning (Default 0)
                         params.put("isRunning", "0");
+
+                        Log.i("PARAMS: ", params.toString());
 
                         return params;
                     }
                 };
 
+                requestQueue.add(stringRequest);
                 // 메인 화면으로 돌아가기 위한 Activity 종료
                 registerActivity.finish();
-                finish();
 
+                // 나중에 보기 성공 메시지
+                Toast.makeText(getApplicationContext(),"가게 정보가 등록됐습니다.",Toast.LENGTH_LONG).show();
+
+                finish();
             } // OnClick
         }); // ClickListener
     }
