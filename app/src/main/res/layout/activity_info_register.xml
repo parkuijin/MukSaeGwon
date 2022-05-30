@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/regReviewFinBtn"
+            android:id="@+id/infoStoreFinBtn"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
@@ -81,7 +81,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/storeLocationTv"
+                android:id="@+id/StoreNameTv"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
@@ -107,7 +107,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/storeLocationTv" />
+                app:layout_constraintTop_toBottomOf="@+id/StoreNameTv" />
 
             <EditText
                 android:id="@+id/etStroeName"
@@ -140,7 +140,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/etStroeName" />
 
             <CheckBox
-                android:id="@+id/checkCash"
+                android:id="@+id/checkCashStore"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -155,7 +155,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <CheckBox
-                android:id="@+id/checkCreditCard"
+                android:id="@+id/checkCreditCardStore"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -166,11 +166,11 @@
                 android:textAlignment="center"
                 android:textColor="@drawable/radiobutton_textcolor_selector"
                 android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkCash"
+                app:layout_constraintStart_toEndOf="@+id/checkCashStore"
                 app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <CheckBox
-                android:id="@+id/checkAccountTransfer"
+                android:id="@+id/checkAccountTransferStore"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -181,7 +181,7 @@
                 android:textAlignment="center"
                 android:textColor="@drawable/radiobutton_textcolor_selector"
                 android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkCreditCard"
+                app:layout_constraintStart_toEndOf="@+id/checkCreditCardStore"
                 app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
 
             <TextView
@@ -195,7 +195,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkCash" />
+                app:layout_constraintTop_toBottomOf="@+id/checkCashStore" />
 
             <LinearLayout
                 android:id="@+id/dateCheckLayout"
@@ -206,7 +206,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/runningDay">
 
                 <CheckBox
-                    android:id="@+id/checkMon"
+                    android:id="@+id/checkMonStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -219,7 +219,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkTue"
+                    android:id="@+id/checkTueStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -232,7 +232,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkWed"
+                    android:id="@+id/checkWedStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
@@ -245,7 +245,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkThu"
+                    android:id="@+id/checkThuStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -258,7 +258,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkFri"
+                    android:id="@+id/checkFriStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -271,7 +271,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSat"
+                    android:id="@+id/checkSatStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -284,7 +284,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSun"
+                    android:id="@+id/checkSunStore"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -322,7 +322,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
 
                 <EditText
-                    android:id="@+id/openTimeTv"
+                    android:id="@+id/openTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/edittext_background"
@@ -344,7 +344,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/offTimeTv"
+                    android:id="@+id/offTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:background="@drawable/edittext_background"
@@ -379,7 +379,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkCorn"
+                    android:id="@+id/checkCornStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -408,7 +408,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkFish"
+                    android:id="@+id/checkFishStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -438,7 +438,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkTopokki"
+                    android:id="@+id/checkTopokkiStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -467,7 +467,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cornLayout">
 
                 <CheckBox
-                    android:id="@+id/checkEomuk"
+                    android:id="@+id/checkEomukStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -496,7 +496,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/fishLayout">
 
                 <CheckBox
-                    android:id="@+id/checkSweetPotato"
+                    android:id="@+id/checkSweetPotatoStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -526,7 +526,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/topokkiLayout">
 
                 <CheckBox
-                    android:id="@+id/checkToast"
+                    android:id="@+id/checkToastStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -556,7 +556,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/eomukLayout">
 
                 <CheckBox
-                    android:id="@+id/checkTakoyaki"
+                    android:id="@+id/checkTakoyakiStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -584,7 +584,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/sweetpotatoLayout">
 
                 <CheckBox
-                    android:id="@+id/checkWaffle"
+                    android:id="@+id/checkWaffleStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -614,7 +614,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toastLayout">
 
                 <CheckBox
-                    android:id="@+id/checkDakggochi"
+                    android:id="@+id/checkDakggochiStore"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
