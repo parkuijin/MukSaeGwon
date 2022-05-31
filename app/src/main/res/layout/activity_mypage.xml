@@ -11,8 +11,10 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="45dp"
         android:background="@drawable/bottom_rounded"
         android:elevation="15dp"
+        app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -30,6 +32,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -49,12 +52,11 @@
         android:id="@+id/sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="101dp"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTv" />
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="86dp"
+        app:layout_constraintBottom_toTopOf="@+id/profile"
+        app:layout_constraintStart_toStartOf="@+id/nameTv"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 
     <ImageView
         android:id="@+id/profile"
@@ -63,9 +65,8 @@
         android:layout_marginBottom="57dp"
         app:layout_constraintBottom_toTopOf="@+id/heartBtn"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/logo"
+        app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
         app:srcCompat="@drawable/user" />
 
     <ImageView
@@ -73,27 +74,14 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="42dp"
+        android:layout_marginTop="36dp"
         android:layout_marginEnd="51dp"
         android:layout_marginBottom="24dp"
         app:layout_constraintBottom_toTopOf="@+id/heartText"
         app:layout_constraintEnd_toStartOf="@+id/heartBtn"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameTv"
+        app:layout_constraintTop_toTopOf="@+id/heartBtn"
         app:srcCompat="@drawable/bookmark" />
-
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="0dp"
-        android:layout_height="122dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginBottom="126dp"
-        android:visibility="visible"
-        app:layout_constraintBottom_toTopOf="@+id/profile"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/sign_in_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/intro" />
 
     <ImageView
         android:id="@+id/heartBtn"
@@ -112,7 +100,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="111dp"
+        android:layout_marginBottom="110dp"
         android:fontFamily="sans-serif-black"
         android:text="찜한 가게"
         android:textAlignment="center"
@@ -128,15 +116,13 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="42dp"
         android:layout_marginEnd="29dp"
-        android:layout_marginBottom="112dp"
         android:fontFamily="sans-serif-black"
         android:text="리뷰 "
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBaseline_toBaselineOf="@+id/reviewText"
         app:layout_constraintEnd_toStartOf="@+id/reviewText"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviewBtn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/nameTv"
@@ -144,14 +130,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="70dp"
-        android:layout_marginEnd="9dp"
         android:layout_marginBottom="372dp"
         android:fontFamily="sans-serif-black"
         android:text="로그인이 필요합니다."
         android:textAlignment="textStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintBottom_toTopOf="@+id/reviewBtn"
-        app:layout_constraintEnd_toStartOf="@+id/logo"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

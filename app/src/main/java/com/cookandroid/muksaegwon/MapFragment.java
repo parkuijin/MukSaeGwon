@@ -360,7 +360,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
                     if (left != 0) {
                         Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
-                        String markerUrl = "http://192.168.0.22:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
+                        String markerUrl = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
                         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
                         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                                 markerUrl,

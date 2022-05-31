@@ -179,7 +179,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     private void storeRunCheck(byte b, String storeId) {
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
         Log.i("URL: ",url);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -200,7 +200,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     private void likeThisStore(boolean b,String mId, String storeId) {
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/likeThisStore.jsp?like="+b+"&mId="+mId+"&storeId="+storeId;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/likeThisStore.jsp?like="+b+"&mId="+mId+"&storeId="+storeId;
         Log.i("URL: ",url);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -221,7 +221,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void loadStoreInfo(String storeId){
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
@@ -294,7 +294,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void favoriteLoad(String mId, String storeId){
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoFavorite.jsp?mId="+mId+"&storeId="+storeId;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoFavorite.jsp?mId="+mId+"&storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
@@ -302,8 +302,8 @@ public class InfoStoreActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         String[] result = response.split("\\?");
-                        if (result[1].equals("1")){
-                            favoriteBtn.setChecked(true);
+                        if (result[0].equals("0")){
+                            favoriteBtn.setChecked(false);
                         }
                     }
                 },
@@ -317,7 +317,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void isRunningLoad(String storeId){
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoRunning.jsp?storeId="+storeId;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoRunning.jsp?storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,

@@ -133,7 +133,8 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         nameTv.setText(name);
         findViewById(R.id.sign_in_button).setVisibility(View.INVISIBLE);
 
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        Log.i("INFO: ", url);
         if (account != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -148,7 +149,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
+                            Log.e("LOGINERROR: ",error.toString());
                         }
                     });
             requestQueue.add(stringRequest);

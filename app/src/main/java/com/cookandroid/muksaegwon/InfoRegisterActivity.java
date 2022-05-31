@@ -106,7 +106,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         requestQueue = Volley.newRequestQueue(this);
 
         // 172.111.113.13
-        String url = "http://172.111.113.13:8080/MukSaeGwonServer/infoRegister.jsp";
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoRegister.jsp";
 
         storeLocation.setText(intent.getStringExtra("loc"));
 

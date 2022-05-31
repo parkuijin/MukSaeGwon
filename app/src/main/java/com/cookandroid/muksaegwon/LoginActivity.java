@@ -44,8 +44,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        tv = (TextView) findViewById(R.id.result);
-        profileIMG = (ImageView)findViewById(R.id.profileIMG);
 
         SignInButton signInButton = findViewById(R.id.sign_in_button);
         signInButton.setSize(SignInButton.SIZE_WIDE);
@@ -108,7 +106,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateInfo(String id, String name) {
-        String url = "http://:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
         if (account != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             StringRequest stringRequest = new StringRequest(Request.Method.GET,

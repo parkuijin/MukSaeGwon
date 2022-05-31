@@ -232,7 +232,7 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
     public void placesByCategory(String category){
 
         Log.i("LBRT: ",left+" "+bottom+" "+right+" "+top);
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/placesByCategory.jsp?left="+left+"&bottom="+bottom+"&right="+right+"&top="+top+"&category="+category;
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/placesByCategory.jsp?left="+left+"&bottom="+bottom+"&right="+right+"&top="+top+"&category="+category;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
@@ -277,6 +277,15 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
             marker = mMap.addMarker(markerOptions);
             marker.setTag(stores.get(i).getStoreId());
             markers.add(marker);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mFusedLocationClient != null) {
+            Log.d(TAG, "onStop : call stopLocationUpdates");
+            mFusedLocationClient.removeLocationUpdates(locationCallback);
         }
     }
 }
