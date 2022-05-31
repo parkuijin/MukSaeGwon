@@ -104,6 +104,16 @@ public class InfoStoreActivity extends AppCompatActivity {
         });
 
         isRunningSwitch = (Switch)findViewById(R.id.isRunningSwitch);
+        isRunningSwitch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isOn = ((Switch) v).isChecked();
+                if(isOn){
+                    storeRunCheck((byte) 1,store.getStoreId());
+                } else
+                    storeRunCheck((byte) 0,store.getStoreId());
+            }
+        });
 
         storeMenuRecyclerView = (RecyclerView) findViewById(R.id.storeMenuRecyclerView);
         storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -168,6 +178,27 @@ public class InfoStoreActivity extends AppCompatActivity {
         });
     }
 
+    private void storeRunCheck(byte b, String storeId) {
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
+        Log.i("URL: ",url);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+    }
+
     private void likeThisStore(boolean b,String mId, String storeId) {
         String url = "http://192.168.0.22:8080/MukSaeGwonServer/likeThisStore.jsp?like="+b+"&mId="+mId+"&storeId="+storeId;
         Log.i("URL: ",url);
@@ -230,6 +261,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         menuPrint(menuList);
 
         favoriteLoad(userId, store.getStoreId());
+        isRunningLoad(store.getStoreId());
     }
 
     public void payWayChecking(ArrayList<Boolean> bool){
@@ -262,7 +294,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void favoriteLoad(String mId, String storeId){
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoFavorite.jsp?mid="+mId+"&storeId="+storeId;
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoFavorite.jsp?mId="+mId+"&storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
@@ -272,6 +304,29 @@ public class InfoStoreActivity extends AppCompatActivity {
                         String[] result = response.split("\\?");
                         if (result[1].equals("1")){
                             favoriteBtn.setChecked(true);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+    }
+
+    public void isRunningLoad(String storeId){
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoRunning.jsp?storeId="+storeId;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String[] result = response.split("\\?");
+                        if (result[1].equals("1")){
+                            isRunningSwitch.setChecked(true);
                         }
                     }
                 },
