@@ -333,10 +333,34 @@ public class MsgXmlParser {
             b.add(mon);
             b.add(tue);
             b.add(wed);
-            b.add(wed);
+            b.add(thu);
             b.add(fri);
             b.add(sat);
             b.add(sun);
+        } catch (Exception e){}
+    }
+
+    public void categoryInfo(JSONObject category, ArrayList<Boolean> b){
+        try{
+            Boolean corn = Boolean.parseBoolean(category.getString("corn"));
+            Boolean fish = Boolean.parseBoolean(category.getString("fish"));
+            Boolean topokki = Boolean.parseBoolean(category.getString("topokki"));
+            Boolean eomuk = Boolean.parseBoolean(category.getString("eomuk"));
+            Boolean sweetpotato = Boolean.parseBoolean(category.getString("sweetpotato"));
+            Boolean toast = Boolean.parseBoolean(category.getString("toast"));
+            Boolean takoyaki = Boolean.parseBoolean(category.getString("takoyaki"));
+            Boolean waffle = Boolean.parseBoolean(category.getString("waffle"));
+            Boolean dakggochi = Boolean.parseBoolean(category.getString("dakggochi"));
+
+            b.add(corn);
+            b.add(fish);
+            b.add(topokki);
+            b.add(eomuk);
+            b.add(sweetpotato);
+            b.add(toast);
+            b.add(takoyaki);
+            b.add(waffle);
+            b.add(dakggochi);
         } catch (Exception e){}
     }
 
@@ -355,4 +379,5 @@ public class MsgXmlParser {
             Log.e("JSONException: ", e.toString());
         }
     }
+
 }

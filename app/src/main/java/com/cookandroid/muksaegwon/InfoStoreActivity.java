@@ -45,7 +45,8 @@ public class InfoStoreActivity extends AppCompatActivity {
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
     CheckBox[] payWays = new CheckBox[3];
     CheckBox[] days = new CheckBox[7];
-    CheckBox cornStore, fishStore, topokkiStore, eomukStore, sweetpotatoStore, toastStore, takoyakiStore, waffleStore, dakggochiStore;
+    CheckBox[] categorys = new CheckBox[9];
+
     ImageView infoStoreFinBtn;
     ImageView reviewRegBtn;
     Dialog reviewRegDialog;
@@ -63,6 +64,8 @@ public class InfoStoreActivity extends AppCompatActivity {
     private ArrayList<Boolean> daysBooleans = new ArrayList<>();
     private ArrayList<Menu> menuList = new ArrayList<>();
     private MenuAdapter menuAdapter;
+
+    private ArrayList<Boolean> ctgBooleans = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,15 +110,15 @@ public class InfoStoreActivity extends AppCompatActivity {
         payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardStore);
         payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferStore);
 
-        cornStore = (CheckBox) findViewById(R.id.checkCornStore);
-        fishStore = (CheckBox) findViewById(R.id.checkFishStore);
-        topokkiStore = (CheckBox) findViewById(R.id.checkTopokkiStore);
-        eomukStore = (CheckBox) findViewById(R.id.checkEomukStore);
-        sweetpotatoStore = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
-        toastStore = (CheckBox) findViewById(R.id.checkToastStore);
-        takoyakiStore = (CheckBox) findViewById(R.id.checkTakoyakiStore);
-        waffleStore = (CheckBox) findViewById(R.id.checkWaffleStore);
-        dakggochiStore = (CheckBox) findViewById(R.id.checkDakggochiStore);
+        categorys[0] = (CheckBox) findViewById(R.id.checkCornStore);
+        categorys[1] = (CheckBox) findViewById(R.id.checkFishStore);
+        categorys[2] = (CheckBox) findViewById(R.id.checkTopokkiStore);
+        categorys[3] = (CheckBox) findViewById(R.id.checkEomukStore);
+        categorys[4] = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
+        categorys[5]= (CheckBox) findViewById(R.id.checkToastStore);
+        categorys[6] = (CheckBox) findViewById(R.id.checkTakoyakiStore);
+        categorys[7] = (CheckBox) findViewById(R.id.checkWaffleStore);
+        categorys[8] = (CheckBox) findViewById(R.id.checkDakggochiStore);
 
         openTimeStore = (TextView) findViewById(R.id.openTimeTvStore);
         offTimeStore = (TextView) findViewById(R.id.offTimeTvStore);
@@ -153,6 +156,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                         msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
                         msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
                         msgXmlParser.menuInfo(store.getMenus(),menuList);
+                        msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
 
                         updateUi(store);
                     }
@@ -171,6 +175,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeNameTv.setText(store.getStoreName());
         payWayChecking(payWayBooleans);
         daysChecking(daysBooleans);
+        categoryChecking(ctgBooleans);
 
         openTimeStore.setText(store.getOpenTime());
         offTimeStore.setText(store.getOffTime());
@@ -190,6 +195,14 @@ public class InfoStoreActivity extends AppCompatActivity {
         for(int i=0;i<bool.size();i++){
             if (bool.get(i)){
                 days[i].setChecked(true);
+            }
+        }
+    }
+
+    public void categoryChecking(ArrayList<Boolean> bool){
+        for(int i=0;i<bool.size();i++){
+            if (bool.get(i)){
+                categorys[i].setChecked(true);
             }
         }
     }
