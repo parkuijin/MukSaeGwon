@@ -10,6 +10,7 @@ import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -197,13 +198,6 @@ public class MsgXmlParser {
             boolean storeIdFlag=false, storeNameFlag = false, storeLocationFlag=false, latFlag = false, lngFlag = false, menuFlag = false,
                     payWayFlag = false, isRunningFlag = false, runDayFlag = false,
                     rtFlag = false, otFlag = false, caFlag = false;
-            String storeId="", storeName = "", openTime = "", offTime = "";
-            double lat = 0, lng = 0;
-            short isRunning = 0;
-            JSONObject runDay = null;
-            JSONObject payWay = null;
-            JSONArray menus = null;
-            JSONObject category = null;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
@@ -221,10 +215,10 @@ public class MsgXmlParser {
                     else if (xpp.getName().equals("offTime")) otFlag = true;
                 } else if (eventType == XmlPullParser.TEXT) {
                     if (storeIdFlag) {
-                        storeId = xpp.getText();
+                        store.setStoreId(xpp.getText());
                         storeIdFlag = false;
                     } else if (storeNameFlag) {
-                        storeName = xpp.getText();
+                        store.setStoreName(xpp.getText());
                         storeNameFlag = false;
                     } else if (storeLocationFlag) {
                         store.setStoreLocation(xpp.getText());
@@ -346,4 +340,19 @@ public class MsgXmlParser {
         } catch (Exception e){}
     }
 
+    public void menuInfo(JSONArray menus, ArrayList<Menu> m) {
+        JSONObject menu;
+        String name;
+        String price;
+        try {
+            for (int i = 0; i < menus.length(); i++) {
+                menu = menus.getJSONObject(i);
+                name = menu.getString("name");
+                price = menu.getString("price");
+                m.add(new Menu(name,price));
+            }
+        } catch (JSONException e){
+            Log.e("JSONException: ", e.toString());
+        }
+    }
 }

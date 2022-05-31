@@ -62,7 +62,10 @@
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.26296296296296295" />
+        <entry key="app/src/main/res/layout/activity_review.xml" value="0.2064814814814815" />
         <entry key="app/src/main/res/layout/fragment_map.xml" value="0.2527624309392265" />
+        <entry key="app/src/main/res/layout/item_menu.xml" value="0.2064814814814815" />
+        <entry key="app/src/main/res/layout/item_menu_tv.xml" value="0.2064814814814815" />
       </map>
     </option>
   </component>
