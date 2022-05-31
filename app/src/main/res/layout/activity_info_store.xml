@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".InfoStoreActivity">
 
 
@@ -13,10 +14,9 @@
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_rounded"
         android:elevation="15dp"
-        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/isRunningSwitch">
+        app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
             android:id="@+id/infoStoreFinBtn"
@@ -47,17 +47,25 @@
             app:layout_constraintVertical_bias="0.444" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-    <Switch
-        android:id="@+id/isRunningSwitch"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="운영 여부"
-        android:textOff="영업종료"
-        android:textOn="영업중"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:background="#FFFFFF"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/reviewRegTitleLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/reviewRegTitleLayout">
+
+        <Switch
+            android:id="@+id/isRunningSwitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="운영 여부"
+            android:textOff="영업종료"
+            android:textOn="영업중"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView2"
@@ -68,8 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/isRunningSwitch"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -229,6 +236,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="월"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -242,6 +250,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="화"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -255,6 +264,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="수"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -268,6 +278,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="목"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -281,6 +292,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="금"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -294,6 +306,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="토"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -307,6 +320,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
+                    android:enabled="false"
                     android:text="일"
                     android:textAlignment="center"
                     android:textColor="@drawable/radiobutton_textcolor_selector"
@@ -402,6 +416,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_corn_style"
+                    android:enabled="false"
                     android:paddingTop="5dp" />
 
                 <TextView
@@ -431,6 +446,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_sweetpotato_style"
+                    android:enabled="false"
                     android:paddingTop="8dp" />
 
                 <TextView
@@ -461,6 +477,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_topokki_style"
+                    android:enabled="false"
                     android:paddingTop="8dp" />
 
                 <TextView
@@ -490,6 +507,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_dakggochi_style"
+                    android:enabled="false"
                     android:paddingTop="8dp" />
 
                 <TextView
@@ -519,6 +537,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_toast_style"
+                    android:enabled="false"
                     android:paddingTop="8dp" />
 
                 <TextView
@@ -549,6 +568,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_eomuk_style"
+                    android:enabled="false"
                     android:paddingTop="8dp" />
 
                 <TextView
@@ -578,6 +598,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_fish_style"
+                    android:enabled="false"
                     android:paddingTop="5dp" />
 
                 <TextView
@@ -607,7 +628,8 @@
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
-                    android:drawableTop="@drawable/button_category_takoyaki_style" />
+                    android:drawableTop="@drawable/button_category_takoyaki_style"
+                    android:enabled="false" />
 
                 <TextView
                     android:id="@+id/textView8"
@@ -636,6 +658,7 @@
                     android:background="@drawable/radiobutton_background_selector"
                     android:button="@android:color/transparent"
                     android:drawableTop="@drawable/button_category_waffle_style"
+                    android:enabled="false"
                     android:paddingLeft="1dp"
                     android:paddingTop="8dp" />
 
@@ -672,7 +695,8 @@
                     android:id="@+id/storeMenuRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp" />
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="32dp" />
 
             </LinearLayout>
 
@@ -697,7 +721,8 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/storeReviewRecyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginEnd="32dp">
 
                 </androidx.recyclerview.widget.RecyclerView>
 
