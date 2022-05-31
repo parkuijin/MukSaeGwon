@@ -8,6 +8,7 @@ import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.PayWay;
 import com.cookandroid.muksaegwon.model.Review;
 import com.cookandroid.muksaegwon.model.Store;
+import com.cookandroid.muksaegwon.model.StoreReview;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -59,6 +60,43 @@ public class MsgXmlParser {
                         date = xpp.getText();
                         dateFlag = false;
                         reviews.add(new Review(review, storeName, date, rating));
+                    }
+                }
+                eventType = xpp.next();
+            }
+        } catch (Exception e) {
+            Log.e("ERROR: ", e.toString());
+        }
+    }
+
+    public void xmlParsingSRFM(ArrayList<StoreReview> sr) {
+        String review = "", date;
+        short rating = 0;
+        ArrayList<StoreReview> storeReviews = sr;
+        try {
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            xpp = factory.newPullParser();
+            xpp.setInput(new StringReader(data));
+            eventType = xpp.getEventType();
+            boolean reviewFlag = false, ratingFlag = false, dateFlag = false;
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    if (xpp.getName().equals("review")) reviewFlag = true;
+                    else if (xpp.getName().equals("rating")) ratingFlag = true;
+                    else if (xpp.getName().equals("date")) dateFlag = true;
+                } else if (eventType == XmlPullParser.TEXT) {
+                    if (reviewFlag) {
+                        review = xpp.getText();
+                        reviewFlag = false;
+                    } else if (ratingFlag) {
+                        rating = Short.parseShort(xpp.getText());
+                        ratingFlag = false;
+                    } else if (dateFlag) {
+                        date = xpp.getText();
+                        dateFlag = false;
+                        storeReviews.add(new StoreReview(review, date, rating));
                     }
                 }
                 eventType = xpp.next();

@@ -11,12 +11,6 @@ public class StoreReview {
         this.rating = rating;
     }
 
-    public void setStoreReview(String review, String date, short rating) {
-        this.review = review;
-        this.date = date;
-        this.rating = rating;
-    }
-
     public String getReview() {
         return review;
     }
