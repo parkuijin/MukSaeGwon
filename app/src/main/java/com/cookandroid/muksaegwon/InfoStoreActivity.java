@@ -24,8 +24,10 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.adapter.MenuAdapter;
 import com.cookandroid.muksaegwon.adapter.StoreReviewAdapter;
 import com.cookandroid.muksaegwon.controller.MsgXmlParser;
+import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
 
@@ -34,7 +36,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InfoStoreActivity extends AppCompatActivity {
-    Store store = new Store();
 
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
     CheckBox[] payWays = new CheckBox[3];
@@ -49,8 +50,14 @@ public class InfoStoreActivity extends AppCompatActivity {
     Button reviewSubmitBtn;
 
     RecyclerView storeReviewRecyclerView, storeMenuRecyclerView;
+
     StoreReviewAdapter storeReviewAdapter;
     ArrayList<StoreReview> storeReviews;
+
+    MenuAdapter storeMenuAdapter;
+    ArrayList<Menu> storeMenus;
+
+    Store store;
 
     String storeId;
     private ArrayList<Boolean> payWayBooleans = new ArrayList<>();
@@ -62,7 +69,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         setContentView(R.layout.activity_info_store);
 
         storeId = getIntent().getStringExtra("storeId");
-        Log.i("StoreId:", storeId+"");
+        Log.i("StoreId:", storeId + "");
         loadStoreInfo(storeId);
 
         // ActionBar hide
@@ -75,8 +82,13 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        store = new Store();
+        storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         storeReviewAdapter = new StoreReviewAdapter(storeReviews);
         storeReviewRecyclerView.setAdapter(storeReviewAdapter);
+
+
 
         reviewRating = (RatingBar) findViewById(R.id.reviewRating);
         reviewContent = (EditText) findViewById(R.id.reviewContent);
@@ -89,11 +101,11 @@ public class InfoStoreActivity extends AppCompatActivity {
 
         days[0] = (CheckBox) findViewById(R.id.checkMonStore);
         days[1] = (CheckBox) findViewById(R.id.checkTueStore);
-        days[2]= (CheckBox) findViewById(R.id.checkWedStore);
-        days[3]= (CheckBox) findViewById(R.id.checkThuStore);
-        days[4]= (CheckBox) findViewById(R.id.checkFriStore);
-        days[5]= (CheckBox) findViewById(R.id.checkSatStore);
-        days[6]= (CheckBox) findViewById(R.id.checkSunStore);
+        days[2] = (CheckBox) findViewById(R.id.checkWedStore);
+        days[3] = (CheckBox) findViewById(R.id.checkThuStore);
+        days[4] = (CheckBox) findViewById(R.id.checkFriStore);
+        days[5] = (CheckBox) findViewById(R.id.checkSatStore);
+        days[6] = (CheckBox) findViewById(R.id.checkSunStore);
 
         payWays[0] = (CheckBox) findViewById(R.id.checkCashStore);
         payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardStore);
@@ -131,20 +143,25 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         });
     }
-    public void loadStoreInfo(String storeId){
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
+
+    public void loadStoreInfo(String storeId) {
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoStore.jsp?storeId=" + storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("response: ",response);
+                        Log.i("response: ", response);
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingForStore(store);
-                        msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
-                        msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
+                        msgXmlParser.payWayInfo(store.getPayWay(), payWayBooleans);
+                        msgXmlParser.daysInfo(store.getRunDay(), daysBooleans);
+                        msgXmlParser.jsonParsingMNP(store.getMenus(), storeMenus);
                         updateUi(store);
+
+                        storeMenuAdapter = new MenuAdapter(storeMenus);
+                        storeMenuRecyclerView.setAdapter(storeMenuAdapter);
                     }
                 },
                 new Response.ErrorListener() {
@@ -156,7 +173,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-    public void updateUi(Store store){
+    public void updateUi(Store store) {
         storeLocationTv.setText(store.getStoreLocation());
         storeNameTv.setText(store.getStoreName());
         openTimeStore.setText(store.getOpenTime());
@@ -167,24 +184,23 @@ public class InfoStoreActivity extends AppCompatActivity {
         offTimeStore.setText(store.getOffTime());
     }
 
-    public void payWayChecking(ArrayList<Boolean> bool){
-        for(int i=0;i<bool.size();i++){
-            if (bool.get(i)){
+    public void payWayChecking(ArrayList<Boolean> bool) {
+        for (int i = 0; i < bool.size(); i++) {
+            if (bool.get(i)) {
                 payWays[i].setChecked(true);
             }
         }
     }
 
-    public void daysChecking(ArrayList<Boolean> bool){
-        for(int i=0;i<bool.size();i++){
-            if (bool.get(i)){
+    public void daysChecking(ArrayList<Boolean> bool) {
+        for (int i = 0; i < bool.size(); i++) {
+            if (bool.get(i)) {
                 days[i].setChecked(true);
             }
         }
     }
 
-
-    public void reviewRegister(){
+    public void reviewRegister() {
         String url = "";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -198,19 +214,17 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
                     }
                 }) {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-
-                params.put("rating",String.valueOf(reviewRating.getRating()));
-                params.put("review",reviewContent.getText().toString());
-
+                params.put("rating", String.valueOf(reviewRating.getRating()));
+                params.put("review", reviewContent.getText().toString());
                 return params;
             }
         };
         requestQueue.add(stringRequest);
+
     }
 }

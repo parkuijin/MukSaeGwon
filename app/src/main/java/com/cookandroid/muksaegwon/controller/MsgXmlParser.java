@@ -149,7 +149,7 @@ public class MsgXmlParser {
     }
 
     public void xmlParsingForStore(Store s) {
-        Store store = s;
+         Store store = s;
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
@@ -160,33 +160,33 @@ public class MsgXmlParser {
             boolean storeIdFlag=false, storeNameFlag = false, storeLocationFlag=false, latFlag = false, lngFlag = false, menuFlag = false,
                     payWayFlag = false, isRunningFlag = false, runDayFlag = false,
                     rtFlag = false, otFlag = false, caFlag = false;
-//            String storeId="", storeName = "", storeLocation="", runDay = "", openTime = "", offTime = "";
-//            double lat = 0, lng = 0;
-//            short isRunning = 0;
-//            JSONObject payWay = null;
-//            JSONArray menus = null;
-//            JSONObject category = null;
+            String storeId="", storeName = "", openTime = "", offTime = "";
+            double lat = 0, lng = 0;
+            short isRunning = 0;
+            JSONObject runDay = null;
+            JSONObject payWay = null;
+            JSONArray menus = null;
+            JSONObject category = null;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (xpp.getName().equals("storeId")) storeIdFlag = true;
                     else if (xpp.getName().equals("storeName")) storeNameFlag = true;
-                    else if (xpp.getName().equals("storeLocation")) storeLocationFlag = true;
                     else if (xpp.getName().equals("lat")) latFlag = true;
                     else if (xpp.getName().equals("lng")) lngFlag = true;
-                    else if (xpp.getName().equals("category")) caFlag = true;
                     else if (xpp.getName().equals("menu")) menuFlag = true;
                     else if (xpp.getName().equals("payWay")) payWayFlag = true;
                     else if (xpp.getName().equals("isRunning")) isRunningFlag = true;
                     else if (xpp.getName().equals("runDay")) runDayFlag = true;
                     else if (xpp.getName().equals("openTime")) rtFlag = true;
                     else if (xpp.getName().equals("offTime")) otFlag = true;
+                    else if (xpp.getName().equals("category")) caFlag = true;
                 } else if (eventType == XmlPullParser.TEXT) {
                     if (storeIdFlag) {
-                        store.setStoreId(xpp.getText());
+                        storeId = xpp.getText();
                         storeIdFlag = false;
                     } else if (storeNameFlag) {
-                        store.setStoreName(xpp.getText());
+                        storeName = xpp.getText();
                         storeNameFlag = false;
                     } else if (storeLocationFlag) {
                         store.setStoreLocation(xpp.getText());
@@ -232,8 +232,6 @@ public class MsgXmlParser {
             }
         } catch (Exception e) {}
     }
-
-
 
     public void jsonParsingMNP(JSONArray MNP, ArrayList<Menu> m) {
         ArrayList<Menu> menus = m;
