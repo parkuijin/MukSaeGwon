@@ -172,15 +172,16 @@ public class MsgXmlParser {
                 if (eventType == XmlPullParser.START_TAG) {
                     if (xpp.getName().equals("storeId")) storeIdFlag = true;
                     else if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    else if (xpp.getName().equals("storeLocation")) storeLocationFlag = true;
                     else if (xpp.getName().equals("lat")) latFlag = true;
                     else if (xpp.getName().equals("lng")) lngFlag = true;
+                    else if (xpp.getName().equals("category")) caFlag = true;
                     else if (xpp.getName().equals("menu")) menuFlag = true;
                     else if (xpp.getName().equals("payWay")) payWayFlag = true;
                     else if (xpp.getName().equals("isRunning")) isRunningFlag = true;
                     else if (xpp.getName().equals("runDay")) runDayFlag = true;
                     else if (xpp.getName().equals("openTime")) rtFlag = true;
                     else if (xpp.getName().equals("offTime")) otFlag = true;
-                    else if (xpp.getName().equals("category")) caFlag = true;
                 } else if (eventType == XmlPullParser.TEXT) {
                     if (storeIdFlag) {
                         storeId = xpp.getText();
