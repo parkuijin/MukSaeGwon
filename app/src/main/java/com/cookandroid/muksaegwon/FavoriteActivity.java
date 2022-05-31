@@ -43,7 +43,7 @@ public class FavoriteActivity extends AppCompatActivity {
         favorites = new ArrayList<Favorite>();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        String url = "http://172.111.113.13:8080/MukSaeGwonServer/reviewFromMember.jsp?uId=1000";
+        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/reviewFromMember.jsp?uId=1000";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
