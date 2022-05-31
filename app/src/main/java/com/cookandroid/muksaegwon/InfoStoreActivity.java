@@ -1,6 +1,7 @@
 package com.cookandroid.muksaegwon;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.Image;
@@ -12,6 +13,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
@@ -46,6 +48,8 @@ public class InfoStoreActivity extends AppCompatActivity {
     CheckBox[] payWays = new CheckBox[3];
     CheckBox[] days = new CheckBox[7];
     CheckBox[] categorys = new CheckBox[9];
+    CheckBox favoriteBtn;
+    Switch isRunningSwitch;
 
     ImageView infoStoreFinBtn;
     ImageView reviewRegBtn;
@@ -67,10 +71,17 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     private ArrayList<Boolean> ctgBooleans = new ArrayList<>();
 
+    SharedPreferences preferences;
+    String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_store);
+
+        preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        userId = preferences.getString("userId","");
+
 
         storeId = getIntent().getStringExtra("storeId");
         Log.i("StoreId:", storeId+"");
@@ -79,6 +90,20 @@ public class InfoStoreActivity extends AppCompatActivity {
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
+
+        favoriteBtn = (CheckBox) findViewById(R.id.favoriteBtn);
+        favoriteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                boolean isChecked = ((CheckBox)v).isChecked();
+                if(isChecked){
+                    likeThisStore(true,userId,store.getStoreId());
+                } else
+                    likeThisStore(false,userId,store.getStoreId());
+            }
+        });
+
+        isRunningSwitch = (Switch)findViewById(R.id.isRunningSwitch);
 
         storeMenuRecyclerView = (RecyclerView) findViewById(R.id.storeMenuRecyclerView);
         storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -142,6 +167,28 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         });
     }
+
+    private void likeThisStore(boolean b,String mId, String storeId) {
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/likeThisStore.jsp?like="+b+"&mId="+mId+"&storeId="+storeId;
+        Log.i("URL: ",url);
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+    }
+
     public void loadStoreInfo(String storeId){
         String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoStore.jsp?storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -181,6 +228,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         offTimeStore.setText(store.getOffTime());
 
         menuPrint(menuList);
+
+        favoriteLoad(userId, store.getStoreId());
     }
 
     public void payWayChecking(ArrayList<Boolean> bool){
@@ -210,6 +259,29 @@ public class InfoStoreActivity extends AppCompatActivity {
     public void menuPrint(ArrayList<Menu> m) {
         menuAdapter = new MenuAdapter(m);
         storeMenuRecyclerView.setAdapter(menuAdapter);
+    }
+
+    public void favoriteLoad(String mId, String storeId){
+        String url = "http://192.168.0.22:8080/MukSaeGwonServer/infoFavorite.jsp?mid="+mId+"&storeId="+storeId;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        String[] result = response.split("\\?");
+                        if (result[1].equals("1")){
+                            favoriteBtn.setChecked(true);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
     }
 
 

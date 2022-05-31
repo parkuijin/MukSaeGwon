@@ -36,7 +36,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
     private GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
     private Member member;
-    SharedPreferences Preferences;
+    SharedPreferences preferences;
 
 
     @Override
@@ -157,8 +157,9 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         //SharedPreference
-        Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
-        String uName = Preferences.getString("name", "");
-
+        preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("userId",id);
+        editor.apply();
     }
 }
