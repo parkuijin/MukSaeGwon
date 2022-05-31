@@ -260,7 +260,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        Log.i("MarkerTAG: ",marker.getTag()+"");
+        String storeId = marker.getTag().toString();
+
+        Intent intent = new Intent(getContext(), InfoStoreActivity.class);
+        intent.putExtra("storeId", storeId);
+        startActivity(intent);
         return false;
     }
 
