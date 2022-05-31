@@ -133,7 +133,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         nameTv.setText(name);
         findViewById(R.id.sign_in_button).setVisibility(View.INVISIBLE);
 
-        String url = "http://ec2-34-220-95-97.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/userRegister.jsp?uId=" + id + "&uName=" + name +"&";
         Log.i("INFO: ", url);
         if (account != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
