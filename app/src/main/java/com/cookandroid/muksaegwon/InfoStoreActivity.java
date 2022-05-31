@@ -1,6 +1,7 @@
 package com.cookandroid.muksaegwon;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -31,16 +32,23 @@ import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InfoStoreActivity extends AppCompatActivity {
 
+    Long now = System.currentTimeMillis();
+    Date date = new Date(now);
+    SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+    String getDate = ymd.format(date);
+
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
     CheckBox[] payWays = new CheckBox[3];
     CheckBox[] days = new CheckBox[7];
-    CheckBox cornStore, fishStore, topokkiStore, eomukStore, sweetpotatoStore, toastStore, takoyakiStore, waffleStore, dakggochiStore;
+    CheckBox[] category = new CheckBox[9];
     ImageView infoStoreFinBtn;
     Button reviewRegBtn;
     Dialog reviewRegDialog;
@@ -60,8 +68,10 @@ public class InfoStoreActivity extends AppCompatActivity {
     Store store;
 
     String storeId;
+
     private ArrayList<Boolean> payWayBooleans = new ArrayList<>();
     private ArrayList<Boolean> daysBooleans = new ArrayList<>();
+    private ArrayList<Boolean> categoryBooleans = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,9 +95,11 @@ public class InfoStoreActivity extends AppCompatActivity {
         store = new Store();
         storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        storeReviewAdapter = new StoreReviewAdapter(storeReviews);
-        storeReviewRecyclerView.setAdapter(storeReviewAdapter);
 
+        /*MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+        msgXmlParser.xmlParsingSRFM(storeReviews);
+        storeReviewAdapter = new StoreReviewAdapter(storeReviews);
+        storeReviewRecyclerView.setAdapter(storeReviewAdapter);*/
 
 
         reviewRating = (RatingBar) findViewById(R.id.reviewRating);
@@ -111,15 +123,15 @@ public class InfoStoreActivity extends AppCompatActivity {
         payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardStore);
         payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferStore);
 
-        cornStore = (CheckBox) findViewById(R.id.checkCornStore);
-        fishStore = (CheckBox) findViewById(R.id.checkFishStore);
-        topokkiStore = (CheckBox) findViewById(R.id.checkTopokkiStore);
-        eomukStore = (CheckBox) findViewById(R.id.checkEomukStore);
-        sweetpotatoStore = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
-        toastStore = (CheckBox) findViewById(R.id.checkToastStore);
-        takoyakiStore = (CheckBox) findViewById(R.id.checkTakoyakiStore);
-        waffleStore = (CheckBox) findViewById(R.id.checkWaffleStore);
-        dakggochiStore = (CheckBox) findViewById(R.id.checkDakggochiStore);
+        category[0] = (CheckBox) findViewById(R.id.checkCornStore);
+        category[1] = (CheckBox) findViewById(R.id.checkFishStore);
+        category[2] = (CheckBox) findViewById(R.id.checkTopokkiStore);
+        category[3] = (CheckBox) findViewById(R.id.checkEomukStore);
+        category[4] = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
+        category[5] = (CheckBox) findViewById(R.id.checkToastStore);
+        category[6] = (CheckBox) findViewById(R.id.checkTakoyakiStore);
+        category[7] = (CheckBox) findViewById(R.id.checkWaffleStore);
+        category[8] = (CheckBox) findViewById(R.id.checkDakggochiStore);
 
         openTimeStore = (TextView) findViewById(R.id.openTimeTvStore);
         offTimeStore = (TextView) findViewById(R.id.offTimeTvStore);
@@ -179,7 +191,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         openTimeStore.setText(store.getOpenTime());
         payWayChecking(payWayBooleans);
         daysChecking(daysBooleans);
-
+        categoryChecking(categoryBooleans);
         Log.i("OPENTIME: ", store.getOpenTime());
         offTimeStore.setText(store.getOffTime());
     }
@@ -200,31 +212,45 @@ public class InfoStoreActivity extends AppCompatActivity {
         }
     }
 
+    public void categoryChecking(ArrayList<Boolean> bool) {
+        for (int i=0; i < bool.size(); i++){
+            if (bool.get(i)){
+                category[i].setChecked(true);
+            }
+        }
+    }
+
     public void reviewRegister() {
         String url = "";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
-                params.put("rating", String.valueOf(reviewRating.getRating()));
-                params.put("review", reviewContent.getText().toString());
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
-
+        // 평점, 리뷰 내용이 null이 아닐 시 실행
+        if(!String.valueOf(reviewRating.getRating()).equals(null) && !reviewContent.getText().toString().equals(null)) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            // 리뷰 등록 시 액티비티 갱신
+                            finish();
+                            Intent intent = getIntent();
+                            startActivity(intent);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("rating", String.valueOf(reviewRating.getRating()));
+                    params.put("review", reviewContent.getText().toString());
+                    params.put("date", getDate);
+                    return params;
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
     }
 }
