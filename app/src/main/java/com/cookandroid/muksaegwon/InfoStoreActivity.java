@@ -170,6 +170,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                         msgXmlParser.payWayInfo(store.getPayWay(), payWayBooleans);
                         msgXmlParser.daysInfo(store.getRunDay(), daysBooleans);
                         msgXmlParser.jsonParsingMNP(store.getMenus(), storeMenus);
+                        msgXmlParser.jsonParsingCTG(store.getCategory(), categoryBooleans);
                         updateUi(store);
 
                         storeMenuAdapter = new MenuAdapter(storeMenus);
