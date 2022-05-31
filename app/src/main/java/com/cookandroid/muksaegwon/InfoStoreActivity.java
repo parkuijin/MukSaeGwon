@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InfoStoreActivity extends AppCompatActivity {
+public class InfoStoreActivity extends AppCompatActivity{
 
     Long now = System.currentTimeMillis();
     Date date = new Date(now);
@@ -50,7 +50,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     CheckBox[] days = new CheckBox[7];
     CheckBox[] category = new CheckBox[9];
     ImageView infoStoreFinBtn;
-    Button reviewRegBtn;
+    ImageView reviewRegBtn;
     Dialog reviewRegDialog;
 
     RatingBar reviewRating;
@@ -107,7 +107,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         reviewSubmitBtn = (Button) findViewById(R.id.reviewSubmitBtn);
 
         infoStoreFinBtn = (ImageView) findViewById(R.id.infoStoreFinBtn);
-        reviewRegBtn = (Button) findViewById(R.id.reviewRegBtn);
+        reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
         storeNameTv = (TextView) findViewById(R.id.StoreNameTv);
         storeLocationTv = (TextView) findViewById(R.id.StoreLocationTv);
 
