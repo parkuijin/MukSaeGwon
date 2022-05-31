@@ -133,8 +133,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         //SharedPreference
         Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
-        String uName = Preferences.getString("name", "");
-
+        SharedPreferences.Editor editor = Preferences.edit();
+        editor.putString("userId",id);
+        editor.apply();
     }
 
 }
