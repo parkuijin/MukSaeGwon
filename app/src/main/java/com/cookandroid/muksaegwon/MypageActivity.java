@@ -7,10 +7,10 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
@@ -44,8 +44,11 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mypage);
 
-        //찜 페이지 액티비티 열기
+        // ActionBar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
+        //찜 페이지 액티비티 열기
         heart = (ImageView) findViewById(R.id.heartBtn);
         heart.setOnClickListener(new View.OnClickListener() {
             @Override

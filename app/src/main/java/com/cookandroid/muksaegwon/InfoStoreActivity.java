@@ -106,7 +106,7 @@ public class InfoStoreActivity extends AppCompatActivity{
         reviewContent = (EditText) findViewById(R.id.reviewContent);
         reviewSubmitBtn = (Button) findViewById(R.id.reviewSubmitBtn);
 
-        infoStoreFinBtn = (ImageView) findViewById(R.id.infoStoreFinBtn);
+        infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back3);
         reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
         storeNameTv = (TextView) findViewById(R.id.StoreNameTv);
         storeLocationTv = (TextView) findViewById(R.id.StoreLocationTv);

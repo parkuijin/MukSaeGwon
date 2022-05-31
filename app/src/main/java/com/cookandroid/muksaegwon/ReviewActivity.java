@@ -1,16 +1,14 @@
 package com.cookandroid.muksaegwon;
 
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -40,7 +38,9 @@ public class ReviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
 
-
+        // ActionBar hide
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         reviewRecyclerView = (RecyclerView) findViewById(R.id.reviewRecyclerView);
 
@@ -74,12 +74,11 @@ public class ReviewActivity extends AppCompatActivity {
 
 
         //뒤로가기 버튼 누르면 ReviewActivity전환
-        ImageView imageView = (ImageView) findViewById(R.id.btn_back);
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back3);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
