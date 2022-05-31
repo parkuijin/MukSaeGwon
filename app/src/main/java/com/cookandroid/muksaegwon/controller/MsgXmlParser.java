@@ -2,7 +2,6 @@ package com.cookandroid.muksaegwon.controller;
 
 import android.util.Log;
 
-import com.cookandroid.muksaegwon.model.Category;
 import com.cookandroid.muksaegwon.model.Favorite;
 import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.PayWay;
@@ -284,19 +283,26 @@ public class MsgXmlParser {
         } catch (Exception e) {}
     }
 
-    public void jsonParsingCTG(JSONObject CTG, ArrayList<Category> c) {
-        ArrayList<Category> categories = c;
+    public void jsonParsingCTG(JSONObject CTG, ArrayList<Boolean> c) {
         try {
-            String corn = CTG.getString("corn");
-            String fish = CTG.getString("fish");
-            String topokki = CTG.getString("topokki");
-            String eomuk = CTG.getString("eomuk");
-            String sweetpotato = CTG.getString("sweetpotato");
-            String toast = CTG.getString("toast");
-            String takoyaki = CTG.getString("takoyaki");
-            String waffle = CTG.getString("waffle");
-            String dakggochi = CTG.getString("dakggochi");
-            categories.add(new Category(corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi));
+            Boolean corn = Boolean.parseBoolean(CTG.getString("corn"));
+            Boolean fish = Boolean.parseBoolean(CTG.getString("fish"));
+            Boolean topokki = Boolean.parseBoolean(CTG.getString("topokki"));
+            Boolean eomuk = Boolean.parseBoolean(CTG.getString("eomuk"));
+            Boolean sweetpotato = Boolean.parseBoolean(CTG.getString("sweetpotato"));
+            Boolean toast = Boolean.parseBoolean(CTG.getString("toast"));
+            Boolean takoyaki = Boolean.parseBoolean(CTG.getString("takoyaki"));
+            Boolean waffle = Boolean.parseBoolean(CTG.getString("waffle"));
+            Boolean dakggochi = Boolean.parseBoolean(CTG.getString("dakggochi"));
+            c.add(corn);
+            c.add(fish);
+            c.add(topokki);
+            c.add(eomuk);
+            c.add(sweetpotato);
+            c.add(toast);
+            c.add(takoyaki);
+            c.add(waffle);
+            c.add(dakggochi);
         } catch (Exception e) {}
     }
 
