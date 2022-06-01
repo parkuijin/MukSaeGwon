@@ -30,7 +30,7 @@ public class MsgXmlParser {
 
     public void xmlParsingRFM(ArrayList<Review> r) {
         String review = "", storeName = "", date;
-        short rating = 0;
+        float rating = 0;
         ArrayList<Review> reviews = r;
         try {
             factory = XmlPullParserFactory.newInstance();
@@ -54,7 +54,7 @@ public class MsgXmlParser {
                         storeName = xpp.getText();
                         storeNameFlag = false;
                     } else if (ratingFlag) {
-                        rating = Short.parseShort(xpp.getText());
+                        rating = Float.parseFloat(xpp.getText());
                         ratingFlag = false;
                     } else if (dateFlag) {
                         date = xpp.getText();
@@ -71,7 +71,7 @@ public class MsgXmlParser {
 
     public void xmlParsingSRFM(ArrayList<StoreReview> sr) {
         String review = "", date;
-        short rating = 0;
+        float rating = 0;
         ArrayList<StoreReview> storeReviews = sr;
         try {
             factory = XmlPullParserFactory.newInstance();
@@ -91,7 +91,7 @@ public class MsgXmlParser {
                         review = xpp.getText();
                         reviewFlag = false;
                     } else if (ratingFlag) {
-                        rating = Short.parseShort(xpp.getText());
+                        rating = Float.parseFloat(xpp.getText());
                         ratingFlag = false;
                     } else if (dateFlag) {
                         date = xpp.getText();

@@ -3,9 +3,9 @@ package com.cookandroid.muksaegwon.model;
 public class StoreReview {
     private String review;
     private String date;
-    private short rating;
+    private float rating;
 
-    public StoreReview(String review, String date, short rating) {
+    public StoreReview(String review, String date, float rating) {
         this.review = review;
         this.date = date;
         this.rating = rating;
@@ -27,7 +27,7 @@ public class StoreReview {
         this.date = date;
     }
 
-    public short getRating() {
+    public float getRating() {
         return rating;
     }
 

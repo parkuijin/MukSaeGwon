@@ -4,9 +4,9 @@ public class Review {
     private String review;
     private String storeName;
     private String date;
-    private short rating;
+    private float rating;
 
-    public Review(String review, String storeName, String date, short rating) {
+    public Review(String review, String storeName, String date, float rating) {
         this.review = review;
         this.storeName = storeName;
         this.date = date;
@@ -37,7 +37,7 @@ public class Review {
         this.date = date;
     }
 
-    public short getRating() {
+    public float getRating() {
         return rating;
     }
 
