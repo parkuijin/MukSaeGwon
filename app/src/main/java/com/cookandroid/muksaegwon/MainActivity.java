@@ -1,14 +1,12 @@
 package com.cookandroid.muksaegwon;
 
-import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -16,8 +14,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -86,9 +82,7 @@ public class MainActivity extends AppCompatActivity{
 //                });
 
                 // 로그인 액티비티 열기
-                MypageButton = (ImageView)
-
-                        findViewById(R.id.MypageButton);
+                MypageButton = (ImageView) findViewById(R.id.MypageButton);
                 MypageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -98,9 +92,7 @@ public class MainActivity extends AppCompatActivity{
                 });
 
                 // 가게 등록 액티비티 열기
-                RegisterButton = (ImageView)
-
-                        findViewById(R.id.RegisterButton);
+                RegisterButton = (ImageView) findViewById(R.id.RegisterButton);
                 RegisterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -109,15 +101,14 @@ public class MainActivity extends AppCompatActivity{
                     }
                 });
 
-                // 테스트용 가게 정보 액티비티 열기
-                MapButton = (ImageView)
-
-                        findViewById(R.id.MapButton);
+                // 새로 고침 버튼
+                MapButton = (ImageView) findViewById(R.id.MapButton);
                 MapButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
-                        startActivity(intent);
+                        FragmentTransaction ft = fragmentManager.beginTransaction();
+                        ft.detach(mapFragment).attach(mapFragment).commit();
+                        Toast.makeText(MainActivity.this, "지도가 갱신 되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
