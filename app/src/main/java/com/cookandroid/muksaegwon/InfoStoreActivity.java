@@ -248,7 +248,6 @@ public class InfoStoreActivity extends AppCompatActivity {
                         msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
                         msgXmlParser.menuInfo(store.getMenus(),menuList);
                         msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
-
                         updateUi(store);
                     }
                 },
@@ -272,7 +271,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         offTimeStore.setText(store.getOffTime());
 
         menuPrint(menuList);
-        /*reviewPrint();*/
+        reviewPrint(storeReviews);
 
         favoriteLoad(userId, store.getStoreId());
         isRunningLoad(store.getStoreId());
@@ -308,6 +307,25 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void reviewPrint(ArrayList<StoreReview> m) {
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/reviewFromStore.jsp?sId="+storeId;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("response:", response);
+                        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+                        msgXmlParser.xmlParsingSRFM(m);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
         storeReviewAdapter = new StoreReviewAdapter(m);
         storeReviewRecyclerView.setAdapter(storeReviewAdapter);
     }
@@ -359,7 +377,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     private void reviewSubmit(float rating, Editable text) {
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwon/reviewRegister.jsp";
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/reviewRegister.jsp";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         if(!String.valueOf(reviewRating.getRating()).equals(null) && !reviewContent.getText().toString().equals(null)) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -373,7 +391,6 @@ public class InfoStoreActivity extends AppCompatActivity {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
-
                         }
                     }) {
                 @Override
@@ -384,12 +401,11 @@ public class InfoStoreActivity extends AppCompatActivity {
                     params.put("rating", String.valueOf(rating));
                     params.put("review", text.toString());
                     params.put("date", getDate);
+                    Log.i("PARAMA:",params.toString());
                     return params;
                 }
             };
             requestQueue.add(stringRequest);
         }
     }
-
-
 }

@@ -261,9 +261,6 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
                         // isRunning (Default 0)
                         params.put("isRunning", "0");
-
-                        Log.i("PARAMS: ", params.toString());
-
                         return params;
                     }
                 };
