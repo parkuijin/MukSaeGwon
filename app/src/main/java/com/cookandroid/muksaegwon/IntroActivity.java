@@ -1,40 +1,69 @@
 package com.cookandroid.muksaegwon;
 
+import static android.content.ContentValues.TAG;
+
 import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 
-public class IntroActivity extends AppCompatActivity{
+public class IntroActivity extends AppCompatActivity implements ActivityCompat.OnRequestPermissionsResultCallback,View.OnClickListener{
+    private LoginCallback loginCallback;
+
+    public interface LoginCallback{
+        void logined(boolean locationBool);
+    }
+    public void setLoginCallback(LoginCallback loginCallback){
+        this.loginCallback = loginCallback;
+    }
+
     public static Activity activity;
+
     ImageView image;
     private long backPressedTime = 0;
     private final long FINISH_INTERVAL_TIME = 2000;
 
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
-    private ActivityResultContracts.RequestMultiplePermissions multiplePermissionsContract = new ActivityResultContracts.RequestMultiplePermissions();
-    private ActivityResultLauncher<String[]> multiplePermissionLauncher = registerForActivityResult(multiplePermissionsContract, isGranted -> {
-        Log.d("PERMISSIONS", "Launcher result: " + isGranted.toString());
-        if (isGranted.containsValue(false)) {
-            Log.d("PERMISSIONS", "At least one of the permissions was not granted, launching again...");
-            Toast.makeText(getApplicationContext(),"위치 권한이 필요합니다",Toast.LENGTH_LONG).show();
-        } else {
-            setResult(Activity.RESULT_OK);
-        }
-    });
+    // LOGIN PART
+    private static final int RC_SIGN_IN = 1000;
+    GoogleSignInClient mGoogleSignInClient;
+    GoogleSignInAccount account;
+    SharedPreferences Preferences;
+    SignInButton signInButton;
+    boolean locationPermission;
+
+    SpinKitView spinKitView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,49 +77,136 @@ public class IntroActivity extends AppCompatActivity{
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        if(!initCheckPermission()){
-            askPermissions(multiplePermissionLauncher);
+        spinKitView = (SpinKitView)findViewById(R.id.spin_kit);
+
+        //LOGIN
+        signInButton = findViewById(R.id.sign_in_button);
+        signInButton.setSize(SignInButton.SIZE_WIDE);
+        findViewById(R.id.sign_in_button).setOnClickListener(this);
+
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null){
+            signIn();
+        }
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.sign_in_button:
+                signIn();
+                break;
+            // ...
         }
     }
 
-    private void askPermissions(ActivityResultLauncher<String[]> multiplePermissionLauncher) {
-        if (!hasPermissions(REQUIRED_PERMISSIONS)) {
-            Log.d("PERMISSIONS", "Launching multiple contract permission launcher for ALL required permissions");
-            multiplePermissionLauncher.launch(REQUIRED_PERMISSIONS);
+    private void signIn() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            account = completedTask.getResult(ApiException.class);
+
+            Log.d(TAG, "Account received");
+            updateInfo(account.getId(), account.getDisplayName());
+            // Signed in successfully, show authenticated UI.
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+        }
+    }
+
+    private void updateInfo(String id, String name) {
+        signInButton.setVisibility(View.INVISIBLE);
+        spinKitView.setVisibility(View.VISIBLE);
+
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("INFO:", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
+
+        //SharedPreference
+        Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        SharedPreferences.Editor editor = Preferences.edit();
+        editor.putString("userId",id);
+        editor.apply();
+
+        permissionCheck();
+    }
+
+    public void LogOn(boolean b){
+        loginCallback.logined(b);
+    }
+
+    public void permissionCheck(){
+        int hasFineLocationPermission = ContextCompat.checkSelfPermission(getApplicationContext(), REQUIRED_PERMISSIONS[0]);
+        int hasCoarseLocationPermission = ContextCompat.checkSelfPermission(getApplicationContext(), REQUIRED_PERMISSIONS[1]);
+
+        if (hasFineLocationPermission == PackageManager.PERMISSION_GRANTED &&
+                hasCoarseLocationPermission == PackageManager.PERMISSION_GRANTED){
+            locationPermission = true;
+            ((MapFragment)MapFragment.mapFragment).startLogin(locationPermission);
         } else {
-            Log.d("PERMISSIONS", "All permissions are already granted");
-        }
-    }
-
-
-
-    private boolean hasPermissions(String[] permissions) {
-        if (permissions != null) {
-            for (String permission : permissions) {
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), permission) != PackageManager.PERMISSION_GRANTED) {
-                    Log.d("PERMISSIONS", "Permission is not granted: " + permission);
-                    return false;
-                }
-                Log.d("PERMISSIONS", "Permission already granted: " + permission);
+            if(ActivityCompat.shouldShowRequestPermissionRationale(this,REQUIRED_PERMISSIONS[0])){
+                ActivityCompat.requestPermissions(this,REQUIRED_PERMISSIONS,200);
+            } else {
+                ActivityCompat.requestPermissions(this,REQUIRED_PERMISSIONS,200);
             }
-            return true;
         }
-        return false;
     }
 
-    public boolean initCheckPermission(){
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return false;
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 200 && grantResults.length == REQUIRED_PERMISSIONS.length){
+            locationPermission = true;
+            for (int result : grantResults){
+                if(result != PackageManager.PERMISSION_GRANTED){
+                    locationPermission = false;
+                    break;
+                }
+            }
+            ((MapFragment)MapFragment.mapFragment).startLogin(locationPermission);
         }
-        return true;
     }
+
 
     @Override
     public void onBackPressed() {
@@ -109,4 +225,6 @@ public class IntroActivity extends AppCompatActivity{
             Toast.makeText(getApplicationContext(), "한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
         }
     }
+
+
 }

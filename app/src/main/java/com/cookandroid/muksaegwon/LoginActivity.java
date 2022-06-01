@@ -35,9 +35,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private static final int RC_SIGN_IN = 1000;
     GoogleSignInClient mGoogleSignInClient;
     TextView tv;
-    ImageView profileIMG;
     GoogleSignInAccount account;
-    private Member member;
     SharedPreferences Preferences;
 
     @Override
@@ -106,7 +104,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateInfo(String id, String name) {
-        String url = "http://192.168.0.22:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name;
         if (account != null) {
             RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
             StringRequest stringRequest = new StringRequest(Request.Method.GET,
@@ -115,7 +113,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         @Override
                         public void onResponse(String response) {
                             Log.i("INFO:", response);
-                            member = new Member(id, name);
                         }
                     },
                     new Response.ErrorListener() {

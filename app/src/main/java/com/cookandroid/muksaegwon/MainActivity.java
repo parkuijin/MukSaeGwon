@@ -6,9 +6,9 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.activity.result.ActivityResult;
 import androidx.activity.result.ActivityResultCallback;
@@ -17,17 +17,20 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
+
     public static Activity activity;
+
     // MapFragment
     MapFragment mapFragment;
     FragmentManager fragmentManager;
 
     // Button
-    ImageView CategoryButton, RegisterButton, MapButton, MypageButton;
+    ImageView RegisterButton, MapButton, MypageButton;
 
     ActivityResultLauncher<Intent> startActivityLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             new ActivityResultCallback<ActivityResult>() {
@@ -38,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+
+        // INTRO 실행
         Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivityLauncher.launch(intent);
@@ -66,9 +72,23 @@ public class MainActivity extends AppCompatActivity {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.replace(R.id.Container, mapFragment, null);
                 fragmentTransaction.commit();
-                
+
+                // 카테고리 액티비티 열기
+//                CategoryButton = (ImageView)
+//
+//                        findViewById(R.id.CategoryButton);
+//                CategoryButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+//                        startActivity(intent);
+//                    }
+//                });
+
                 // 로그인 액티비티 열기
-                MypageButton = (ImageView) findViewById(R.id.MypageButton);
+                MypageButton = (ImageView)
+
+                        findViewById(R.id.MypageButton);
                 MypageButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -78,7 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 // 가게 등록 액티비티 열기
-                RegisterButton = (ImageView) findViewById(R.id.RegisterButton);
+                RegisterButton = (ImageView)
+
+                        findViewById(R.id.RegisterButton);
                 RegisterButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -87,30 +109,19 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
 
-                // 새로 고침 버튼
-                MapButton = (ImageView) findViewById(R.id.MapButton);
+                // 테스트용 가게 정보 액티비티 열기
+                MapButton = (ImageView)
+
+                        findViewById(R.id.MapButton);
                 MapButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        FragmentTransaction ft = fragmentManager.beginTransaction();
-                        ft.detach(mapFragment).attach(mapFragment).commit();
-                        Toast.makeText(MainActivity.this, "지도가 갱신 되었습니다.", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
+                        startActivity(intent);
                     }
                 });
             }
-        },1);
-    }
+        }, 1);
 
-    public void initCheckPermission(){
-        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
-        }
     }
 }
