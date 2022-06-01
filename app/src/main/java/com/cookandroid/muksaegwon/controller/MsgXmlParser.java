@@ -265,51 +265,6 @@ public class MsgXmlParser {
         } catch (Exception e) {}
     }
 
-    public void jsonParsingMNP(JSONArray MNP, ArrayList<Menu> m) {
-        ArrayList<Menu> menus = m;
-        try {
-            for (int i = 0; i < MNP.length(); i++) {
-                JSONObject mObj = MNP.getJSONObject(i);
-                String menuName = mObj.getString("name");
-                String menuPrice = mObj.getString("price");
-                menus.add(new Menu(menuName, menuPrice));
-            }
-        } catch (Exception e) {}
-    }
-
-    public void jsonParsingCTG(JSONObject CTG, ArrayList<Boolean> c) {
-        try {
-            Boolean corn = Boolean.parseBoolean(CTG.getString("corn"));
-            Boolean fish = Boolean.parseBoolean(CTG.getString("fish"));
-            Boolean topokki = Boolean.parseBoolean(CTG.getString("topokki"));
-            Boolean eomuk = Boolean.parseBoolean(CTG.getString("eomuk"));
-            Boolean sweetpotato = Boolean.parseBoolean(CTG.getString("sweetpotato"));
-            Boolean toast = Boolean.parseBoolean(CTG.getString("toast"));
-            Boolean takoyaki = Boolean.parseBoolean(CTG.getString("takoyaki"));
-            Boolean waffle = Boolean.parseBoolean(CTG.getString("waffle"));
-            Boolean dakggochi = Boolean.parseBoolean(CTG.getString("dakggochi"));
-            c.add(corn);
-            c.add(fish);
-            c.add(topokki);
-            c.add(eomuk);
-            c.add(sweetpotato);
-            c.add(toast);
-            c.add(takoyaki);
-            c.add(waffle);
-            c.add(dakggochi);
-        } catch (Exception e) {}
-    }
-
-    public void jsonParsingPW(JSONObject PW, ArrayList<PayWay> p) {
-        ArrayList<PayWay> payWays = p;
-        try {
-            String cash = PW.getString("cash");
-            String card = PW.getString("card");
-            String account = PW.getString("account");
-            payWays.add(new PayWay(cash, card, account));
-        } catch (Exception e) {}
-    }
-
     public void payWayInfo(JSONObject payWay, ArrayList<Boolean> b){
         try{
             Boolean cash = Boolean.parseBoolean(payWay.getString("cash"));
