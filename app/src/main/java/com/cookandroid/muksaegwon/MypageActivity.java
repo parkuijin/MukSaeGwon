@@ -49,6 +49,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        backBtn = (ImageView) findViewById(R.id.btn_back4);
         emailTv = (TextView) findViewById(R.id.EmailTv);
         nameTv = (TextView)findViewById(R.id.nameTv);
         review = (LinearLayout) findViewById(R.id.reviewBtn);
@@ -65,6 +66,14 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         if (account != null){
             updateInfo(account.getId(),account.getDisplayName(), account.getEmail());
         }
+
+        // 뒤로가기
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         //찜 페이지 액티비티 열기
         heart.setOnClickListener(new View.OnClickListener() {
