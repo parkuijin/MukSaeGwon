@@ -1,5 +1,6 @@
 package com.cookandroid.muksaegwon;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,6 +29,9 @@ public class ReviewActivity extends AppCompatActivity {
     ArrayList<Review> reviews;
     MsgXmlParser msgXmlParser;
 
+    SharedPreferences preferences;
+    String userId;
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -37,6 +41,9 @@ public class ReviewActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_review);
+
+        preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
+        userId = preferences.getString("userId","");
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -48,7 +55,7 @@ public class ReviewActivity extends AppCompatActivity {
         reviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/reviewFromMember.jsp?uId=1000";
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/reviewFromMember.jsp?uId="+userId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,

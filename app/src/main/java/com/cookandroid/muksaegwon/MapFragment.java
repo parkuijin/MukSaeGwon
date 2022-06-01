@@ -60,7 +60,11 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener, IntroActivity.LoginCallback {
+    // LOGIN
+    IntroActivity introActivity = new IntroActivity();
+    public static MapFragment mapFragment;
+
 
     private static final String TAG = MapFragment.class.getSimpleName();
     // weather
@@ -72,8 +76,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     // GoogleMap
     GoogleMap mMap;
 
-    Button curButton;
-
     Location myLocation;
 
     private View mLayout;
@@ -83,13 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     LocationSettingsRequest.Builder builder;
     FusedLocationProviderClient mFusedLocationClient;
 
-    // 앱을 실행 위해 필요한 퍼미션 정의.
-    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
-
     private Location location;
-
-    // onRequestPermissionsResult 에서 수신된 결과에서 ActivityCompat.requestPermissions 사용-퍼미션 요청을 구별하기 위해 사용.
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     private Marker currentMarker = null;
     private int UPDATE_INTERVAL_MS = 1000;
@@ -113,6 +109,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_map, container, false);
+        mapFragment = this;
 
         searchBar = (EditText) v.findViewById(R.id.SearchBar);
         // 지도 구현
@@ -197,6 +194,25 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mapFragment.getMapAsync(this::onMapReady);
 
         return v;
+    }
+
+    //LOGIN
+    public void startLogin(boolean b){
+        introActivity.setLoginCallback(this);
+        introActivity.LogOn(b);
+    }
+
+    @Override
+    public void logined(boolean  b) {
+        if (b){
+            startLocationUpdates();
+        } else {
+            Toast.makeText(getContext(),"위치 권한이 필요합니다",Toast.LENGTH_LONG).show();
+            try {
+                Thread.sleep(2000);
+                loadComplete();
+            } catch (Exception e) {}
+        }
     }
 
     protected void startLocationUpdates() {
@@ -319,8 +335,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         } catch (Resources.NotFoundException e) {
             Log.e(TAG, "Can't find style. Error: ", e);
         }
-
-        startLocationUpdates();
 
         mMap.setOnMarkerClickListener(this);
         // Marker Cluster (영역에 보이는 마커 찍기)
