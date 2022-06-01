@@ -317,6 +317,8 @@ public class InfoStoreActivity extends AppCompatActivity {
                         Log.i("response:", response);
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingSRFM(m);
+                        storeReviewAdapter = new StoreReviewAdapter(m);
+                        storeReviewRecyclerView.setAdapter(storeReviewAdapter);
                     }
                 },
                 new Response.ErrorListener() {
@@ -326,8 +328,6 @@ public class InfoStoreActivity extends AppCompatActivity {
                     }
                 });
         requestQueue.add(stringRequest);
-        storeReviewAdapter = new StoreReviewAdapter(m);
-        storeReviewRecyclerView.setAdapter(storeReviewAdapter);
     }
 
     public void favoriteLoad(String mId, String storeId){
