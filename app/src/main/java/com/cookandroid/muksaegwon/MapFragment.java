@@ -85,13 +85,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     LocationSettingsRequest.Builder builder;
     FusedLocationProviderClient mFusedLocationClient;
 
-    // 앱을 실행 위해 필요한 퍼미션 정의.
-    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
-
     private Location location;
-
-    // onRequestPermissionsResult 에서 수신된 결과에서 ActivityCompat.requestPermissions 사용-퍼미션 요청을 구별하기 위해 사용.
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     private Marker currentMarker = null;
     private int UPDATE_INTERVAL_MS = 1000;
