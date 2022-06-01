@@ -2,23 +2,19 @@ package com.cookandroid.muksaegwon;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
-import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
@@ -52,7 +41,6 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.location.LocationSettingsRequest;
-import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -71,8 +59,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
 
 public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -90,10 +76,20 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     Location myLocation;
 
+    private View mLayout;
+
     // 현재 위치를 위한 변수 선언부
     LocationRequest locationRequest;
     LocationSettingsRequest.Builder builder;
     FusedLocationProviderClient mFusedLocationClient;
+
+    // 앱을 실행 위해 필요한 퍼미션 정의.
+    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};  // 외부 저장소
+
+    private Location location;
+
+    // onRequestPermissionsResult 에서 수신된 결과에서 ActivityCompat.requestPermissions 사용-퍼미션 요청을 구별하기 위해 사용.
+    private static final int PERMISSIONS_REQUEST_CODE = 100;
 
     private Marker currentMarker = null;
     private int UPDATE_INTERVAL_MS = 1000;
@@ -107,6 +103,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     double bottom;
     double right;
     double top;
+
+    Location currentLocation;
+    LatLng currentPosition;   // Latitude & Longitude
+
+    SharedPreferences preferences;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -168,29 +169,29 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         requestQueue.add(stringRequest);
 
         // EditText Enter EVENT 구현
-//        searchBar.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                switch (keyCode) {
-//                    case KeyEvent.KEYCODE_ENTER:
-//
-//                        String searchText = searchBar.getText().toString();
-//
-//                        Geocoder geocoder = new Geocoder(getContext());
-//                        List<Address> addresses = null;
-//
-//                        try {
-//                            addresses = geocoder.getFromLocationName(searchText, 3);
-//                            if (addresses != null && !addresses.equals(" ")) {
-//                                locSearch(addresses);
-//                            }
-//                        } catch (Exception e) {
-//                        }
-//                        break;
-//                }
-//                return true;
-//            }
-//        });
+        /*searchBar.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                switch (keyCode) {
+                    case KeyEvent.KEYCODE_ENTER:
+
+                       String searchText = searchBar.getText().toString();
+
+                        Geocoder geocoder = new Geocoder(getContext());
+                        List<Address> addresses = null;
+
+                        try {
+                            addresses = geocoder.getFromLocationName(searchText, 3);
+                            if (addresses != null && !addresses.equals(" ")) {
+                                locSearch(addresses);
+                            }
+                        } catch (Exception e) {
+                        }
+                        break;
+                }
+                return true;
+            }
+        });*/
 
         SupportMapFragment mapFragment = (SupportMapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this::onMapReady);
@@ -270,8 +271,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     public void nearPlaces(String response){
         ArrayList<Store> stores= new ArrayList<>();
-//        String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
-//                + "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58225 +"</lat><lng>"+ 126.92612 +"</lng></store>";
+       /*String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
+                + "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58225 +"</lat><lng>"+ 126.92612 +"</lng></store>";*/
         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
         msgXmlParser.xmlNearByPlaces(stores);
 
@@ -411,4 +412,5 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
+
 }
