@@ -119,14 +119,9 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         });
 
-        storeMenuRecyclerView = (RecyclerView) findViewById(R.id.storeMenuRecyclerView);
-        storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         storeReviewRecyclerView = (RecyclerView) findViewById(R.id.storeReviewRecyclerView);
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        storeReviewAdapter = new StoreReviewAdapter(storeReviews);
-        storeReviewRecyclerView.setAdapter(storeReviewAdapter);
 
         reviewRating = (RatingBar) findViewById(R.id.reviewRating);
         reviewContent = (EditText) findViewById(R.id.reviewContent);
@@ -263,6 +258,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         offTimeStore.setText(store.getOffTime());
 
         menuPrint(menuList);
+        /*reviewPrint();*/
 
         favoriteLoad(userId, store.getStoreId());
         isRunningLoad(store.getStoreId());
@@ -295,6 +291,11 @@ public class InfoStoreActivity extends AppCompatActivity {
     public void menuPrint(ArrayList<Menu> m) {
         menuAdapter = new MenuAdapter(m);
         storeMenuRecyclerView.setAdapter(menuAdapter);
+    }
+
+    public void reviewPrint(ArrayList<StoreReview> m) {
+        storeReviewAdapter = new StoreReviewAdapter(m);
+        storeReviewRecyclerView.setAdapter(storeReviewAdapter);
     }
 
     public void favoriteLoad(String mId, String storeId){
