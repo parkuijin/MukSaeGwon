@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -130,7 +131,14 @@ public class InfoStoreActivity extends AppCompatActivity {
 
         reviewRating = (RatingBar) findViewById(R.id.reviewRating);
         reviewContent = (EditText) findViewById(R.id.reviewContent);
+
         reviewSubmitBtn = (Button) findViewById(R.id.reviewSubmitBtn);
+//        reviewSubmitBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                reviewSubmit(reviewRating.getRating(),reviewContent.getText());
+//            }
+//        });
 
         infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back4);
         reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
@@ -343,9 +351,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         requestQueue.add(stringRequest);
     }
 
-
-    public void reviewRegister(){
-        String url = "";
+    private void reviewSubmit(float rating, Editable text) {
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwon/reviewRegister.jsp?";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         if(!String.valueOf(reviewRating.getRating()).equals(null) && !reviewContent.getText().toString().equals(null)) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -353,7 +360,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-
+                            Log.i("review:", response);
                         }
                     },
                     new Response.ErrorListener() {
@@ -366,8 +373,8 @@ public class InfoStoreActivity extends AppCompatActivity {
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
 
-                    params.put("rating", String.valueOf(reviewRating.getRating()));
-                    params.put("review", reviewContent.getText().toString());
+                    params.put("rating", String.valueOf(rating));
+                    params.put("review", text.toString());
                     params.put("date", getDate);
                     return params;
                 }
@@ -375,4 +382,6 @@ public class InfoStoreActivity extends AppCompatActivity {
             requestQueue.add(stringRequest);
         }
     }
+
+
 }
