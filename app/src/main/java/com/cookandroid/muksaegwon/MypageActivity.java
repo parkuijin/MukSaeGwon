@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,20 +26,19 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
 public class MypageActivity extends AppCompatActivity implements View.OnClickListener {
     private static final int RC_SIGN_IN = 1000;
 
-    TextView nameTv;
-    ImageView setting,heart,review;
+    ImageView backBtn;
+    TextView nameTv, emailTv;
+    LinearLayout heart,review;
     private GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
     private Member member;
     SharedPreferences preferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,14 +49,10 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        emailTv = (TextView) findViewById(R.id.EmailTv);
         nameTv = (TextView)findViewById(R.id.nameTv);
-        review = (ImageView) findViewById(R.id.reviewBtn);
-        heart = (ImageView) findViewById(R.id.heartBtn);
-
-        // 로그인
-        SignInButton signInButton = findViewById(R.id.sign_in_button);
-        signInButton.setSize(SignInButton.SIZE_WIDE);
-        findViewById(R.id.sign_in_button).setOnClickListener(this);
+        review = (LinearLayout) findViewById(R.id.reviewBtn);
+        heart = (LinearLayout) findViewById(R.id.heartBtn);
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -67,7 +63,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null){
-            updateInfo(account.getId(),account.getDisplayName());
+            updateInfo(account.getId(),account.getDisplayName(), account.getEmail());
         }
 
         //찜 페이지 액티비티 열기
@@ -83,10 +79,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
             }
         });
 
-
-
         //리뷰 페이지 액티비티 열기
-
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +91,9 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
                 }
             }
         });
+
     }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -132,7 +127,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
             account = completedTask.getResult(ApiException.class);
 
             Log.d(TAG, "Account received");
-            updateInfo(account.getId(), account.getDisplayName());
+            updateInfo(account.getId(), account.getDisplayName(), account.getEmail());
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -141,9 +136,9 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         }
     }
 
-    private void updateInfo(String id, String name) {
+    private void updateInfo(String id, String name, String email) {
         nameTv.setText(name);
-        findViewById(R.id.sign_in_button).setVisibility(View.INVISIBLE);
+        emailTv.setText(email);
 
         String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/userRegister.jsp?uId=" + id + "&uName=" + name +"&";
         Log.i("INFO: ", url);
