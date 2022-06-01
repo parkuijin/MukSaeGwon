@@ -88,7 +88,6 @@ public class InfoStoreActivity extends AppCompatActivity {
         preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         userId = preferences.getString("userId","");
 
-
         storeId = getIntent().getStringExtra("storeId");
         Log.i("StoreId:", storeId+"");
         loadStoreInfo(storeId);
@@ -130,17 +129,6 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        reviewRating = (RatingBar) findViewById(R.id.reviewRating);
-        reviewContent = (EditText) findViewById(R.id.reviewContent);
-
-        reviewSubmitBtn = (Button) findViewById(R.id.reviewSubmitBtn);
-//        reviewSubmitBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                reviewSubmit(reviewRating.getRating(),reviewContent.getText());
-//            }
-//        });
-
         infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back4);
         reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
         storeNameTv = (TextView) findViewById(R.id.storeNameTv);
@@ -174,6 +162,18 @@ public class InfoStoreActivity extends AppCompatActivity {
         reviewRegDialog = new Dialog(InfoStoreActivity.this);
         reviewRegDialog.setContentView(R.layout.dialog_review_register);
         reviewRegDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        reviewRating = reviewRegDialog.findViewById(R.id.reviewRating);
+        reviewContent = reviewRegDialog.findViewById(R.id.reviewContent);
+
+        reviewSubmitBtn = reviewRegDialog.findViewById(R.id.reviewSubmitBtn);
+        reviewSubmitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewSubmit(reviewRating.getRating(),reviewContent.getText());
+            }
+        });
+
 
         // 현재 가게 정보 액티비티 종료 (뒤로가기)
         infoStoreFinBtn.setOnClickListener(new View.OnClickListener() {
@@ -221,7 +221,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.i("LIKE:", response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -321,8 +321,8 @@ public class InfoStoreActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         String[] result = response.split("\\?");
-                        if (result[0].equals("0")){
-                            favoriteBtn.setChecked(false);
+                        if (result[1].equals("1")){
+                            favoriteBtn.setChecked(true);
                         }
                     }
                 },
@@ -359,7 +359,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     private void reviewSubmit(float rating, Editable text) {
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwon/reviewRegister.jsp?";
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwon/reviewRegister.jsp";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         if(!String.valueOf(reviewRating.getRating()).equals(null) && !reviewContent.getText().toString().equals(null)) {
             StringRequest stringRequest = new StringRequest(Request.Method.POST,
@@ -379,7 +379,8 @@ public class InfoStoreActivity extends AppCompatActivity {
                 @Override
                 protected Map<String, String> getParams() {
                     Map<String, String> params = new HashMap<>();
-
+                    params.put("mId",userId);
+                    params.put("storeId",storeId);
                     params.put("rating", String.valueOf(rating));
                     params.put("review", text.toString());
                     params.put("date", getDate);
