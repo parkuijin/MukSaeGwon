@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -28,20 +27,25 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cookandroid.muksaegwon.adapter.MenuAdapter;
-import com.cookandroid.muksaegwon.adapter.ReviewAdapter;
 import com.cookandroid.muksaegwon.adapter.StoreReviewAdapter;
 import com.cookandroid.muksaegwon.controller.MsgXmlParser;
 import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
 
-import org.json.JSONObject;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class InfoStoreActivity extends AppCompatActivity {
+
+    Long now = System.currentTimeMillis();
+    Date date = new Date(now);
+    SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+    String getDate = ymd.format(date);
+
     Store store = new Store();
 
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
@@ -343,30 +347,32 @@ public class InfoStoreActivity extends AppCompatActivity {
     public void reviewRegister(){
         String url = "";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.POST,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
+        if(!String.valueOf(reviewRating.getRating()).equals(null) && !reviewContent.getText().toString().equals(null)) {
+            StringRequest stringRequest = new StringRequest(Request.Method.POST,
+                    url,
+                    new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
 
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
 
-                    }
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                Map<String, String> params = new HashMap<>();
+                        }
+                    }) {
+                @Override
+                protected Map<String, String> getParams() {
+                    Map<String, String> params = new HashMap<>();
 
-                params.put("rating",String.valueOf(reviewRating.getRating()));
-                params.put("review",reviewContent.getText().toString());
-
-                return params;
-            }
-        };
-        requestQueue.add(stringRequest);
+                    params.put("rating", String.valueOf(reviewRating.getRating()));
+                    params.put("review", reviewContent.getText().toString());
+                    params.put("date", getDate);
+                    return params;
+                }
+            };
+            requestQueue.add(stringRequest);
+        }
     }
 }

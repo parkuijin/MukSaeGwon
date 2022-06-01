@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -48,27 +49,9 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        //찜 페이지 액티비티 열기
-        heart = (ImageView) findViewById(R.id.heartBtn);
-        heart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),FavoriteActivity.class);
-                startActivity(intent);
-            }
-        });
-
         nameTv = (TextView)findViewById(R.id.nameTv);
-
-        //리뷰 페이지 액티비티 열기
         review = (ImageView) findViewById(R.id.reviewBtn);
-        review.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
-                startActivity(intent);
-            }
-        });
+        heart = (ImageView) findViewById(R.id.heartBtn);
 
         // 로그인
         SignInButton signInButton = findViewById(R.id.sign_in_button);
@@ -86,6 +69,35 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         if (account != null){
             updateInfo(account.getId(),account.getDisplayName());
         }
+
+        //찜 페이지 액티비티 열기
+        heart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (account != null) {
+                    Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MypageActivity.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        //리뷰 페이지 액티비티 열기
+
+        review.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (account != null) {
+                    Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                    startActivity(intent);
+                } else {
+                    Toast.makeText(MypageActivity.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
     @Override
     public void onClick(View v) {
