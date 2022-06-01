@@ -1,17 +1,19 @@
 package com.cookandroid.muksaegwon;
 
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+
 public class CategoryActivity extends AppCompatActivity {
+
     ImageView corn, fish, red, ggochi, sweet, sand,octopus, wa, sso;
     Intent intent;
-    String cateogry;
+    ImageView cateBackBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,10 +23,27 @@ public class CategoryActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        cateBackBtn = (ImageView) findViewById(R.id.btn_back4);
+        fish = (ImageView) findViewById(R.id.fish);
+        red = (ImageView) findViewById(R.id.red);
+        ggochi = (ImageView) findViewById(R.id.ggochi);
+        sweet = (ImageView) findViewById(R.id.sweet);
+        sand = (ImageView) findViewById(R.id.sand);
+        wa = (ImageView) findViewById(R.id.wa);
+        octopus = (ImageView) findViewById(R.id.octopus);
+        sso = (ImageView) findViewById(R.id.sso);
+        corn = (ImageView) findViewById(R.id.corn);
+
         double lat = getIntent().getDoubleExtra("lat",0);
         double lng = getIntent().getDoubleExtra("lng",0);
 
-        corn = (ImageView) findViewById(R.id.corn);
+        cateBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         corn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -36,7 +55,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        fish = (ImageView) findViewById(R.id.fish);
         fish.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +66,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        red = (ImageView) findViewById(R.id.red);
         red.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -60,7 +77,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        ggochi = (ImageView) findViewById(R.id.ggochi);
         ggochi.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +88,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        sweet = (ImageView) findViewById(R.id.sweet);
         sweet.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,7 +99,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        sand = (ImageView) findViewById(R.id.sand);
         sand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -96,7 +110,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        octopus = (ImageView) findViewById(R.id.octopus);
         octopus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +121,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        wa = (ImageView) findViewById(R.id.wa);
         wa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +132,6 @@ public class CategoryActivity extends AppCompatActivity {
             }
         });
 
-        sso = (ImageView) findViewById(R.id.sso);
         sso.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
