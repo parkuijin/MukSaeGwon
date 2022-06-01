@@ -67,6 +67,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     RecyclerView storeReviewRecyclerView, storeMenuRecyclerView;
     StoreReviewAdapter storeReviewAdapter;
     ArrayList<StoreReview> storeReviews;
+    ArrayList<Menu> menus;
 
     String storeId;
     private ArrayList<Boolean> payWayBooleans = new ArrayList<>();
@@ -120,7 +121,12 @@ public class InfoStoreActivity extends AppCompatActivity {
             }
         });
 
+        storeMenuRecyclerView = (RecyclerView) findViewById(R.id.storeMenuRecyclerView);
         storeReviewRecyclerView = (RecyclerView) findViewById(R.id.storeReviewRecyclerView);
+
+        menus = new ArrayList<Menu>();
+        storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
