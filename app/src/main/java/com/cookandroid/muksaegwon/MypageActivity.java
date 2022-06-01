@@ -37,7 +37,6 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
     LinearLayout heart,review;
     private GoogleSignInClient mGoogleSignInClient;
     GoogleSignInAccount account;
-    private Member member;
     SharedPreferences preferences;
 
     @Override
@@ -61,6 +60,7 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
 
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
         if (account != null){
@@ -148,30 +148,24 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
     private void updateInfo(String id, String name, String email) {
         nameTv.setText(name);
         emailTv.setText(email);
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name + "&";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("INFO:", response);
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("LOGINERROR: ", error.toString());
+                    }
+                });
+        requestQueue.add(stringRequest);
 
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/userRegister.jsp?uId=" + id + "&uName=" + name +"&";
-        Log.i("INFO: ", url);
-        if (account != null) {
-            RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-            StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                    url,
-                    new Response.Listener<String>() {
-                        @Override
-                        public void onResponse(String response) {
-                            Log.i("INFO:", response);
-                            member = new Member(id, name);
-                        }
-                    },
-                    new Response.ErrorListener() {
-                        @Override
-                        public void onErrorResponse(VolleyError error) {
-                            Log.e("LOGINERROR: ",error.toString());
-                        }
-                    });
-            requestQueue.add(stringRequest);
-        } else {
-            System.out.print("FAILED");
-        }
 
         //SharedPreference
         preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
