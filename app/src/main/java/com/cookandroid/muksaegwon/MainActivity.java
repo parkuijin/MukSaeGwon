@@ -17,9 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class MainActivity extends AppCompatActivity{
+import com.cookandroid.muksaegwon.controller.BackKeyHandler;
+
+public class MainActivity extends AppCompatActivity {
 
     public static Activity activity;
+    private BackKeyHandler backKeyHandler = new BackKeyHandler(this);
 
     // MapFragment
     MapFragment mapFragment;
@@ -70,16 +73,17 @@ public class MainActivity extends AppCompatActivity{
                 fragmentTransaction.commit();
 
                 // 카테고리 액티비티 열기
-//                CategoryButton = (ImageView)
-//
-//                        findViewById(R.id.CategoryButton);
-//                CategoryButton.setOnClickListener(new View.OnClickListener() {
-//                    @Override
-//                    public void onClick(View v) {
-//                        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
-//                        startActivity(intent);
-//                    }
-//                });
+                /*CategoryButton = (ImageView)
+
+                        findViewById(R.id.CategoryButton);
+                CategoryButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(getApplicationContext(), CategoryActivity.class);
+                        startActivity(intent);
+                    }
+                });*/
+
 
                 // 로그인 액티비티 열기
                 MypageButton = (ImageView) findViewById(R.id.MypageButton);
@@ -114,5 +118,10 @@ public class MainActivity extends AppCompatActivity{
             }
         }, 1);
 
+    } // onCreate
+
+    @Override
+    public void onBackPressed() {
+        backKeyHandler.onBackPressed();
     }
 }
