@@ -31,16 +31,6 @@ public class MainActivity extends AppCompatActivity {
     // Button
     ImageView RegisterButton, MapButton, MypageButton;
 
-    ActivityResultLauncher<Intent> startActivityLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    if (result.getResultCode() == Activity.RESULT_OK) {
-
-                    }
-                }
-            });
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         // INTRO 실행
         Intent intent = new Intent(getApplicationContext(), IntroActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivityLauncher.launch(intent);
+        startActivity(intent);
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -85,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 });*/
 
 
-                // 로그인 액티비티 열기
+                // 마이페이지 액티비티 열기
                 MypageButton = (ImageView) findViewById(R.id.MypageButton);
                 MypageButton.setOnClickListener(new View.OnClickListener() {
                     @Override

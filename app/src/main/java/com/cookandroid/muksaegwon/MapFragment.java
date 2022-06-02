@@ -88,8 +88,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     private Location location;
 
     private Marker currentMarker = null;
-    private int UPDATE_INTERVAL_MS = 1000;
-    private int FASTEST_UPDATE_INTERVAL_MS = 500;
+    private int UPDATE_INTERVAL_MS = 5000; //5초
+    private int FASTEST_UPDATE_INTERVAL_MS = 2500; // 2.5초
 
     ArrayList<Marker> markers = new ArrayList<>();
     Marker marker = null;
@@ -242,6 +242,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        if (mFusedLocationClient != null) {
+            Log.d(TAG, "onStop : call stopLocationUpdates");
+            startLocationUpdates();
+        }
+    }
+
+    @Override
     public void onStop() {
         super.onStop();
         if (mFusedLocationClient != null) {
@@ -273,6 +282,12 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
     public void loadComplete(){
         IntroActivity introActivity = (IntroActivity) IntroActivity.activity;
         introActivity.finish();
+
+        vr = mMap.getProjection().getVisibleRegion();
+        left = vr.latLngBounds.southwest.longitude;
+        bottom = vr.latLngBounds.southwest.latitude;
+        right = vr.latLngBounds.northeast.longitude;
+        top = vr.latLngBounds.northeast.latitude;
     }
 
     @Override
@@ -348,57 +363,65 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             super.onLocationResult(locationResult);
             List<Location> locationList = locationResult.getLocations();
             if (locationList.size() > 0) {
-                if (initFlag) {
-                    cameraPosition = new CameraPosition.Builder()
-                            .target(new LatLng(37.58464,126.92518))
-                            .zoom(17.0f)
-                            .build();
-
-                    ImageView categoryBtn = getActivity().findViewById(R.id.CategoryButton);
-
-                    categoryBtn.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getContext(), CategoryActivity.class);
-                            intent.putExtra("lat",myLocation.getLatitude());
-                            intent.putExtra("lng",myLocation.getLongitude());
-                            startActivity(intent);
-                        }
-                    });
-
-                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-                    vr = mMap.getProjection().getVisibleRegion();
-                    left = vr.latLngBounds.southwest.longitude;
-                    bottom = vr.latLngBounds.southwest.latitude;
-                    right = vr.latLngBounds.northeast.longitude;
-                    top = vr.latLngBounds.northeast.latitude;
-
-                    if (left != 0) {
-                        Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
-                        String markerUrl = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
-                        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                                markerUrl,
-                                new Response.Listener<String>() {
-                                    @Override
-                                    public void onResponse(String response) {
-                                        Log.i("MARKER:", response);
-                                        nearPlaces(response);
-                                    }
-                                },
-                                new Response.ErrorListener() {
-                                    @Override
-                                    public void onErrorResponse(VolleyError error) {
-
-                                    }
-                                });
-                        requestQueue.add(stringRequest);
-                        initFlag = false;
-                    }
-
-                }
-
                 myLocation = locationList.get(locationList.size() - 1);
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (initFlag) {
+                                    cameraPosition = new CameraPosition.Builder()
+                                            .target(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()))
+                                            .zoom(17.0f)
+                                            .build();
+
+                                    ImageView categoryBtn = getActivity().findViewById(R.id.CategoryButton);
+
+                                    categoryBtn.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            Intent intent = new Intent(getContext(), CategoryActivity.class);
+                                            intent.putExtra("lat", myLocation.getLatitude());
+                                            intent.putExtra("lng", myLocation.getLongitude());
+                                            intent.putExtra("left", left);
+                                            intent.putExtra("bottom", bottom);
+                                            intent.putExtra("right", right);
+                                            intent.putExtra("top", top);
+                                            startActivity(intent);
+                                        }
+                                    });
+
+                                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
+                                    if (left != 0) {
+                                        Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
+                                        String markerUrl = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
+                                        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+                                        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                                                markerUrl,
+                                                new Response.Listener<String>() {
+                                                    @Override
+                                                    public void onResponse(String response) {
+                                                        Log.i("MARKER:", response);
+                                                        nearPlaces(response);
+                                                    }
+                                                },
+                                                new Response.ErrorListener() {
+                                                    @Override
+                                                    public void onErrorResponse(VolleyError error) {
+
+                                                    }
+                                                });
+                                        requestQueue.add(stringRequest);
+                                        initFlag = false;
+                                    }
+                                }
+                            }
+                        });
+                    }
+                }).start();
+
                 Log.d("CURRENT LOCATION: ", myLocation.getLatitude() + " " + myLocation.getLongitude());
 
                 // Marker 생성 필요

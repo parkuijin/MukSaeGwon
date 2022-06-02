@@ -14,6 +14,14 @@ public class CategoryActivity extends AppCompatActivity {
     Intent intent;
     ImageView cateBackBtn;
 
+    double left;
+    double bottom;
+    double right;
+    double top;
+    private double lat;
+    private double lng;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,8 +42,13 @@ public class CategoryActivity extends AppCompatActivity {
         sso = (ImageView) findViewById(R.id.sso);
         corn = (ImageView) findViewById(R.id.corn);
 
-        double lat = getIntent().getDoubleExtra("lat",0);
-        double lng = getIntent().getDoubleExtra("lng",0);
+        lat = getIntent().getDoubleExtra("lat",0);
+        lng = getIntent().getDoubleExtra("lng",0);
+        left = getIntent().getDoubleExtra("left",0);
+        bottom = getIntent().getDoubleExtra("bottom",0);
+        right  = getIntent().getDoubleExtra("right",0);
+        top = getIntent().getDoubleExtra("top",0);
+
 
         cateBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,10 +61,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "corn");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"corn");
             }
         });
 
@@ -59,10 +69,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "fish");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"fish");
             }
         });
 
@@ -70,10 +77,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "topokki");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"topokki");
             }
         });
 
@@ -81,10 +85,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "eomuk");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"eomuk");
             }
         });
 
@@ -92,10 +93,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "sweetpotato");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"sweetpotato");
             }
         });
 
@@ -104,9 +102,7 @@ public class CategoryActivity extends AppCompatActivity {
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
                 intent.putExtra("category", "toast");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"toast");
             }
         });
 
@@ -114,10 +110,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "takoyaki");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"takoyaki");
             }
         });
 
@@ -125,10 +118,7 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "waffle");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"waffle");
             }
         });
 
@@ -136,11 +126,19 @@ public class CategoryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 intent = new Intent(getApplicationContext(),CategoryMapActivity.class);
-                intent.putExtra("category", "dakggochi");
-                intent.putExtra("lat",lat);
-                intent.putExtra("lng",lng);
-                startActivity(intent);
+                openCategoryMap(intent,"dakggochi");
             }
         });
+    }
+
+    public void openCategoryMap(Intent intent, String category){
+        intent.putExtra("category", category);
+        intent.putExtra("lat",lat);
+        intent.putExtra("lng",lng);
+        intent.putExtra("left",left);
+        intent.putExtra("bottom",bottom);
+        intent.putExtra("right",right);
+        intent.putExtra("top",top);
+        startActivity(intent);
     }
 }

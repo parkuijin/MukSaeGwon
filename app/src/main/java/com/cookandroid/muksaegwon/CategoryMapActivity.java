@@ -93,6 +93,10 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         Log.i("CATEGORY: ", category);
         lat = getIntent().getDoubleExtra("lat",0);
         lng = getIntent().getDoubleExtra("lng",0);
+        left = getIntent().getDoubleExtra("left",0);
+        bottom = getIntent().getDoubleExtra("bottom",0);
+        right = getIntent().getDoubleExtra("right",0);
+        top = getIntent().getDoubleExtra("top",0);
         Log.i("LATLNG: ", lat+" "+lng);
 
         categoryMapFinBtn = (ImageView) findViewById(R.id.CategoryMapFinBtn);
@@ -113,12 +117,15 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         });
     }
 
+
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         mMap.setOnMarkerClickListener(this);
 
-        startLocationUpdates();
+        markCurrentLocation(new LatLng(lat,lng));
+
+//        startLocationUpdates();
 
         try {
             // Customise the styling of the base map using a JSON object defined
@@ -139,6 +146,8 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
         placesByCategory(category);
+
+        startLocationUpdates();
     }
 
     protected void startLocationUpdates() {
@@ -157,8 +166,6 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         mFusedLocationClient.requestLocationUpdates(locationRequest, locationCallback, Looper.myLooper());
     }
 
-    private boolean initFlag = true;
-    private VisibleRegion vr;
     private Location myLocation;
 
     LocationCallback locationCallback = new LocationCallback() {
@@ -166,27 +173,6 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         public void onLocationResult(@NonNull LocationResult locationResult) {
             super.onLocationResult(locationResult);
             List<Location> locationList = locationResult.getLocations();
-            if (locationList.size() > 0) {
-                if (initFlag) {
-                    cameraPosition = new CameraPosition.Builder()
-                            .target(new LatLng(37.58464, 126.92518))
-                            .zoom(17.0f)
-                            .build();
-
-                    mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
-
-                    vr = mMap.getProjection().getVisibleRegion();
-                    left = vr.latLngBounds.southwest.longitude;
-                    bottom = vr.latLngBounds.southwest.latitude;
-                    right = vr.latLngBounds.northeast.longitude;
-                    top = vr.latLngBounds.northeast.latitude;
-
-                    if (left != 0) {
-                        placesByCategory(category);
-                        initFlag = false;
-                    }
-                }
-
                 myLocation = locationList.get(locationList.size() - 1);
                 Log.d("CURRENT LOCATION: ", myLocation.getLatitude() + " " + myLocation.getLongitude());
 
@@ -195,7 +181,6 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
                 String markerSnippet = "위도:" + String.valueOf(myLocation.getLatitude())
                         + " 경도:" + String.valueOf(myLocation.getLongitude());
                 setCurrentLocation(myLocation, makerTitle, markerSnippet);
-            }
         }
     };
 
@@ -206,6 +191,21 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         markerOptions.position(currentLatLng);
         markerOptions.title(markerTitle);
         markerOptions.snippet(markerSnippet);
+        markerOptions.draggable(true);
+
+        BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_dot);
+        if (bitmapdraw != null) {
+            Bitmap b = bitmapdraw.getBitmap();
+            Bitmap smallMarker = Bitmap.createScaledBitmap(b, 100, 100, false);
+            markerOptions.icon(BitmapDescriptorFactory.fromBitmap(smallMarker));
+        }
+        currentMarker = mMap.addMarker(markerOptions);
+    }
+
+    public void markCurrentLocation(LatLng latLng){
+        if (currentMarker != null) currentMarker.remove();
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.position(latLng);
         markerOptions.draggable(true);
 
         BitmapDrawable bitmapdraw = (BitmapDrawable) getResources().getDrawable(R.drawable.marker_dot);
