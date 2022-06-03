@@ -66,9 +66,11 @@
         <entry key="app/src/main/res/drawable/radiobutton_background_selector.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/radiobutton_checked_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/radiobutton_unchecked_background.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_category.xml" value="0.16111111111111112" />
+        <entry key="app/src/main/res/layout/activity_category_map.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.23055555555555557" />
         <entry key="app/src/main/res/layout/activity_info_register.xml" value="0.26296296296296295" />
-        <entry key="app/src/main/res/layout/activity_info_store.xml" value="0.30129852294921877" />
+        <entry key="app/src/main/res/layout/activity_info_store.xml" value="0.34634857177734385" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.396875" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.18001251220703132" />
