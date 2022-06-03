@@ -18,7 +18,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -292,12 +291,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
-        String storeId = marker.getTag().toString();
+        try {
+            String storeId = marker.getTag().toString();
 
-        Intent intent = new Intent(getContext(), InfoStoreActivity.class);
-        intent.putExtra("storeId", storeId);
-        startActivity(intent);
-        return false;
+            Intent intent = new Intent(getContext(), InfoStoreActivity.class);
+            intent.putExtra("storeId", storeId);
+            startActivity(intent);
+            return false;
+        } catch (NullPointerException e){
+            return false;
+        }
     }
 
     public void nearPlaces(String response){
