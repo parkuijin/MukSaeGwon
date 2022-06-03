@@ -33,7 +33,7 @@
 
         <RatingBar
             android:id="@+id/RatingStore"
-            style="?android:attr/ratingBarStyleIndicator"
+            style="@android:style/Widget.DeviceDefault.Light.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"

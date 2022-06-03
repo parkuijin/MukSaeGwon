@@ -116,8 +116,10 @@ public class InfoStoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isOn = ((Switch) v).isChecked();
                 if(isOn){
+                    isRunningSwitch.setText(" 영업 중");
                     storeRunCheck((byte) 1,store.getStoreId());
                 } else
+                    isRunningSwitch.setText("영업 종료");
                     storeRunCheck((byte) 0,store.getStoreId());
             }
         });
@@ -205,7 +207,6 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     private void storeRunCheck(byte b, String storeId) {
         String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
-        Log.i("URL: ",url);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
@@ -273,6 +274,19 @@ public class InfoStoreActivity extends AppCompatActivity {
     }
 
     public void updateUi(Store store){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        favoriteLoad(userId, store.getStoreId());
+                        isRunningLoad(store.getStoreId());
+                    }
+                });
+            }
+        }).start();
+
         storeLocationTv.setText(store.getStoreLocation());
         storeNameTv.setText(store.getStoreName());
         payWayChecking(payWayBooleans);
@@ -284,9 +298,6 @@ public class InfoStoreActivity extends AppCompatActivity {
 
         menuPrint(menuList);
         reviewPrint(storeReviews);
-
-        favoriteLoad(userId, store.getStoreId());
-        isRunningLoad(store.getStoreId());
     }
 
     public void payWayChecking(ArrayList<Boolean> bool){
@@ -376,6 +387,9 @@ public class InfoStoreActivity extends AppCompatActivity {
                         String[] result = response.split("\\?");
                         if (result[1].equals("1")){
                             isRunningSwitch.setChecked(true);
+                            isRunningSwitch.setText(" 영업 중");
+                        } else {
+                            isRunningSwitch.setText("영업 종료");
                         }
                     }
                 },
