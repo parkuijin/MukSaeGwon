@@ -23,13 +23,14 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
         return new ViewHolder(v);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.getTvFavoriteStore().setText(data.get(position).getStoreName());
+        holder.getTvFavoriteStoreLocation().setText(data.get(position).getStoreLocation());
     }
 
     @Override
@@ -40,14 +41,21 @@ public class FavoriteAdapter extends RecyclerView.Adapter<FavoriteAdapter.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder{
         private TextView tvFavoriteStore;
+        private TextView tvFavoriteStoreLocation;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFavoriteStore = (TextView) itemView.findViewById(R.id.tvFavoriteStore);
+            tvFavoriteStoreLocation = (TextView) itemView.findViewById(R.id.tvFavoriteStoreLocation);
         }
 
         public TextView getTvFavoriteStore() {
             return tvFavoriteStore;
         }
+
+        public TextView getTvFavoriteStoreLocation() {
+            return tvFavoriteStoreLocation;
+        }
+
     }
 }
