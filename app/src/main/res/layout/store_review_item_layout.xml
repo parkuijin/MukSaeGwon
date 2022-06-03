@@ -18,15 +18,14 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/tvDateStore"
-            android:layout_width="0dp"
+            android:id="@+id/userBy"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
             android:text="TextView"
             android:textColor="#000000"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textSize="16dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -36,9 +35,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="11dp"
+            app:layout_constraintEnd_toStartOf="@+id/tvDateStore"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvDateStore" />
+            app:layout_constraintTop_toBottomOf="@+id/userBy" />
 
         <TextView
             android:id="@+id/tvReviewStore"
@@ -56,6 +57,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/RatingStore" />
+
+        <TextView
+            android:id="@+id/tvDateStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="56dp"
+            android:text="TextView"
+            android:textColor="#5C5C5C"
+            app:layout_constraintStart_toEndOf="@+id/RatingStore"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
