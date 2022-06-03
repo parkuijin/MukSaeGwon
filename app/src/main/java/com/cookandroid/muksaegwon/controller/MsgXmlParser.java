@@ -69,7 +69,7 @@ public class MsgXmlParser {
     }
 
     public void xmlParsingSRFM(ArrayList<StoreReview> sr) {
-        String review = "", date;
+        String userBy="", review = "", date;
         float rating = 0;
         ArrayList<StoreReview> storeReviews = sr;
         try {
@@ -78,15 +78,19 @@ public class MsgXmlParser {
             xpp = factory.newPullParser();
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
-            boolean reviewFlag = false, ratingFlag = false, dateFlag = false;
+            boolean userByFlag = false, reviewFlag = false, ratingFlag = false, dateFlag = false;
 
             while (eventType != XmlPullParser.END_DOCUMENT) {
                 if (eventType == XmlPullParser.START_TAG) {
-                    if (xpp.getName().equals("review")) reviewFlag = true;
+                    if (xpp.getName().equals("userBy")) userByFlag = true;
+                    else if (xpp.getName().equals("review")) reviewFlag = true;
                     else if (xpp.getName().equals("rating")) ratingFlag = true;
                     else if (xpp.getName().equals("date")) dateFlag = true;
                 } else if (eventType == XmlPullParser.TEXT) {
-                    if (reviewFlag) {
+                    if (userByFlag) {
+                        userBy = xpp.getText();
+                        userByFlag = false;
+                    } else if (reviewFlag) {
                         review = xpp.getText();
                         reviewFlag = false;
                     } else if (ratingFlag) {
@@ -95,7 +99,7 @@ public class MsgXmlParser {
                     } else if (dateFlag) {
                         date = xpp.getText();
                         dateFlag = false;
-                        storeReviews.add(new StoreReview(review, date, rating));
+                        storeReviews.add(new StoreReview(userBy, review, date, rating));
                     }
                 }
                 eventType = xpp.next();

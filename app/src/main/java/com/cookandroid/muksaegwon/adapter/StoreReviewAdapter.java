@@ -30,6 +30,7 @@ public class StoreReviewAdapter extends RecyclerView.Adapter<StoreReviewAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.getTvUserBy().setText(data.get(position).getUserBy());
         holder.getTvReview().setText(data.get(position).getReview());
         holder.getRating().setRating(data.get(position).getRating());
         holder.getTvDate().setText(data.get(position).getDate());
@@ -41,15 +42,21 @@ public class StoreReviewAdapter extends RecyclerView.Adapter<StoreReviewAdapter.
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        private TextView tvUserBy;
         private TextView tvReview;
         private RatingBar Rating;
         private TextView tvDate;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+            tvUserBy = (TextView) itemView.findViewById(R.id.userBy);
             tvReview = (TextView) itemView.findViewById(R.id.tvReviewStore);
             Rating = (RatingBar) itemView.findViewById(R.id.RatingStore);
             tvDate = (TextView) itemView.findViewById(R.id.tvDateStore);
+        }
+
+        public TextView getTvUserBy() {
+            return tvUserBy;
         }
 
         public TextView getTvReview() {
