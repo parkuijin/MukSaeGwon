@@ -81,9 +81,10 @@
         android:background="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -114,6 +115,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
                 android:background="@drawable/edittext_background"
+                android:elevation="10dp"
                 android:ems="10"
                 android:gravity="center|left"
                 android:inputType="textPersonName"
@@ -333,7 +335,9 @@
                     android:id="@+id/openTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_marginStart="8dp"
                     android:background="@drawable/edittext_background"
+                    android:elevation="5dp"
                     android:ems="2"
                     android:gravity="center"
                     android:hint="0"
@@ -355,7 +359,10 @@
                     android:id="@+id/offTimeTvStore"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
                     android:background="@drawable/edittext_background"
+                    android:elevation="5dp"
                     android:ems="2"
                     android:gravity="center"
                     android:hint="24"
@@ -674,7 +681,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:layout_marginEnd="32dp" />
+                    android:layout_marginEnd="16dp" />
 
             </LinearLayout>
 
@@ -683,7 +690,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
                 android:orientation="vertical"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -722,10 +728,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="32dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/menu_item_background"
-                        android:elevation="10dp"
+                        android:padding="8dp"
                         app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent">
 
