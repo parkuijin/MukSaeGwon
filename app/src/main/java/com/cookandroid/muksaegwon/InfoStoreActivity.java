@@ -1,6 +1,7 @@
 package com.cookandroid.muksaegwon;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -170,7 +172,17 @@ public class InfoStoreActivity extends AppCompatActivity {
         reviewSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                reviewSubmit(reviewRating.getRating(),reviewContent.getText());
+                if (reviewRating.getRating() != 0 && !reviewContent.getText().toString().equals("")) {
+                    reviewSubmit(reviewRating.getRating(), reviewContent.getText());
+                    reviewRegDialog.dismiss();
+                    finish();
+                    overridePendingTransition(0, 0);
+                    Intent intent = getIntent();
+                    startActivity(intent);
+                    overridePendingTransition(0, 0);
+                } else {
+                    Toast.makeText(InfoStoreActivity.this, "작성하지 않은 리뷰가 있습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
