@@ -12,6 +12,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -75,10 +76,14 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
     private LocationRequest locationRequest;
     private LocationSettingsRequest.Builder builder;
 
+    TextView categoryTitle;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_category_map);
+
+        categoryTitle = (TextView)findViewById(R.id.categoryTitle);
 
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(getApplicationContext());
         locationRequest = LocationRequest.create()
@@ -90,6 +95,8 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
         builder.addLocationRequest(locationRequest);
 
         category = getIntent().getStringExtra("category");
+        setCatrogyrTitle(categoryTitle, category);
+
         Log.i("CATEGORY: ", category);
         lat = getIntent().getDoubleExtra("lat",0);
         lng = getIntent().getDoubleExtra("lng",0);
@@ -115,6 +122,27 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
                 finish();
             }
         });
+    }
+
+    private void setCatrogyrTitle(TextView categoryTitle, String category) {
+        if (category.equals("corn"))
+            categoryTitle.setText("옥수수");
+        else if ( category.equals("fish"))
+            categoryTitle.setText("붕어빵");
+        else if ( category.equals("topokki"))
+            categoryTitle.setText("떡볶이");
+        else if ( category.equals("eomuk"))
+            categoryTitle.setText("어묵");
+        else if ( category.equals("sweetpotato"))
+            categoryTitle.setText("고구마");
+        else if ( category.equals("toast"))
+            categoryTitle.setText("토스트");
+        else if ( category.equals("takoyaki"))
+            categoryTitle.setText("타코야끼");
+        else if ( category.equals("waffle"))
+            categoryTitle.setText("와플");
+        else if ( category.equals("dakggochi"))
+            categoryTitle.setText("닭꼬치");
     }
 
 
