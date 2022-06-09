@@ -2,6 +2,7 @@ package com.cookandroid.muksaegwon;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.cookandroid.muksaegwon.controller.InputFilterMinMax;
 import com.cookandroid.muksaegwon.model.Menu;
 
 import org.json.JSONArray;
@@ -32,6 +35,7 @@ import java.util.Map;
 
 public class InfoUpdateActivity extends AppCompatActivity {
 
+    TextView deleteBtn;
     ImageView plusMenu, minusMenu, infoUpdateFinBtn;
     LinearLayout menuContainer;
     Button UpdateSubmitBtn;
@@ -58,12 +62,17 @@ public class InfoUpdateActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
+        InfoStoreActivity infoStoreActivity = (InfoStoreActivity) InfoStoreActivity.infoStoreActivity;
+
+        requestQueue = Volley.newRequestQueue(this);
+
         UpdateSubmitBtn = (Button) findViewById(R.id.updateInfoSubmitBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
         plusMenu = (ImageView) findViewById(R.id.plusMenuBtnUpdate);
         minusMenu = (ImageView) findViewById(R.id.minusMenuBtnUpdate);
         openTime = (EditText) findViewById(R.id.openTimeTvUpdate);
         closeTime = (EditText) findViewById(R.id.offTimeTvUpdate);
+
         corn = (CheckBox) findViewById(R.id.checkCornUpdate);
         fish = (CheckBox) findViewById(R.id.checkFishUpdate);
         topokki = (CheckBox) findViewById(R.id.checkTopokkiUpdate);
@@ -73,14 +82,16 @@ public class InfoUpdateActivity extends AppCompatActivity {
         takoyaki = (CheckBox) findViewById(R.id.checkTakoyakiUpdate);
         waffle = (CheckBox) findViewById(R.id.checkWaffleUpdate);
         dakggochi = (CheckBox) findViewById(R.id.checkDakggochiUpdate);
-        plusMenu = (ImageView) findViewById(R.id.plusMenuBtnUpdate);
-        minusMenu = (ImageView) findViewById(R.id.minusMenuBtnUpdate);
+
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
         storeName = (EditText) findViewById(R.id.StoreNameUpdateTv);
+        deleteBtn = (TextView) findViewById(R.id.deleteBtn);
         infoUpdateFinBtn = (ImageView) findViewById(R.id.btn_back5);
+
         cash = (CheckBox) findViewById(R.id.checkCashUpdate);
         creditCard = (CheckBox) findViewById(R.id.checkCreditCardUpdate);
         account = (CheckBox) findViewById(R.id.checkAccountTransferUpdate);
+
         mon = (CheckBox) findViewById(R.id.checkMonUpdate);
         tue = (CheckBox) findViewById(R.id.checkTueUpdate);
         wed = (CheckBox) findViewById(R.id.checkWedUpdate);
@@ -89,8 +100,10 @@ public class InfoUpdateActivity extends AppCompatActivity {
         sat = (CheckBox) findViewById(R.id.checkSatUpdate);
         sun = (CheckBox) findViewById(R.id.checkSunUpdate);
 
+        // loadStoreInfo();
+
         // 현재 DB에 입력된 메뉴만큼 메뉴 레이아웃 생성
-        for(int i = 0; i<menuArrayList.size(); i++) {
+        for (int i = 0; i < menuArrayList.size(); i++) {
             LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             inflater.inflate(R.layout.item_menu, menuContainer, true);
         }
@@ -105,6 +118,10 @@ public class InfoUpdateActivity extends AppCompatActivity {
             etMenuName.setText(menuArrayList.get(i).getMenuName());
             etMenuPrice.setText(menuArrayList.get(i).getMenuPrice());
         }
+
+        // Runtime Input Filter
+        openTime.setFilters(new InputFilter[]{new InputFilterMinMax("0", "24")});
+        closeTime.setFilters(new InputFilter[]{new InputFilterMinMax("0", "24")});
 
         // 뒤로가기 버튼
         infoUpdateFinBtn.setOnClickListener(new View.OnClickListener() {
@@ -166,7 +183,6 @@ public class InfoUpdateActivity extends AppCompatActivity {
                     JSONArray jsonArray = new JSONArray("sdf");
                 } catch (Exception e) {
                 }
-
 
                 // 카테고리 가져오기
                 try {
@@ -245,13 +261,22 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         return params;
                     }
                 };
+
+                // 가게 정보, 수정 액티비티 종료
+               // infoStoreActivity.finish();
+               // finish();
+
+                // 가게 정보 액티비티 실행
+                //Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
+                //startActivity(intent);
+
             } // onClick
         }); // setOnClickListener
 
 
     } // onCreate
 
-    public void loadStoreInfo(String storeId){
+    public void loadStoreInfo(String storeId) {
         String url = "";
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
