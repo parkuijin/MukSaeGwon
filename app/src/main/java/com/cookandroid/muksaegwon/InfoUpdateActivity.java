@@ -53,10 +53,14 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
     RequestQueue requestQueue;
 
+    String storeId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_update);
+
+        storeId = getIntent().getStringExtra("storeId");
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -85,7 +89,31 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
         storeName = (EditText) findViewById(R.id.StoreNameUpdateTv);
+
         deleteBtn = (TextView) findViewById(R.id.deleteBtn);
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/deleteStore.jsp?storeId="+storeId;
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Log.i("DELETE STORE: ",response);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+                requestQueue.add(stringRequest);
+            }
+        });
+
         infoUpdateFinBtn = (ImageView) findViewById(R.id.btn_back5);
 
         cash = (CheckBox) findViewById(R.id.checkCashUpdate);
@@ -290,6 +318,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
                         msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
                         msgXmlParser.menuInfo(store.getMenus(),menuList);
+
                         msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
                         updateUi(store);*/
                     }
@@ -302,5 +331,4 @@ public class InfoUpdateActivity extends AppCompatActivity {
                 });
         requestQueue.add(stringRequest);
     }
-
 }
