@@ -44,6 +44,8 @@ import java.util.Map;
 
 public class InfoStoreActivity extends AppCompatActivity {
 
+    public static InfoStoreActivity infoStoreActivity;
+
     Long now = System.currentTimeMillis();
     Date date = new Date(now);
     SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
@@ -51,7 +53,7 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     Store store = new Store();
 
-    TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore;
+    TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore, modifyBtn;
     CheckBox[] payWays = new CheckBox[3];
     CheckBox[] days = new CheckBox[7];
     CheckBox[] categorys = new CheckBox[9];
@@ -86,6 +88,8 @@ public class InfoStoreActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_store);
+
+        infoStoreActivity = InfoStoreActivity.this;
 
         preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         userId = preferences.getString("userId","");
@@ -133,6 +137,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        modifyBtn = (TextView) findViewById(R.id.modifyBtn);
         infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back5);
         reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
         storeNameTv = (TextView) findViewById(R.id.storeNameTv);
@@ -203,7 +208,17 @@ public class InfoStoreActivity extends AppCompatActivity {
                 reviewRegDialog.show();
             }
         });
-    }
+
+        // 수정 페이지로 이동
+        modifyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), InfoUpdateActivity.class);
+                startActivity(intent);
+            }
+        });
+
+    } // onCreate
 
     private void storeRunCheck(byte b, String storeId) {
         String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
