@@ -81,7 +81,7 @@ public class ReviewActivity extends AppCompatActivity {
 
 
         //뒤로가기 버튼 누르면 ReviewActivity전환
-        ImageView imageView = (ImageView) findViewById(R.id.btn_back4);
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back5);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

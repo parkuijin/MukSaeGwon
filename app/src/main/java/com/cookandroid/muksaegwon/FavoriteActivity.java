@@ -77,7 +77,7 @@ public class FavoriteActivity extends AppCompatActivity {
 
 
 
-        ImageView imageView = (ImageView) findViewById(R.id.btn_back4);
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back5);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
