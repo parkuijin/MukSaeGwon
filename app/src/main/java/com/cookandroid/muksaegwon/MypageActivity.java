@@ -29,7 +29,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 
-public class MypageActivity extends AppCompatActivity implements View.OnClickListener {
+public class MypageActivity extends AppCompatActivity {
     private static final int RC_SIGN_IN = 1000;
 
     ImageView backBtn;
@@ -54,18 +54,12 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         review = (LinearLayout) findViewById(R.id.reviewBtn);
         heart = (LinearLayout) findViewById(R.id.heartBtn);
 
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
+        preferences = getApplicationContext().getSharedPreferences("userInfo",MODE_PRIVATE);
+        String name = preferences.getString("name","");
+        String email = preferences.getString("email","");
+        nameTv.setText(name);
+        emailTv.setText(email);
 
-        // Build a GoogleSignInClient with the options specified by gso.
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-
-
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if (account != null){
-            updateInfo(account.getId(),account.getDisplayName(), account.getEmail());
-        }
 
         // 뒤로가기
         backBtn.setOnClickListener(new View.OnClickListener() {
@@ -79,12 +73,8 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         heart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (account != null) {
-                    Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MypageActivity.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getApplicationContext(), FavoriteActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -92,85 +82,9 @@ public class MypageActivity extends AppCompatActivity implements View.OnClickLis
         review.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (account != null) {
-                    Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
-                    startActivity(intent);
-                } else {
-                    Toast.makeText(MypageActivity.this, "로그인이 필요합니다.", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = new Intent(getApplicationContext(), ReviewActivity.class);
+                startActivity(intent);
             }
         });
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.sign_in_button:
-                signIn();
-                break;
-            // ...
-        }
-    }
-
-    private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
-        if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
-        }
-    }
-
-    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
-        try {
-            account = completedTask.getResult(ApiException.class);
-
-            Log.d(TAG, "Account received");
-            updateInfo(account.getId(), account.getDisplayName(), account.getEmail());
-            // Signed in successfully, show authenticated UI.
-        } catch (ApiException e) {
-            // The ApiException status code indicates the detailed failure reason.
-            // Please refer to the GoogleSignInStatusCodes class reference for more information.
-            Log.w(TAG, "signInResult:failed code=" + e.getStatusCode());
-        }
-    }
-
-    private void updateInfo(String id, String name, String email) {
-        nameTv.setText(name);
-        emailTv.setText(email);
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/idCheck.jsp?uId=" + id + "&uName=" + name + "&";
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        Log.i("INFO:", response);
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("LOGINERROR: ", error.toString());
-                    }
-                });
-        requestQueue.add(stringRequest);
-
-
-        //SharedPreference
-        preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("userId",id);
-        editor.apply();
     }
 }
