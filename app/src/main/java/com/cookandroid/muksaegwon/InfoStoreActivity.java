@@ -214,6 +214,7 @@ public class InfoStoreActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoUpdateActivity.class);
+                intent.putExtra("storeId",storeId);
                 startActivity(intent);
             }
         });
