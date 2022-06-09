@@ -22,4 +22,9 @@
     <style name="Theme.MukSaeGwon.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MukSaeGwon.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="android:colorControlNormal">@color/quantum_grey</item>
+        <item name="colorControlActivated">#FFE32F</item>
+    </style>
 </resources>

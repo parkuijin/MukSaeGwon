@@ -167,6 +167,8 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
         Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = Preferences.edit();
         editor.putString("userId",id);
+        editor.putString("name",account.getDisplayName());
+        editor.putString("email",account.getEmail());
         editor.apply();
 
         permissionCheck();

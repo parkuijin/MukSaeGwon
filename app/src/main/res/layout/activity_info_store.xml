@@ -62,7 +62,8 @@
             android:layout_height="30dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/favorite_selector"
-            android:button="@android:color/transparent" />
+            android:button="@android:color/transparent"
+            tools:ignore="TouchTargetSizeCheck" />
 
         <Switch
             android:id="@+id/isRunningSwitch"
@@ -70,7 +71,8 @@
             android:layout_height="wrap_content"
             android:text="영업 종료"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
     <ScrollView
@@ -429,14 +431,15 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="군옥수수"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/sweetpotatoLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/eomukLayout"
@@ -460,7 +463,8 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="군고구마"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -468,7 +472,7 @@
                 android:id="@+id/topokkiLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/fishLayout"
@@ -492,14 +496,15 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="떡볶이"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/dakggochiLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/waffleLayout"
@@ -523,14 +528,15 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="닭꼬치"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/toastLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/sweetpotatoLayout"
@@ -554,7 +560,8 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="토스트"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -586,14 +593,15 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="어묵"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/fishLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
+                android:layout_marginLeft="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintLeft_toRightOf="@id/cornLayout"
@@ -617,7 +625,8 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="붕어빵"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 
@@ -648,14 +657,15 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="타코야키"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/waffleLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@+id/takoyakiLayout"
@@ -680,7 +690,8 @@
                     android:layout_gravity="bottom|center"
                     android:layout_marginTop="8dp"
                     android:text="와플"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout

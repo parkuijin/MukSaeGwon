@@ -61,6 +61,7 @@
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/review_item_layout.xml" value="0.36614583333333334" />
         <entry key="..\:/WorkSpace/MukSaeGwon/app/src/main/res/layout/store_review_item_layout.xml" value="0.36614583333333334" />
         <entry key="app/src/main/res/drawable/bottom_rounded.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/button_info_reg_submit.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/edittext_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/menu_item_background.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/radiobutton_background_selector.xml" value="0.1" />
@@ -69,7 +70,7 @@
         <entry key="app/src/main/res/layout/activity_category.xml" value="0.16111111111111112" />
         <entry key="app/src/main/res/layout/activity_category_map.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_favorite.xml" value="0.23055555555555557" />
-        <entry key="app/src/main/res/layout/activity_info_register.xml" value="0.26296296296296295" />
+        <entry key="app/src/main/res/layout/activity_info_register.xml" value="0.375" />
         <entry key="app/src/main/res/layout/activity_info_store.xml" value="0.34634857177734385" />
         <entry key="app/src/main/res/layout/activity_intro.xml" value="0.396875" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.24592590332031253" />
@@ -82,6 +83,7 @@
         <entry key="app/src/main/res/layout/item_layout.xml" value="0.3713495890299479" />
         <entry key="app/src/main/res/layout/item_menu.xml" value="0.2064814814814815" />
         <entry key="app/src/main/res/layout/item_menu_tv.xml" value="0.2064814814814815" />
+        <entry key="app/src/main/res/layout/review_item_layout.xml" value="0.1962962962962963" />
         <entry key="app/src/main/res/layout/store_review_item_layout.xml" value="0.3104293823242188" />
       </map>
     </option>
