@@ -31,7 +31,7 @@ public class CategoryActivity extends AppCompatActivity {
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        cateBackBtn = (ImageView) findViewById(R.id.btn_back4);
+        cateBackBtn = (ImageView) findViewById(R.id.btn_back5);
         fish = (ImageView) findViewById(R.id.fish);
         red = (ImageView) findViewById(R.id.red);
         ggochi = (ImageView) findViewById(R.id.ggochi);

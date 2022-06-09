@@ -9,7 +9,7 @@
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/reviewRegTitleLayout"
+        android:id="@+id/reviewUpdateTitleLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_rounded"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/btn_back4"
+            android:id="@+id/btn_back5"
             android:layout_width="33dp"
             android:layout_height="33dp"
             android:layout_marginStart="15dp"
@@ -45,6 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.444" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <LinearLayout
@@ -54,12 +55,13 @@
         android:layout_marginTop="8dp"
         android:background="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reviewRegTitleLayout">
+        app:layout_constraintTop_toBottomOf="@+id/reviewUpdateTitleLayout">
 
         <CheckBox
             android:id="@+id/favoriteBtn"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:layout_gravity="center"
             android:layout_marginEnd="8dp"
             android:background="@drawable/favorite_selector"
             android:button="@android:color/transparent"
@@ -69,10 +71,20 @@
             android:id="@+id/isRunningSwitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:text="영업 종료"
             android:textSize="16sp"
             android:textStyle="bold"
             tools:ignore="TouchTargetSizeCheck" />
+
+        <ImageView
+            android:id="@+id/modifyBtn"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/edit" />
+
     </LinearLayout>
 
     <ScrollView
@@ -86,7 +98,7 @@
         app:layout_constraintStart_toStartOf="parent"
 
         app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintVertical_bias="1.0">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -97,7 +109,7 @@
             app:layout_constraintTop_toTopOf="@+id/etStroeName">
 
             <TextView
-                android:id="@+id/StoreRocation"
+                android:id="@+id/StoreNameUpdate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -110,7 +122,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/StoreLocationTv"
+                android:id="@+id/StoreNameUpdateTv"
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="16dp"
@@ -126,10 +138,10 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/StoreRocation" />
+                app:layout_constraintTop_toBottomOf="@+id/StoreNameUpdate" />
 
             <TextView
-                android:id="@+id/payWayTv"
+                android:id="@+id/payWayUpdateTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -139,10 +151,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/StoreLocationTv" />
+                app:layout_constraintTop_toBottomOf="@+id/StoreNameUpdateTv" />
 
             <CheckBox
-                android:id="@+id/checkCashStore"
+                android:id="@+id/checkCashUpdate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -156,10 +168,10 @@
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
+                app:layout_constraintTop_toBottomOf="@+id/payWayUpdateTv" />
 
             <CheckBox
-                android:id="@+id/checkCreditCardStore"
+                android:id="@+id/checkCreditCardUpdate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -173,11 +185,11 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkCashStore"
-                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
+                app:layout_constraintStart_toEndOf="@+id/checkCashUpdate"
+                app:layout_constraintTop_toBottomOf="@+id/payWayUpdateTv" />
 
             <CheckBox
-                android:id="@+id/checkAccountTransferStore"
+                android:id="@+id/checkAccountTransferUpdate"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginStart="16dp"
@@ -190,8 +202,8 @@
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15dp"
-                app:layout_constraintStart_toEndOf="@+id/checkCreditCardStore"
-                app:layout_constraintTop_toBottomOf="@+id/payWayTv" />
+                app:layout_constraintStart_toEndOf="@+id/checkCreditCardUpdate"
+                app:layout_constraintTop_toBottomOf="@+id/payWayUpdateTv" />
 
             <TextView
                 android:id="@+id/runningDay"
@@ -204,10 +216,10 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkCashStore" />
+                app:layout_constraintTop_toBottomOf="@+id/checkCashUpdate" />
 
             <LinearLayout
-                android:id="@+id/dateCheckLayout"
+                android:id="@+id/dateCheckLayoutUpdate"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal"
@@ -215,7 +227,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/runningDay">
 
                 <CheckBox
-                    android:id="@+id/checkMonStore"
+                    android:id="@+id/checkMon"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
@@ -231,7 +243,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkTueStore"
+                    android:id="@+id/checkTueUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -247,7 +259,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkWedStore"
+                    android:id="@+id/checkWedUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="16dp"
@@ -263,7 +275,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkThuStore"
+                    android:id="@+id/checkThuUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -279,7 +291,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkFriStore"
+                    android:id="@+id/checkFriUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -295,7 +307,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSatStore"
+                    android:id="@+id/checkSatUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -310,7 +322,7 @@
                     android:textSize="15dp" />
 
                 <CheckBox
-                    android:id="@+id/checkSunStore"
+                    android:id="@+id/checkSunUpdate"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_marginStart="12dp"
@@ -338,7 +350,7 @@
                 android:textSize="16sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/dateCheckLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/dateCheckLayoutUpdate" />
 
             <LinearLayout
                 android:id="@+id/etRunTimeLayout"
@@ -351,7 +363,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tvRunTime">
 
                 <TextView
-                    android:id="@+id/openTimeTvStore"
+                    android:id="@+id/openTimeTvUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginStart="8dp"
@@ -361,6 +373,7 @@
                     android:gravity="center"
                     android:hint="0"
                     android:textColor="#000000"
+                    android:textSize="16sp"
                     tools:ignore="TouchTargetSizeCheck" />
 
                 <TextView
@@ -375,7 +388,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/offTimeTvStore"
+                    android:id="@+id/offTimeTvUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginEnd="8dp"
@@ -386,6 +399,7 @@
                     android:gravity="center"
                     android:hint="24"
                     android:textColor="#000000"
+                    android:textSize="16sp"
                     tools:ignore="TouchTargetSizeCheck" />
 
             </LinearLayout>
@@ -414,7 +428,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkCornStore"
+                    android:id="@+id/checkCornUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -446,7 +460,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/fishLayout">
 
                 <CheckBox
-                    android:id="@+id/checkSweetPotatoStore"
+                    android:id="@+id/checkSweetPotatoUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -479,7 +493,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkTopokkiStore"
+                    android:id="@+id/checkTopokkiUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -511,7 +525,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/toastLayout">
 
                 <CheckBox
-                    android:id="@+id/checkDakggochiStore"
+                    android:id="@+id/checkDakggochi"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -543,7 +557,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/topokkiLayout">
 
                 <CheckBox
-                    android:id="@+id/checkToastStore"
+                    android:id="@+id/checkToastUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -576,7 +590,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/cornLayout">
 
                 <CheckBox
-                    android:id="@+id/checkEomukStore"
+                    android:id="@+id/checkEomukUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -608,7 +622,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/categoryAdd">
 
                 <CheckBox
-                    android:id="@+id/checkFishStore"
+                    android:id="@+id/checkFishUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -641,7 +655,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/eomukLayout">
 
                 <CheckBox
-                    android:id="@+id/checkTakoyakiStore"
+                    android:id="@+id/checkTakoyakiUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"
@@ -672,7 +686,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/sweetpotatoLayout">
 
                 <CheckBox
-                    android:id="@+id/checkWaffleStore"
+                    android:id="@+id/checkWaffleUpdate"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:background="@drawable/radiobutton_background_selector"

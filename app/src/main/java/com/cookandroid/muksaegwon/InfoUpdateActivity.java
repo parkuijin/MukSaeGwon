@@ -1,9 +1,7 @@
 package com.cookandroid.muksaegwon;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,8 +10,6 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,33 +20,31 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.cookandroid.muksaegwon.controller.InputFilterMinMax;
+import com.cookandroid.muksaegwon.model.Menu;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InfoRegisterActivity extends AppCompatActivity {
+public class InfoUpdateActivity extends AppCompatActivity {
 
-    Button submitBtn;
-    ImageView infoRegFinBtn, plusMenu, minusMenu;
+    ImageView plusMenu, minusMenu, infoUpdateFinBtn;
+    LinearLayout menuContainer;
+    Button UpdateSubmitBtn;
     CheckBox cash, creditCard, account, mon, tue, wed, thu, fri, sat, sun;
     CheckBox corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi;
     EditText storeName, openTime, closeTime;
-    TextView storeLocation;
 
-    LinearLayout menuContainer;
+    ArrayList<Menu> menuArrayList = new ArrayList<>();
 
     JSONObject menu;
     JSONArray menus;
-
     JSONObject payWay;
-
     JSONObject runningDate;
-
     JSONObject selectedCategory;
 
     RequestQueue requestQueue;
@@ -58,59 +52,62 @@ public class InfoRegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_info_register);
+        setContentView(R.layout.activity_info_update);
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
 
-        RegisterActivity registerActivity = (RegisterActivity) RegisterActivity.registerActivity;
+        UpdateSubmitBtn = (Button) findViewById(R.id.updateInfoSubmitBtn);
+        menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
+        plusMenu = (ImageView) findViewById(R.id.plusMenuBtnUpdate);
+        minusMenu = (ImageView) findViewById(R.id.minusMenuBtnUpdate);
+        openTime = (EditText) findViewById(R.id.openTimeTvUpdate);
+        closeTime = (EditText) findViewById(R.id.offTimeTvUpdate);
+        corn = (CheckBox) findViewById(R.id.checkCornUpdate);
+        fish = (CheckBox) findViewById(R.id.checkFishUpdate);
+        topokki = (CheckBox) findViewById(R.id.checkTopokkiUpdate);
+        eomuk = (CheckBox) findViewById(R.id.checkEomukUpdate);
+        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotatoUpdate);
+        toast = (CheckBox) findViewById(R.id.checkToastUpdate);
+        takoyaki = (CheckBox) findViewById(R.id.checkTakoyakiUpdate);
+        waffle = (CheckBox) findViewById(R.id.checkWaffleUpdate);
+        dakggochi = (CheckBox) findViewById(R.id.checkDakggochiUpdate);
+        plusMenu = (ImageView) findViewById(R.id.plusMenuBtnUpdate);
+        minusMenu = (ImageView) findViewById(R.id.minusMenuBtnUpdate);
+        menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
+        storeName = (EditText) findViewById(R.id.StoreNameUpdateTv);
+        infoUpdateFinBtn = (ImageView) findViewById(R.id.btn_back5);
+        cash = (CheckBox) findViewById(R.id.checkCashUpdate);
+        creditCard = (CheckBox) findViewById(R.id.checkCreditCardUpdate);
+        account = (CheckBox) findViewById(R.id.checkAccountTransferUpdate);
+        mon = (CheckBox) findViewById(R.id.checkMonUpdate);
+        tue = (CheckBox) findViewById(R.id.checkTueUpdate);
+        wed = (CheckBox) findViewById(R.id.checkWedUpdate);
+        thu = (CheckBox) findViewById(R.id.checkThuUpdate);
+        fri = (CheckBox) findViewById(R.id.checkFriUpdate);
+        sat = (CheckBox) findViewById(R.id.checkSatUpdate);
+        sun = (CheckBox) findViewById(R.id.checkSunUpdate);
 
-        openTime = (EditText) findViewById(R.id.openTimeTv);
-        closeTime = (EditText) findViewById(R.id.offTimeTv);
-        corn = (CheckBox) findViewById(R.id.checkCorn);
-        fish = (CheckBox) findViewById(R.id.checkFish);
-        topokki = (CheckBox) findViewById(R.id.checkTopokki);
-        eomuk = (CheckBox) findViewById(R.id.checkEomuk);
-        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotato);
-        toast = (CheckBox) findViewById(R.id.checkToast);
-        takoyaki = (CheckBox) findViewById(R.id.checkTakoyaki);
-        waffle = (CheckBox) findViewById(R.id.checkWaffle);
-        dakggochi = (CheckBox) findViewById(R.id.checkDakggochi);
-        plusMenu = (ImageView) findViewById(R.id.plusMenuBtn);
-        minusMenu = (ImageView) findViewById(R.id.minusMenuBtn);
-        menuContainer = (LinearLayout) findViewById(R.id.menuItemLayout);
-        storeName = (EditText) findViewById(R.id.etStroeName);
-        storeLocation = (TextView) findViewById(R.id.StoreNameTv);
-        submitBtn = (Button) findViewById(R.id.regInfoSubmitBtn);
-        infoRegFinBtn = (ImageView) findViewById(R.id.btn_back4);
-        cash = (CheckBox) findViewById(R.id.checkCash);
-        creditCard = (CheckBox) findViewById(R.id.checkCreditCard);
-        account = (CheckBox) findViewById(R.id.checkAccountTransfer);
-        mon = (CheckBox) findViewById(R.id.checkMon);
-        tue = (CheckBox) findViewById(R.id.checkTue);
-        wed = (CheckBox) findViewById(R.id.checkWed);
-        thu = (CheckBox) findViewById(R.id.checkThu);
-        fri = (CheckBox) findViewById(R.id.checkFri);
-        sat = (CheckBox) findViewById(R.id.checkSat);
-        sun = (CheckBox) findViewById(R.id.checkSun);
+        // 현재 DB에 입력된 메뉴만큼 메뉴 레이아웃 생성
+        for(int i = 0; i<menuArrayList.size(); i++) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.item_menu, menuContainer, true);
+        }
 
-        menus = new JSONArray();
+        // 생성된 메뉴 레이아웃에 현재 DB에 입력된 메뉴 넣기
+        for (int i = 0; i < menuContainer.getChildCount(); i++) {
+            View v = menuContainer.getChildAt(i);
 
-        Intent intent = getIntent();
+            EditText etMenuName = v.findViewById(R.id.MenuNameTv);
+            EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
 
-        // Runtime Input Filter
-        openTime.setFilters(new InputFilter[]{new InputFilterMinMax("0","24")});
-        closeTime.setFilters(new InputFilter[]{new InputFilterMinMax("0","24")});
+            etMenuName.setText(menuArrayList.get(i).getMenuName());
+            etMenuPrice.setText(menuArrayList.get(i).getMenuPrice());
+        }
 
-        requestQueue = Volley.newRequestQueue(this);
-
-        // 172.111.113.13
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoRegister.jsp";
-
-        storeLocation.setText(intent.getStringExtra("loc"));
-
-        infoRegFinBtn.setOnClickListener(new View.OnClickListener() {
+        // 뒤로가기 버튼
+        infoUpdateFinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
@@ -120,13 +117,10 @@ public class InfoRegisterActivity extends AppCompatActivity {
         plusMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                // LayoutInflater inflater = LayoutInflater.from(MenuActivity.this);
                 LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 inflater.inflate(R.layout.item_menu, menuContainer, true);
-
             }
-        });
+        }); // plus
 
         minusMenu.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,9 +128,12 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 // 인덱스 번호가 큰 레이아웃부터 삭제
                 menuContainer.removeViewAt(menuContainer.getChildCount() - 1);
             }
-        });
+        }); // minus
 
-        submitBtn.setOnClickListener(new View.OnClickListener() {
+        String url = "";
+
+        // 수정된 내용 제출 버튼
+        UpdateSubmitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -167,7 +164,8 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 }
                 try {
                     JSONArray jsonArray = new JSONArray("sdf");
-                }catch(Exception e){}
+                } catch (Exception e) {
+                }
 
 
                 // 카테고리 가져오기
@@ -192,9 +190,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 for (int i = 0; i < menuContainer.getChildCount(); i++) {
                     View v = menuContainer.getChildAt(i);
 
-                    // TextView tvMenuName = v.findViewById(R.id.tvMenuName);
                     EditText etMenuName = v.findViewById(R.id.MenuNameTv);
-                    // TextView tvMenuPrice = v.findViewById(R.id.tvMenuPrice);
                     EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
 
                     try {
@@ -209,15 +205,12 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     }
                 } // for
 
-                Log.i("JSONARRAYTEST", String.valueOf(menus));
-
-                // Volley Post
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.i("REGISTER : ", response);
+
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -231,13 +224,6 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
                         // 입력한 가게 이름 가져오기
                         params.put("StoreName", storeName.getText().toString());
-
-                        // 가게 주소 가져오기
-                        params.put("StoreLocation", storeLocation.getText().toString());
-
-                        // 가게 위도, 경도 가져오기, * 소수점 5자리 까지 *
-                        params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
-                        params.put("lng", String.valueOf(intent.getDoubleExtra("lon", 0)));
 
                         // 결제 방식 가져오기
                         params.put("PayWay", payWay.toString());
@@ -256,21 +242,40 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         // 카테고리 가져오기
                         params.put("SelectedCategory", selectedCategory.toString());
 
-                        // isRunning (Default 0)
-                        params.put("isRunning", "0");
                         return params;
                     }
                 };
+            } // onClick
+        }); // setOnClickListener
 
-                requestQueue.add(stringRequest);
-                // 메인 화면으로 돌아가기 위한 Activity 종료
-                registerActivity.finish();
 
-                // 나중에 보기 성공 메시지
-                Toast.makeText(getApplicationContext(),"가게 정보가 등록됐습니다.",Toast.LENGTH_LONG).show();
+    } // onCreate
 
-                finish();
-            } // OnClick
-        }); // ClickListener
+    public void loadStoreInfo(String storeId){
+        String url = "";
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        /*Log.i("response: ",response);
+                        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+                        msgXmlParser.xmlParsingForStore(store);
+                        msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
+                        msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
+                        msgXmlParser.menuInfo(store.getMenus(),menuList);
+                        msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
+                        updateUi(store);*/
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
     }
+
 }

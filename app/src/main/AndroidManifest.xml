@@ -16,6 +16,9 @@
         android:theme="@style/Theme.MukSaeGwon"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".InfoUpdateActivity"
+            android:exported="false" />
+        <activity
             android:name=".CategoryMapActivity"
             android:exported="false" />
         <activity

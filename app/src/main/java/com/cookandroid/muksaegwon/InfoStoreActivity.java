@@ -133,35 +133,35 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back4);
+        infoStoreFinBtn = (ImageView) findViewById(R.id.btn_back5);
         reviewRegBtn = (ImageView) findViewById(R.id.reviewRegBtn);
         storeNameTv = (TextView) findViewById(R.id.storeNameTv);
-        storeLocationTv = (TextView) findViewById(R.id.StoreLocationTv);
+        storeLocationTv = (TextView) findViewById(R.id.StoreNameUpdateTv);
 
-        days[0] = (CheckBox) findViewById(R.id.checkMonStore);
-        days[1] = (CheckBox) findViewById(R.id.checkTueStore);
-        days[2]= (CheckBox) findViewById(R.id.checkWedStore);
-        days[3]= (CheckBox) findViewById(R.id.checkThuStore);
-        days[4]= (CheckBox) findViewById(R.id.checkFriStore);
-        days[5]= (CheckBox) findViewById(R.id.checkSatStore);
-        days[6]= (CheckBox) findViewById(R.id.checkSunStore);
+        days[0] = (CheckBox) findViewById(R.id.checkMon);
+        days[1] = (CheckBox) findViewById(R.id.checkTueUpdate);
+        days[2]= (CheckBox) findViewById(R.id.checkWedUpdate);
+        days[3]= (CheckBox) findViewById(R.id.checkThuUpdate);
+        days[4]= (CheckBox) findViewById(R.id.checkFriUpdate);
+        days[5]= (CheckBox) findViewById(R.id.checkSatUpdate);
+        days[6]= (CheckBox) findViewById(R.id.checkSunUpdate);
 
-        payWays[0] = (CheckBox) findViewById(R.id.checkCashStore);
-        payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardStore);
-        payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferStore);
+        payWays[0] = (CheckBox) findViewById(R.id.checkCashUpdate);
+        payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardUpdate);
+        payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferUpdate);
 
-        categorys[0] = (CheckBox) findViewById(R.id.checkCornStore);
-        categorys[1] = (CheckBox) findViewById(R.id.checkFishStore);
-        categorys[2] = (CheckBox) findViewById(R.id.checkTopokkiStore);
-        categorys[3] = (CheckBox) findViewById(R.id.checkEomukStore);
-        categorys[4] = (CheckBox) findViewById(R.id.checkSweetPotatoStore);
-        categorys[5]= (CheckBox) findViewById(R.id.checkToastStore);
-        categorys[6] = (CheckBox) findViewById(R.id.checkTakoyakiStore);
-        categorys[7] = (CheckBox) findViewById(R.id.checkWaffleStore);
-        categorys[8] = (CheckBox) findViewById(R.id.checkDakggochiStore);
+        categorys[0] = (CheckBox) findViewById(R.id.checkCornUpdate);
+        categorys[1] = (CheckBox) findViewById(R.id.checkFishUpdate);
+        categorys[2] = (CheckBox) findViewById(R.id.checkTopokkiUpdate);
+        categorys[3] = (CheckBox) findViewById(R.id.checkEomukUpdate);
+        categorys[4] = (CheckBox) findViewById(R.id.checkSweetPotatoUpdate);
+        categorys[5]= (CheckBox) findViewById(R.id.checkToastUpdate);
+        categorys[6] = (CheckBox) findViewById(R.id.checkTakoyakiUpdate);
+        categorys[7] = (CheckBox) findViewById(R.id.checkWaffleUpdate);
+        categorys[8] = (CheckBox) findViewById(R.id.checkDakggochi);
 
-        openTimeStore = (TextView) findViewById(R.id.openTimeTvStore);
-        offTimeStore = (TextView) findViewById(R.id.offTimeTvStore);
+        openTimeStore = (TextView) findViewById(R.id.openTimeTvUpdate);
+        offTimeStore = (TextView) findViewById(R.id.offTimeTvUpdate);
 
         reviewRegDialog = new Dialog(InfoStoreActivity.this);
         reviewRegDialog.setContentView(R.layout.dialog_review_register);
