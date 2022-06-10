@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -101,7 +102,9 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.i("DELETE STORE: ",response);
+                                Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_LONG).show();
+                                infoStoreActivity.finish();
+                                finish();
                             }
                         },
                         new Response.ErrorListener() {
@@ -175,7 +178,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
             }
         }); // minus
 
-        String url = "";
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/";
 
         // 수정된 내용 제출 버튼
         UpdateSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -290,19 +293,16 @@ public class InfoUpdateActivity extends AppCompatActivity {
                     }
                 };
 
-                // 가게 정보, 수정 액티비티 종료
-               // infoStoreActivity.finish();
-               // finish();
-
-                // 가게 정보 액티비티 실행
-                //Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
-                //startActivity(intent);
+               finish();
 
             } // onClick
         }); // setOnClickListener
 
 
     } // onCreate
+
+
+
 
     public void loadStoreInfo(String storeId) {
         String url = "";

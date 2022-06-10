@@ -303,32 +303,48 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     }
 
-    public void nearPlaces(String response){
-        ArrayList<Store> stores= new ArrayList<>();
-       /*String test = "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58330 +"</lat><lng>"+ 126.92509 +"</lng></store>"
-                + "<store><storeName>"+"test"+"</storeName><lat>"+ 37.58225 +"</lat><lng>"+ 126.92612 +"</lng></store>";*/
-        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
-        msgXmlParser.xmlNearByPlaces(stores);
+    public void nearPlaces(){
+        Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
+        String markerUrl = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                markerUrl,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Log.i("MARKER:", response);
+                        ArrayList<Store> stores= new ArrayList<>();
+                        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+                        msgXmlParser.xmlNearByPlaces(stores);
 
-        LatLng latLng;
-        MarkerOptions markerOptions = new MarkerOptions();
+                        LatLng latLng;
+                        MarkerOptions markerOptions = new MarkerOptions();
 
-        // 모든 마커 지우기
-        if(marker != null){
-            for(int i=0; i<markers.size();i++){
-                markers.get(i).remove();
-            }
-        }
+                        // 모든 마커 지우기
+                        if(marker != null){
+                            for(int i=0; i<markers.size();i++){
+                                markers.get(i).remove();
+                            }
+                        }
 
-        for(int i=0;i<stores.size();i++){
-            latLng = new LatLng(stores.get(i).getLat(),stores.get(i).getLng());
-            markerOptions.position(latLng);
-            markerOptions.title(stores.get(i).getStoreName());
-            markerOptions.draggable(true);
-            marker = mMap.addMarker(markerOptions);
-            marker.setTag(stores.get(i).getStoreId());
-            markers.add(marker);
-        }
+                        for(int i=0;i<stores.size();i++){
+                            latLng = new LatLng(stores.get(i).getLat(),stores.get(i).getLng());
+                            markerOptions.position(latLng);
+                            markerOptions.title(stores.get(i).getStoreName());
+                            markerOptions.draggable(true);
+                            marker = mMap.addMarker(markerOptions);
+                            marker.setTag(stores.get(i).getStoreId());
+                            markers.add(marker);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+        requestQueue.add(stringRequest);
     }
 
 
@@ -398,25 +414,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
                                     mMap.moveCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
 
                                     if (left != 0) {
-                                        Log.i("lbrt: ", left + " " + bottom + " " + right + " " + top);
-                                        String markerUrl = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/markerCluster.jsp?left=" + left + "&right=" + right + "&top=" + top + "&bottom=" + bottom;
-                                        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-                                        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                                                markerUrl,
-                                                new Response.Listener<String>() {
-                                                    @Override
-                                                    public void onResponse(String response) {
-                                                        Log.i("MARKER:", response);
-                                                        nearPlaces(response);
-                                                    }
-                                                },
-                                                new Response.ErrorListener() {
-                                                    @Override
-                                                    public void onErrorResponse(VolleyError error) {
-
-                                                    }
-                                                });
-                                        requestQueue.add(stringRequest);
+                                        nearPlaces();
                                         initFlag = false;
                                     }
                                 }
@@ -436,6 +434,11 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
         }
     };
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        nearPlaces();
+    }
 
     // 구글맵 주소 검색 메서드
     protected void locSearch(List<Address> addresses) {

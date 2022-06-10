@@ -139,6 +139,13 @@ public class InfoRegisterActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (menuContainer.getChildCount() == 0){
+                    Toast.makeText(getApplicationContext(),"메뉴를 추가하세요.",Toast.LENGTH_LONG).show();
+                    return;
+                } else if (storeName.getText().toString().equals("")){
+                    Toast.makeText(getApplicationContext(),"가게 이름을 입력하세요.",Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 // 결제 방식 가져오기
                 try {
@@ -182,7 +189,10 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     selectedCategory.put("takoyaki", takoyaki.isChecked());
                     selectedCategory.put("waffle", waffle.isChecked());
                     selectedCategory.put("dakggochi", dakggochi.isChecked());
-
+                    if (!selectedCategory.toString().contains("true")){
+                        Toast.makeText(getApplicationContext(),"카테고리를 선택하세요.",Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -197,13 +207,16 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     // TextView tvMenuPrice = v.findViewById(R.id.tvMenuPrice);
                     EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
 
+                    if (etMenuName.getText().toString().equals("") ||
+                            etMenuPrice.getText().toString().equals("")){
+                        Toast.makeText(getApplicationContext(),"메뉴를 입력하세요.",Toast.LENGTH_LONG).show();
+                        return;
+                    }
                     try {
                         menu = new JSONObject();
                         menu.put("name", etMenuName.getText().toString());
                         menu.put("price", etMenuPrice.getText().toString());
-
                         menus.put(menu);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -230,14 +243,16 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // 입력한 가게 이름 가져오기
-                        params.put("StoreName", storeName.getText().toString());
+                        params.put("StoreName", nullCheck(storeName.getText().toString()));
 
                         // 가게 주소 가져오기
-                        params.put("StoreLocation", storeLocation.getText().toString());
+                        params.put("StoreLocation", nullCheck(storeLocation.getText().toString()));
 
                         // 가게 위도, 경도 가져오기, * 소수점 5자리 까지 *
-                        params.put("lat", String.valueOf(intent.getDoubleExtra("lat", 0)));
-                        params.put("lng", String.valueOf(intent.getDoubleExtra("lon", 0)));
+                        String lat = String.format("%.5f",intent.getDoubleExtra("lat", 0));
+                        String lng = String.format("%.5f",intent.getDoubleExtra("lon", 0));
+                        params.put("lat", lat);
+                        params.put("lng", lng);
 
                         // 결제 방식 가져오기
                         params.put("PayWay", payWay.toString());
@@ -250,15 +265,15 @@ public class InfoRegisterActivity extends AppCompatActivity {
                         Log.i("menus", menus.toString());
 
                         // OPENTIME, CLOSETIME
-                        params.put("OpenTime", openTime.getText().toString());
-                        params.put("CloseTime", closeTime.getText().toString());
+                        params.put("OpenTime", timeCheck(openTime.getText().toString()));
+                        params.put("CloseTime", timeCheck(closeTime.getText().toString()));
 
                         // 카테고리 가져오기
                         params.put("SelectedCategory", selectedCategory.toString());
 
                         // isRunning (Default 0)
                         params.put("isRunning", "0");
-                        Log.e("ERROR: ", params.toString());
+                        Log.i("PARAMS: ", params.toString());
                         return params;
                     }
                 };
@@ -273,5 +288,18 @@ public class InfoRegisterActivity extends AppCompatActivity {
                 finish();
             } // OnClick
         }); // ClickListener
+    }
+
+    public String nullCheck(String nCheck){
+        if (nCheck.equals(null)){
+            nCheck = "";
+        }
+        return nCheck;
+    }
+    public String timeCheck(String nCheck){
+        if (nCheck.equals(null) || nCheck.equals("")){
+            nCheck = "0";
+        }
+        return nCheck;
     }
 }
