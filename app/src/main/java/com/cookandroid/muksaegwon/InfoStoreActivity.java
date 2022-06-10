@@ -51,7 +51,7 @@ public class InfoStoreActivity extends AppCompatActivity {
     SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
     String getDate = ymd.format(date);
 
-    Store store = new Store();
+    Store store;
 
     TextView storeNameTv, storeLocationTv, openTimeStore, offTimeStore, modifyBtn;
     CheckBox[] payWays = new CheckBox[3];
@@ -74,12 +74,12 @@ public class InfoStoreActivity extends AppCompatActivity {
     ArrayList<Menu> menus;
 
     String storeId;
-    private ArrayList<Boolean> payWayBooleans = new ArrayList<>();
-    private ArrayList<Boolean> daysBooleans = new ArrayList<>();
-    private ArrayList<Menu> menuList = new ArrayList<>();
+    private ArrayList<Boolean> payWayBooleans;
+    private ArrayList<Boolean> daysBooleans;
+    private ArrayList<Menu> menuList;
     private MenuAdapter menuAdapter;
 
-    private ArrayList<Boolean> ctgBooleans = new ArrayList<>();
+    private ArrayList<Boolean> ctgBooleans;
 
     SharedPreferences preferences;
     String userId;
@@ -221,6 +221,13 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     } // onCreate
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("RESTART:","YES");
+        loadStoreInfo(storeId);
+    }
+
     private void storeRunCheck(byte b, String storeId) {
         String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/storeRunCheck.jsp?run="+b+"&storeId="+storeId;
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
@@ -271,11 +278,16 @@ public class InfoStoreActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         Log.i("response: ",response);
+                        store = new Store();
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingForStore(store);
+                        payWayBooleans = new ArrayList<>();
                         msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
+                        daysBooleans = new ArrayList<>();
                         msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
+                        menuList = new ArrayList<>();
                         msgXmlParser.menuInfo(store.getMenus(),menuList);
+                        ctgBooleans = new ArrayList<>();
                         msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
                         updateUi(store);
                     }

@@ -192,12 +192,14 @@ public class MsgXmlParser {
 
     }
 
-    public void xmlParsingForStore(Store s) {
-        Store store = s;
+    public void testParsing(){
+        Store store = new Store();
+        String data = "<StoreInfo><storeId>2019</storeId><storeName>normal</storeName><storeLocation></storeLocation><lat>37.58125385605374</lat><lng>126.92555107176305</lng><category>{\"corn\": false, \"fish\": true, \"eomuk\": false, \"toast\": false, \"waffle\": false, \"topokki\": false, \"takoyaki\": false, \"dakggochi\": false, \"sweetpotato\": false}</category><menu>[{\"name\": \"teset\", \"price\": \"1000\"}]</menu><payWay>{\"card\": false, \"cash\": true, \"account\": false}</payWay><isRunning>0</isRunning><runDay>{\"fri\": false, \"mon\": true, \"sat\": false, \"sun\": false, \"thu\": false, \"tue\": true, \"wed\": true}</runDay><openTime>1</openTime><offTime>2</offTime></StoreInfo>";
         try {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             xpp = factory.newPullParser();
+            Log.i("DATA: ",data);
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
 
@@ -235,7 +237,13 @@ public class MsgXmlParser {
                     } else if (lngFlag) {
                         store.setLng(Double.parseDouble(xpp.getText()));
                         lngFlag = false;
-                    } else if (menuFlag) {
+                    } else if (caFlag) {
+                        try {
+                            store.setCategory(new JSONObject(xpp.getText()));
+                            caFlag = false;
+                        } catch (Exception e) {
+                        }
+                    }   else if (menuFlag) {
                         try {
                             store.setMenus(new JSONArray(xpp.getText()));
                             menuFlag = false;
@@ -259,17 +267,96 @@ public class MsgXmlParser {
                     } else if (otFlag) {
                         store.setOffTime(xpp.getText());
                         otFlag = false;
+                    }
+                }
+                eventType = xpp.next();
+            }
+        } catch (Exception e) {
+            Log.e("ERROR PARSING:", e.toString());
+        }
+    }
+
+
+    public void xmlParsingForStore(Store s) {
+        Store store = s;
+        try {
+            factory = XmlPullParserFactory.newInstance();
+            factory.setNamespaceAware(true);
+            xpp = factory.newPullParser();
+            Log.i("DATA: ",data);
+            xpp.setInput(new StringReader(data));
+            eventType = xpp.getEventType();
+
+            boolean storeIdFlag = false, storeNameFlag = false, storeLocationFlag = false, latFlag = false, lngFlag = false, menuFlag = false,
+                    payWayFlag = false, isRunningFlag = false, runDayFlag = false,
+                    rtFlag = false, otFlag = false, caFlag = false;
+
+            while (eventType != XmlPullParser.END_DOCUMENT) {
+                if (eventType == XmlPullParser.START_TAG) {
+                    if (xpp.getName().equals("storeId")) storeIdFlag = true;
+                    else if (xpp.getName().equals("storeName")) storeNameFlag = true;
+                    else if (xpp.getName().equals("storeLocation")) storeLocationFlag = true;
+                    else if (xpp.getName().equals("lat")) latFlag = true;
+                    else if (xpp.getName().equals("lng")) lngFlag = true;
+                    else if (xpp.getName().equals("category")) caFlag = true;
+                    else if (xpp.getName().equals("menu")) menuFlag = true;
+                    else if (xpp.getName().equals("payWay")) payWayFlag = true;
+                    else if (xpp.getName().equals("isRunning")) isRunningFlag = true;
+                    else if (xpp.getName().equals("runDay")) runDayFlag = true;
+                    else if (xpp.getName().equals("openTime")) rtFlag = true;
+                    else if (xpp.getName().equals("offTime")) otFlag = true;
+                } else if (eventType == XmlPullParser.TEXT) {
+                    if (storeIdFlag) {
+                        store.setStoreId(xpp.getText());
+                        storeIdFlag = false;
+                    } else if (storeNameFlag) {
+                        store.setStoreName(xpp.getText());
+                        storeNameFlag = false;
+                    } else if (storeLocationFlag) {
+                        store.setStoreLocation(xpp.getText());
+                        storeLocationFlag = false;
+                    } else if (latFlag) {
+                        store.setLat(Double.parseDouble(xpp.getText()));
+                        latFlag = false;
+                    } else if (lngFlag) {
+                        store.setLng(Double.parseDouble(xpp.getText()));
+                        lngFlag = false;
                     } else if (caFlag) {
                         try {
                             store.setCategory(new JSONObject(xpp.getText()));
                             caFlag = false;
                         } catch (Exception e) {
                         }
+                    }   else if (menuFlag) {
+                        try {
+                            store.setMenus(new JSONArray(xpp.getText()));
+                            menuFlag = false;
+                        } catch (Exception e) {
+                        }
+                    } else if (payWayFlag) {
+                        try {
+                            store.setPayWay(new JSONObject(xpp.getText()));
+                            payWayFlag = false;
+                        } catch (Exception e) {
+                        }
+                    } else if (isRunningFlag) {
+                        store.setIsRunning(Short.parseShort(xpp.getText()));
+                        isRunningFlag = false;
+                    } else if (runDayFlag) {
+                        store.setRunDay(new JSONObject(xpp.getText()));
+                        runDayFlag = false;
+                    } else if (rtFlag) {
+                        store.setOpenTime(xpp.getText());
+                        rtFlag = false;
+                    } else if (otFlag) {
+                        store.setOffTime(xpp.getText());
+                        otFlag = false;
                     }
                 }
                 eventType = xpp.next();
             }
         } catch (Exception e) {
+            Log.e("ERROR PARSING:", e.toString());
         }
     }
 
@@ -346,5 +433,4 @@ public class MsgXmlParser {
             Log.e("JSONException: ", e.toString());
         }
     }
-
 }

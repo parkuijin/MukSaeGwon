@@ -1,7 +1,43 @@
+//[
+//  {
+//    "featureType": "administrative",
+//    "elementType": "geometry",
+//    "stylers": [
+//      {
+//        "visibility": "off"
+//      }
+//    ]
+//  },
+//  {
+//    "featureType": "poi",
+//    "stylers": [
+//      {
+//        "visibility": "off"
+//      }
+//    ]
+//  },
+//  {
+//    "featureType": "road",
+//    "elementType": "labels.icon",
+//    "stylers": [
+//      {
+//        "visibility": "off"
+//      }
+//    ]
+//  },
+//  {
+//    "featureType": "transit",
+//    "stylers": [
+//      {
+//        "visibility": "on"
+//      }
+//    ]
+//  }
+//]
 [
   {
-    "featureType": "administrative",
-    "elementType": "geometry",
+    "featureType": "poi",
+    "elementType": "labels.text",
     "stylers": [
       {
         "visibility": "off"
@@ -9,7 +45,7 @@
     ]
   },
   {
-    "featureType": "poi",
+    "featureType": "poi.business",
     "stylers": [
       {
         "visibility": "off"
@@ -29,7 +65,7 @@
     "featureType": "transit",
     "stylers": [
       {
-        "visibility": "on"
+        "visibility": "off"
       }
     ]
   }
