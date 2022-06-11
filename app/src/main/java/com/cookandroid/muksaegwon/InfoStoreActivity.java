@@ -72,7 +72,6 @@ public class InfoStoreActivity extends AppCompatActivity {
     RecyclerView storeReviewRecyclerView, storeMenuRecyclerView;
     StoreReviewAdapter storeReviewAdapter;
     ArrayList<StoreReview> storeReviews;
-    ArrayList<Menu> menus;
 
     String storeId;
     private ArrayList<Boolean> payWayBooleans;
@@ -123,7 +122,7 @@ public class InfoStoreActivity extends AppCompatActivity {
             public void onClick(View v) {
                 boolean isOn = ((Switch) v).isChecked();
                 if(isOn){
-                    isRunningSwitch.setText(" 영업 중");
+                    isRunningSwitch.setText("영업 중");
                     storeRunCheck((byte) 1,store.getStoreId());
                 } else
                     isRunningSwitch.setText("영업 종료");
@@ -134,10 +133,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         storeMenuRecyclerView = (RecyclerView) findViewById(R.id.storeMenuRecyclerView);
         storeReviewRecyclerView = (RecyclerView) findViewById(R.id.storeReviewRecyclerView);
 
-        menus = new ArrayList<Menu>();
         storeMenuRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        storeReviews = new ArrayList<StoreReview>();
         storeReviewRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         modifyBtn = (TextView) findViewById(R.id.modifyBtn);
@@ -338,6 +335,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         offTimeStore.setText(store.getOffTime());
 
         menuPrint(menuList);
+        storeReviews = new ArrayList<StoreReview>();
         reviewPrint(storeReviews);
     }
 
@@ -380,6 +378,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         Log.i("response:", response);
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
+
                         msgXmlParser.xmlParsingSRFM(m);
                         storeReviewAdapter = new StoreReviewAdapter(m);
                         storeReviewRecyclerView.setAdapter(storeReviewAdapter);
@@ -428,7 +427,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                         String[] result = response.split("\\?");
                         if (result[1].equals("1")){
                             isRunningSwitch.setChecked(true);
-                            isRunningSwitch.setText(" 영업 중");
+                            isRunningSwitch.setText("영업 중");
                         } else {
                             isRunningSwitch.setText("영업 종료");
                         }
