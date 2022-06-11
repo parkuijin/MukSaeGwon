@@ -342,7 +342,6 @@ public class InfoUpdateActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
 
-
         openTime.setText(storeSerializable.getOpenTime());
         closeTime.setText(storeSerializable.getOffTime());
 
@@ -363,7 +362,6 @@ public class InfoUpdateActivity extends AppCompatActivity {
             menuPrint(menuList);
         } catch (Exception e) {
         }
-
 
     }
 
