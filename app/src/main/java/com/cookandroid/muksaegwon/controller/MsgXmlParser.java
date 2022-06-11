@@ -200,7 +200,7 @@ public class MsgXmlParser {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             xpp = factory.newPullParser();
-            Log.i("DATA: ",data);
+
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
 
@@ -284,7 +284,7 @@ public class MsgXmlParser {
             factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             xpp = factory.newPullParser();
-            Log.i("DATA: ",data);
+
             xpp.setInput(new StringReader(data));
             eventType = xpp.getEventType();
 
@@ -366,9 +366,10 @@ public class MsgXmlParser {
             Boolean cash = Boolean.parseBoolean(payWay.getString("cash"));
             Boolean card = Boolean.parseBoolean(payWay.getString("card"));
             Boolean account = Boolean.parseBoolean(payWay.getString("account"));
-            b.add(card);
             b.add(cash);
+            b.add(card);
             b.add(account);
+
         } catch (Exception e) {
         }
     }

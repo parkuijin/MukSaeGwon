@@ -97,7 +97,7 @@ public class InfoStoreActivity extends AppCompatActivity {
         userId = preferences.getString("userId","");
 
         storeId = getIntent().getStringExtra("storeId");
-        Log.i("StoreId:", storeId+"");
+
         loadStoreInfo(storeId);
 
         // ActionBar hide
@@ -225,7 +225,6 @@ public class InfoStoreActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        Log.i("RESTART:","YES");
         loadStoreInfo(storeId);
     }
 
@@ -251,14 +250,12 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     private void likeThisStore(boolean b,String mId, String storeId) {
         String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/likeThisStore.jsp?like="+b+"&mId="+mId+"&storeId="+storeId;
-        Log.i("URL: ",url);
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         StringRequest stringRequest = new StringRequest(Request.Method.GET,
                 url,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("LIKE:", response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -278,7 +275,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("response: ",response);
+                        Log.i("Store Info:", response);
                         store = new Store();
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingForStore(store);
@@ -354,6 +351,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 days[i].setChecked(true);
             } else
                 days[i].setChecked(false);
+
         }
     }
 
@@ -379,7 +377,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Log.i("response:", response);
+
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
 
                         msgXmlParser.xmlParsingSRFM(m);
@@ -454,7 +452,6 @@ public class InfoStoreActivity extends AppCompatActivity {
                     new Response.Listener<String>() {
                         @Override
                         public void onResponse(String response) {
-                            Log.i("review:", response);
                         }
                     },
                     new Response.ErrorListener() {
@@ -470,7 +467,6 @@ public class InfoStoreActivity extends AppCompatActivity {
                     params.put("rating", String.valueOf(rating));
                     params.put("review", text.toString());
                     params.put("date", getDate);
-                    Log.i("PARAMA:",params.toString());
                     return params;
                 }
             };

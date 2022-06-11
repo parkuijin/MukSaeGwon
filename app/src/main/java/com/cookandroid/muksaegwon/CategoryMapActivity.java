@@ -248,7 +248,7 @@ public class CategoryMapActivity extends AppCompatActivity implements OnMapReady
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
         String storeId = marker.getTag().toString();
-        Log.i("STOREID: ", storeId);
+
 
         Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
         intent.putExtra("storeId", storeId);

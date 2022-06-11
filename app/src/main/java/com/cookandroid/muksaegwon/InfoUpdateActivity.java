@@ -75,7 +75,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         storeId = intent.getStringExtra("storeId");
-        Log.i("STOREID: ",storeId);
+
         storeSerializable = (StoreSerializable) intent.getSerializableExtra("storeUpdateInfo");
 
         // ActionBar hide
@@ -305,7 +305,6 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
                         // 입력한 메뉴 가져오기
                         params.put("menus", menus.toString());
-                        Log.i("menus", menus.toString());
 
                         Log.i("Params:", params.toString());
 
