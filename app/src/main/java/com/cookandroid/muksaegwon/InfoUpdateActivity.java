@@ -1,6 +1,7 @@
 package com.cookandroid.muksaegwon;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -24,7 +25,9 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.cookandroid.muksaegwon.controller.InputFilterMinMax;
+import com.cookandroid.muksaegwon.controller.MsgXmlParser;
 import com.cookandroid.muksaegwon.model.Menu;
+import com.cookandroid.muksaegwon.model.StoreSerializable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,8 +43,9 @@ public class InfoUpdateActivity extends AppCompatActivity {
     ImageView plusMenu, minusMenu, infoUpdateFinBtn;
     LinearLayout menuContainer;
     Button UpdateSubmitBtn;
-    CheckBox cash, creditCard, account, mon, tue, wed, thu, fri, sat, sun;
-    CheckBox corn, fish, topokki, eomuk, sweetpotato, toast, takoyaki, waffle, dakggochi;
+    CheckBox[] payWays = new CheckBox[3];
+    CheckBox[] days = new CheckBox[7];
+    CheckBox[] categorys = new CheckBox[9];
     EditText storeName, openTime, closeTime;
 
     ArrayList<Menu> menuArrayList = new ArrayList<>();
@@ -55,13 +59,23 @@ public class InfoUpdateActivity extends AppCompatActivity {
     RequestQueue requestQueue;
 
     String storeId;
+    StoreSerializable storeSerializable;
+
+    private ArrayList<Boolean> payWayBooleans;
+    private ArrayList<Boolean> daysBooleans;
+    private ArrayList<Boolean> ctgBooleans;
+
+    private ArrayList<Menu> menuList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_update);
 
-        storeId = getIntent().getStringExtra("storeId");
+        Intent intent = getIntent();
+
+        storeId = intent.getStringExtra("storeId");
+        storeSerializable = (StoreSerializable) intent.getSerializableExtra("storeUpdateInfo");
 
         // ActionBar hide
         ActionBar actionBar = getSupportActionBar();
@@ -78,15 +92,15 @@ public class InfoUpdateActivity extends AppCompatActivity {
         openTime = (EditText) findViewById(R.id.openTimeTvUpdate);
         closeTime = (EditText) findViewById(R.id.offTimeTvUpdate);
 
-        corn = (CheckBox) findViewById(R.id.checkCornUpdate);
-        fish = (CheckBox) findViewById(R.id.checkFishUpdate);
-        topokki = (CheckBox) findViewById(R.id.checkTopokkiUpdate);
-        eomuk = (CheckBox) findViewById(R.id.checkEomukUpdate);
-        sweetpotato = (CheckBox) findViewById(R.id.checkSweetPotatoUpdate);
-        toast = (CheckBox) findViewById(R.id.checkToastUpdate);
-        takoyaki = (CheckBox) findViewById(R.id.checkTakoyakiUpdate);
-        waffle = (CheckBox) findViewById(R.id.checkWaffleUpdate);
-        dakggochi = (CheckBox) findViewById(R.id.checkDakggochiUpdate);
+        categorys[0] = (CheckBox) findViewById(R.id.checkCornUpdate);
+        categorys[1] = (CheckBox) findViewById(R.id.checkFishUpdate);
+        categorys[2] = (CheckBox) findViewById(R.id.checkTopokkiUpdate);
+        categorys[3] = (CheckBox) findViewById(R.id.checkEomukUpdate);
+        categorys[4] = (CheckBox) findViewById(R.id.checkSweetPotatoUpdate);
+        categorys[5] = (CheckBox) findViewById(R.id.checkToastUpdate);
+        categorys[6] = (CheckBox) findViewById(R.id.checkTakoyakiUpdate);
+        categorys[7] = (CheckBox) findViewById(R.id.checkWaffleUpdate);
+        categorys[8] = (CheckBox) findViewById(R.id.checkDakggochiUpdate);
 
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
         storeName = (EditText) findViewById(R.id.StoreNameUpdateTv);
@@ -95,14 +109,14 @@ public class InfoUpdateActivity extends AppCompatActivity {
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/deleteStore.jsp?storeId="+storeId;
+                String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/deleteStore.jsp?storeId=" + storeId;
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 StringRequest stringRequest = new StringRequest(Request.Method.GET,
                         url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Toast.makeText(getApplicationContext(),"삭제되었습니다.",Toast.LENGTH_LONG).show();
+                                Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
                                 infoStoreActivity.finish();
                                 finish();
                             }
@@ -119,36 +133,20 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
         infoUpdateFinBtn = (ImageView) findViewById(R.id.btn_back5);
 
-        cash = (CheckBox) findViewById(R.id.checkCashUpdate);
-        creditCard = (CheckBox) findViewById(R.id.checkCreditCardUpdate);
-        account = (CheckBox) findViewById(R.id.checkAccountTransferUpdate);
+        payWays[0] = (CheckBox) findViewById(R.id.checkCashUpdate);
+        payWays[1] = (CheckBox) findViewById(R.id.checkCreditCardUpdate);
+        payWays[2] = (CheckBox) findViewById(R.id.checkAccountTransferUpdate);
 
-        mon = (CheckBox) findViewById(R.id.checkMonUpdate);
-        tue = (CheckBox) findViewById(R.id.checkTueUpdate);
-        wed = (CheckBox) findViewById(R.id.checkWedUpdate);
-        thu = (CheckBox) findViewById(R.id.checkThuUpdate);
-        fri = (CheckBox) findViewById(R.id.checkFriUpdate);
-        sat = (CheckBox) findViewById(R.id.checkSatUpdate);
-        sun = (CheckBox) findViewById(R.id.checkSunUpdate);
+        days[0] = (CheckBox) findViewById(R.id.checkMonUpdate);
+        days[1] = (CheckBox) findViewById(R.id.checkTueUpdate);
+        days[2] = (CheckBox) findViewById(R.id.checkWedUpdate);
+        days[3] = (CheckBox) findViewById(R.id.checkThuUpdate);
+        days[4] = (CheckBox) findViewById(R.id.checkFriUpdate);
+        days[5] = (CheckBox) findViewById(R.id.checkSatUpdate);
+        days[6] = (CheckBox) findViewById(R.id.checkSunUpdate);
 
-        // loadStoreInfo();
-
-        // 현재 DB에 입력된 메뉴만큼 메뉴 레이아웃 생성
-        for (int i = 0; i < menuArrayList.size(); i++) {
-            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            inflater.inflate(R.layout.item_menu, menuContainer, true);
-        }
-
-        // 생성된 메뉴 레이아웃에 현재 DB에 입력된 메뉴 넣기
-        for (int i = 0; i < menuContainer.getChildCount(); i++) {
-            View v = menuContainer.getChildAt(i);
-
-            EditText etMenuName = v.findViewById(R.id.MenuNameTv);
-            EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
-
-            etMenuName.setText(menuArrayList.get(i).getMenuName());
-            etMenuPrice.setText(menuArrayList.get(i).getMenuPrice());
-        }
+        // 가게 정보 로드
+        loadStoreInfo(storeSerializable);
 
         // Runtime Input Filter
         openTime.setFilters(new InputFilter[]{new InputFilterMinMax("0", "24")});
@@ -185,12 +183,20 @@ public class InfoUpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
+                if (menuContainer.getChildCount() == 0) {
+                    Toast.makeText(getApplicationContext(), "메뉴를 추가하세요.", Toast.LENGTH_LONG).show();
+                    return;
+                } else if (storeName.getText().toString().equals("")) {
+                    Toast.makeText(getApplicationContext(), "가게 이름을 입력하세요.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 // 결제 방식 가져오기
                 try {
                     payWay = new JSONObject();
-                    payWay.put("cash", cash.isChecked());
-                    payWay.put("card", creditCard.isChecked());
-                    payWay.put("account", account.isChecked());
+                    payWay.put("cash", payWays[0].isChecked());
+                    payWay.put("card", payWays[1].isChecked());
+                    payWay.put("account", payWays[2].isChecked());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -199,13 +205,13 @@ public class InfoUpdateActivity extends AppCompatActivity {
                 // 출몰 요일 가져오기
                 try {
                     runningDate = new JSONObject();
-                    runningDate.put("mon", mon.isChecked());
-                    runningDate.put("tue", tue.isChecked());
-                    runningDate.put("wed", wed.isChecked());
-                    runningDate.put("thu", thu.isChecked());
-                    runningDate.put("fri", fri.isChecked());
-                    runningDate.put("sat", sat.isChecked());
-                    runningDate.put("sun", sun.isChecked());
+                    runningDate.put("mon", days[0].isChecked());
+                    runningDate.put("tue", days[1].isChecked());
+                    runningDate.put("wed", days[2].isChecked());
+                    runningDate.put("thu", days[3].isChecked());
+                    runningDate.put("fri", days[4].isChecked());
+                    runningDate.put("sat", days[5].isChecked());
+                    runningDate.put("sun", days[6].isChecked());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -218,16 +224,19 @@ public class InfoUpdateActivity extends AppCompatActivity {
                 // 카테고리 가져오기
                 try {
                     selectedCategory = new JSONObject();
-                    selectedCategory.put("corn", corn.isChecked());
-                    selectedCategory.put("fish", fish.isChecked());
-                    selectedCategory.put("topokki", topokki.isChecked());
-                    selectedCategory.put("eomuk", eomuk.isChecked());
-                    selectedCategory.put("sweetpotato", sweetpotato.isChecked());
-                    selectedCategory.put("toast", toast.isChecked());
-                    selectedCategory.put("takoyaki", takoyaki.isChecked());
-                    selectedCategory.put("waffle", waffle.isChecked());
-                    selectedCategory.put("dakggochi", dakggochi.isChecked());
-
+                    selectedCategory.put("corn", categorys[0].isChecked());
+                    selectedCategory.put("fish", categorys[1].isChecked());
+                    selectedCategory.put("topokki", categorys[2].isChecked());
+                    selectedCategory.put("eomuk", categorys[3].isChecked());
+                    selectedCategory.put("sweetpotato", categorys[4].isChecked());
+                    selectedCategory.put("toast", categorys[5].isChecked());
+                    selectedCategory.put("takoyaki", categorys[6].isChecked());
+                    selectedCategory.put("waffle", categorys[7].isChecked());
+                    selectedCategory.put("dakggochi", categorys[8].isChecked());
+                    if (!selectedCategory.toString().contains("true")) {
+                        Toast.makeText(getApplicationContext(), "카테고리를 선택하세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -239,6 +248,12 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
                     EditText etMenuName = v.findViewById(R.id.MenuNameTv);
                     EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
+
+                    if (etMenuName.getText().toString().equals("") ||
+                            etMenuPrice.getText().toString().equals("")) {
+                        Toast.makeText(getApplicationContext(), "메뉴를 입력하세요.", Toast.LENGTH_LONG).show();
+                        return;
+                    }
 
                     try {
                         menu = new JSONObject();
@@ -270,7 +285,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         Map<String, String> params = new HashMap<>();
 
                         // 입력한 가게 이름 가져오기
-                        params.put("StoreName", storeName.getText().toString());
+                        params.put("StoreName", nullCheck(storeName.getText().toString()));
 
                         // 결제 방식 가져오기
                         params.put("PayWay", payWay.toString());
@@ -278,22 +293,23 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         // 출몰 요일 가져오기
                         params.put("RunningDate", runningDate.toString());
 
-                        // 입력한 메뉴 가져오기
-                        params.put("menus", menus.toString());
-                        Log.i("menus", menus.toString());
-
                         // OPENTIME, CLOSETIME
-                        params.put("OpenTime", openTime.getText().toString());
-                        params.put("CloseTime", closeTime.getText().toString());
+                        params.put("OpenTime", timeCheck(openTime.getText().toString()));
+                        params.put("CloseTime", timeCheck(closeTime.getText().toString()));
 
                         // 카테고리 가져오기
                         params.put("SelectedCategory", selectedCategory.toString());
 
+                        // 입력한 메뉴 가져오기
+                        params.put("menus", menus.toString());
+                        Log.i("menus", menus.toString());
+
                         return params;
                     }
-                };
+                }; // getParams
 
-               finish();
+                requestQueue.add(stringRequest);
+                finish();
 
             } // onClick
         }); // setOnClickListener
@@ -302,33 +318,111 @@ public class InfoUpdateActivity extends AppCompatActivity {
     } // onCreate
 
 
+    public void loadStoreInfo(StoreSerializable storeSerializable) {
+
+        MsgXmlParser msgXmlParser = new MsgXmlParser();
+
+        storeName.setText(storeSerializable.getStoreName());
+
+        try {
+            payWayBooleans = new ArrayList<>();
+            String strPayWay = storeSerializable.getPayWay();
+            JSONObject payWayJSONObj = new JSONObject(strPayWay);
+            msgXmlParser.payWayInfo(payWayJSONObj, payWayBooleans);
+            payWayChecking(payWayBooleans);
+        } catch (Exception e) {
+        }
+
+        try {
+            daysBooleans = new ArrayList<>();
+            String strDays = storeSerializable.getRunDay();
+            JSONObject daysJSONObj = new JSONObject(strDays);
+            msgXmlParser.daysInfo(daysJSONObj, daysBooleans);
+            daysChecking(daysBooleans);
+        } catch (Exception e) {
+        }
 
 
-    public void loadStoreInfo(String storeId) {
-        String url = "";
-        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-        StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                url,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        /*Log.i("response: ",response);
-                        MsgXmlParser msgXmlParser = new MsgXmlParser(response);
-                        msgXmlParser.xmlParsingForStore(store);
-                        msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
-                        msgXmlParser.daysInfo(store.getRunDay(),daysBooleans);
-                        msgXmlParser.menuInfo(store.getMenus(),menuList);
+        openTime.setText(storeSerializable.getOpenTime());
+        closeTime.setText(storeSerializable.getOffTime());
 
-                        msgXmlParser.categoryInfo(store.getCategory(),ctgBooleans);
-                        updateUi(store);*/
-                    }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
+        try {
+            ctgBooleans = new ArrayList<>();
+            String strCtg = storeSerializable.getCategory();
+            JSONObject ctgJSONObj = new JSONObject(strCtg);
+            msgXmlParser.categoryInfo(ctgJSONObj, ctgBooleans);
+            categoryChecking(ctgBooleans);
+        } catch (Exception e) {
+        }
 
-                    }
-                });
-        requestQueue.add(stringRequest);
+        try {
+            menuList = new ArrayList<>();
+            String strMenus = storeSerializable.getMenus();
+            JSONArray menuJSONArray = new JSONArray(strMenus);
+            msgXmlParser.menuInfo(menuJSONArray, menuList);
+            menuPrint(menuList);
+        } catch (Exception e) {
+        }
+
+
     }
+
+    public void payWayChecking(ArrayList<Boolean> bool) {
+        for (int i = 0; i < bool.size(); i++) {
+            if (bool.get(i)) {
+                payWays[i].setChecked(true);
+            }
+        }
+    }
+
+    public void daysChecking(ArrayList<Boolean> bool) {
+        for (int i = 0; i < bool.size(); i++) {
+            if (bool.get(i)) {
+                days[i].setChecked(true);
+            }
+        }
+    }
+
+    public void categoryChecking(ArrayList<Boolean> bool) {
+        for (int i = 0; i < bool.size(); i++) {
+            if (bool.get(i)) {
+                categorys[i].setChecked(true);
+            }
+        }
+    }
+
+    public void menuPrint(ArrayList<Menu> m) {
+
+        // 현재 DB에 입력된 메뉴만큼 메뉴 레이아웃 생성
+        for (int i = 0; i < m.size(); i++) {
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            inflater.inflate(R.layout.item_menu, menuContainer, true);
+        }
+
+        // 생성된 메뉴 레이아웃에 현재 DB에 입력된 메뉴 넣기
+        for (int i = 0; i < menuContainer.getChildCount(); i++) {
+            View v = menuContainer.getChildAt(i);
+
+            EditText etMenuName = v.findViewById(R.id.MenuNameTv);
+            EditText etMenuPrice = v.findViewById(R.id.MenuPriceTv);
+
+            etMenuName.setText(m.get(i).getMenuName());
+            etMenuPrice.setText(m.get(i).getMenuPrice());
+        }
+    }
+
+    public String nullCheck(String nCheck) {
+        if (nCheck.equals(null)) {
+            nCheck = "";
+        }
+        return nCheck;
+    }
+
+    public String timeCheck(String nCheck) {
+        if (nCheck.equals(null) || nCheck.equals("")) {
+            nCheck = "0";
+        }
+        return nCheck;
+    }
+
 }

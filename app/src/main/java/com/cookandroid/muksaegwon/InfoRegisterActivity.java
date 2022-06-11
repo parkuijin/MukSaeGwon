@@ -139,6 +139,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         submitBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (menuContainer.getChildCount() == 0){
                     Toast.makeText(getApplicationContext(),"메뉴를 추가하세요.",Toast.LENGTH_LONG).show();
                     return;
@@ -296,6 +297,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
         }
         return nCheck;
     }
+
     public String timeCheck(String nCheck){
         if (nCheck.equals(null) || nCheck.equals("")){
             nCheck = "0";
