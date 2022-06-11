@@ -51,7 +51,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
     ArrayList<Menu> menuArrayList = new ArrayList<>();
 
     JSONObject menu;
-    JSONArray menus;
+    JSONArray menus = new JSONArray();
     JSONObject payWay;
     JSONObject runningDate;
     JSONObject selectedCategory;
@@ -75,6 +75,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         storeId = intent.getStringExtra("storeId");
+        Log.i("STOREID: ",storeId);
         storeSerializable = (StoreSerializable) intent.getSerializableExtra("storeUpdateInfo");
 
         // ActionBar hide
@@ -176,7 +177,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
             }
         }); // minus
 
-        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/";
+        String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/infoUpdate.jsp";
 
         // 수정된 내용 제출 버튼
         UpdateSubmitBtn.setOnClickListener(new View.OnClickListener() {
@@ -284,6 +285,8 @@ public class InfoUpdateActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() {
                         Map<String, String> params = new HashMap<>();
 
+                        params.put("storeId", storeId);
+
                         // 입력한 가게 이름 가져오기
                         params.put("StoreName", nullCheck(storeName.getText().toString()));
 
@@ -303,6 +306,8 @@ public class InfoUpdateActivity extends AppCompatActivity {
                         // 입력한 메뉴 가져오기
                         params.put("menus", menus.toString());
                         Log.i("menus", menus.toString());
+
+                        Log.i("Params:", params.toString());
 
                         return params;
                     }

@@ -343,7 +343,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         for(int i=0;i<bool.size();i++){
             if (bool.get(i)){
                 payWays[i].setChecked(true);
-            }
+            } else
+                payWays[i].setChecked(false);
         }
     }
 
@@ -351,7 +352,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         for(int i=0;i<bool.size();i++){
             if (bool.get(i)){
                 days[i].setChecked(true);
-            }
+            } else
+                days[i].setChecked(false);
         }
     }
 
@@ -359,7 +361,8 @@ public class InfoStoreActivity extends AppCompatActivity {
         for(int i=0;i<bool.size();i++){
             if (bool.get(i)){
                 categorys[i].setChecked(true);
-            }
+            } else
+                categorys[i].setChecked(false);
         }
     }
 
