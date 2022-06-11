@@ -223,15 +223,13 @@ public class InfoRegisterActivity extends AppCompatActivity {
                     }
                 } // for
 
-                Log.i("JSONARRAYTEST", String.valueOf(menus));
-
                 // Volley Post
                 StringRequest stringRequest = new StringRequest(Request.Method.POST,
                         url,
                         new Response.Listener<String>() {
                             @Override
                             public void onResponse(String response) {
-                                Log.i("REGISTER : ", response);
+
                             }
                         }, new Response.ErrorListener() {
                     @Override
@@ -263,7 +261,6 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
                         // 입력한 메뉴 가져오기
                         params.put("menus", menus.toString());
-                        Log.i("menus", menus.toString());
 
                         // OPENTIME, CLOSETIME
                         params.put("OpenTime", timeCheck(openTime.getText().toString()));
@@ -274,7 +271,7 @@ public class InfoRegisterActivity extends AppCompatActivity {
 
                         // isRunning (Default 0)
                         params.put("isRunning", "0");
-                        Log.i("PARAMS: ", params.toString());
+
                         return params;
                     }
                 };
