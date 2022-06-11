@@ -35,6 +35,7 @@ import com.cookandroid.muksaegwon.controller.MsgXmlParser;
 import com.cookandroid.muksaegwon.model.Menu;
 import com.cookandroid.muksaegwon.model.Store;
 import com.cookandroid.muksaegwon.model.StoreReview;
+import com.cookandroid.muksaegwon.model.StoreSerializable;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -83,6 +84,8 @@ public class InfoStoreActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
     String userId;
+
+    StoreSerializable storeSerializable = new StoreSerializable();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,6 +218,7 @@ public class InfoStoreActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), InfoUpdateActivity.class);
                 intent.putExtra("storeId",storeId);
+                intent.putExtra("storeUpdateInfo", storeSerializable);
                 startActivity(intent);
             }
         });
@@ -281,6 +285,15 @@ public class InfoStoreActivity extends AppCompatActivity {
                         store = new Store();
                         MsgXmlParser msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingForStore(store);
+
+                        storeSerializable.setStoreName(store.getStoreName());
+                        storeSerializable.setPayWay(store.getPayWay().toString());
+                        storeSerializable.setRunDay(store.getRunDay().toString());
+                        storeSerializable.setOpenTime(store.getOpenTime());
+                        storeSerializable.setOffTime(store.getOffTime());
+                        storeSerializable.setCategory(store.getCategory().toString());
+                        storeSerializable.setMenus(store.getMenus().toString());
+
                         payWayBooleans = new ArrayList<>();
                         msgXmlParser.payWayInfo(store.getPayWay(),payWayBooleans);
                         daysBooleans = new ArrayList<>();

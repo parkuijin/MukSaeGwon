@@ -26,6 +26,7 @@ public class MsgXmlParser {
     public MsgXmlParser(String data) {
         this.data = data;
     }
+    public MsgXmlParser() {}
 
     public void xmlParsingRFM(ArrayList<Review> r) {
         String review = "", storeName = "", date;
