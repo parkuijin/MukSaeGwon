@@ -51,7 +51,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
     ArrayList<Menu> menuArrayList = new ArrayList<>();
 
     JSONObject menu;
-    JSONArray menus = new JSONArray();
+    JSONArray menus;
     JSONObject payWay;
     JSONObject runningDate;
     JSONObject selectedCategory;
@@ -152,6 +152,8 @@ public class InfoUpdateActivity extends AppCompatActivity {
         // Runtime Input Filter
         openTime.setFilters(new InputFilter[]{new InputFilterMinMax("0", "24")});
         closeTime.setFilters(new InputFilter[]{new InputFilterMinMax("0", "24")});
+
+        menus = new JSONArray();
 
         // 뒤로가기 버튼
         infoUpdateFinBtn.setOnClickListener(new View.OnClickListener() {
