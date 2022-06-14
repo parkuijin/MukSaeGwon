@@ -1,5 +1,6 @@
 package com.cookandroid.muksaegwon;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -62,7 +63,8 @@ public class FavoriteActivity extends AppCompatActivity {
                         msgXmlParser = new MsgXmlParser(response);
                         msgXmlParser.xmlParsingFFM(favorites);
 
-                        favoriteAdapter = new FavoriteAdapter(favorites);
+                        Intent intent = new Intent(getApplicationContext(), InfoStoreActivity.class);
+                        favoriteAdapter = new FavoriteAdapter(favorites, intent);
                         favoriteRecyclerView.setAdapter(favoriteAdapter);
                     }
                 },
