@@ -13,6 +13,7 @@ import android.location.Address;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -207,10 +208,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
             startLocationUpdates();
         } else {
             Toast.makeText(getContext(),"위치 권한이 필요합니다",Toast.LENGTH_LONG).show();
-            try {
-                Thread.sleep(2000);
-                loadComplete();
-            } catch (Exception e) {}
+            loadComplete();
         }
     }
 
@@ -280,7 +278,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback, GoogleM
 
     public void loadComplete(){
         IntroActivity introActivity = (IntroActivity) IntroActivity.activity;
-        introActivity.finish();
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                introActivity.finish();
+            }
+        }, 2000);
+
 
         vr = mMap.getProjection().getVisibleRegion();
         left = vr.latLngBounds.southwest.longitude;

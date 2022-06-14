@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -49,7 +50,7 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
 
     public static Activity activity;
 
-    ImageView image;
+    private static ImageView image;
     private long backPressedTime = 0;
     private final long FINISH_INTERVAL_TIME = 2000;
 
@@ -63,14 +64,14 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
     SignInButton signInButton;
     boolean locationPermission;
 
-    SpinKitView spinKitView;
+    public static SpinKitView spinKitView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         image=findViewById(R.id.imageView);
-        Glide.with(this).load(R.raw.intro_gif).into(image);
+       Glide.with(this).load(R.raw.intro_gif).into(image);
 
         activity = this;
 
@@ -209,7 +210,6 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
             ((MapFragment)MapFragment.mapFragment).startLogin(locationPermission);
         }
     }
-
 
     @Override
     public void onBackPressed() {
