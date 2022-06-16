@@ -47,7 +47,25 @@ public class FavoriteActivity extends AppCompatActivity {
         actionBar.hide();
 
         favoriteRecyclerView = (RecyclerView) findViewById(R.id.favoriteRecyclerView);
+        loadFavorites();
 
+        ImageView imageView = (ImageView) findViewById(R.id.btn_back5);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        loadFavorites();
+    }
+
+    public void loadFavorites(){
         favorites = new ArrayList<Favorite>();
         favoriteRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -75,17 +93,5 @@ public class FavoriteActivity extends AppCompatActivity {
                     }
                 });
         requestQueue.add(stringRequest);
-
-
-
-
-        ImageView imageView = (ImageView) findViewById(R.id.btn_back5);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
     }
 }

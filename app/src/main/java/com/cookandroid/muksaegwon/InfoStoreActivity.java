@@ -236,7 +236,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-
+                        Log.i("StoreRunCheck:", response);
                     }
                 },
                 new Response.ErrorListener() {
@@ -425,6 +425,7 @@ public class InfoStoreActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
+                        Log.i("runningLoad",response);
                         String[] result = response.split("\\?");
                         if (result[1].equals("1")){
                             isRunningSwitch.setChecked(true);
