@@ -88,6 +88,7 @@ public class RegisterActivity extends AppCompatActivity implements OnMapReadyCal
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
+        mMap.getUiSettings().setZoomControlsEnabled(true);
 
         try {
             // Customise the styling of the base map using a JSON object defined

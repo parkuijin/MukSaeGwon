@@ -1,7 +1,10 @@
 package com.cookandroid.muksaegwon;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.text.InputFilter;
 import android.util.Log;
@@ -42,7 +45,7 @@ public class InfoUpdateActivity extends AppCompatActivity {
     TextView deleteBtn;
     ImageView plusMenu, minusMenu, infoUpdateFinBtn;
     LinearLayout menuContainer;
-    Button UpdateSubmitBtn;
+    Button UpdateSubmitBtn, deleteCancelBtn, deleteAgreeBtn;
     CheckBox[] payWays = new CheckBox[3];
     CheckBox[] days = new CheckBox[7];
     CheckBox[] categorys = new CheckBox[9];
@@ -60,6 +63,8 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
     String storeId;
     StoreSerializable storeSerializable;
+
+    Dialog deleteWarningDialog;
 
     private ArrayList<Boolean> payWayBooleans;
     private ArrayList<Boolean> daysBooleans;
@@ -86,6 +91,14 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
         requestQueue = Volley.newRequestQueue(this);
 
+        // CUSTOM DIALOG CREATE
+        deleteWarningDialog = new Dialog(InfoUpdateActivity.this);
+        deleteWarningDialog.setContentView(R.layout.dialog_delete_store);
+        deleteWarningDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        deleteCancelBtn = deleteWarningDialog.findViewById(R.id.delCancelBtn);
+        deleteAgreeBtn = deleteWarningDialog.findViewById(R.id.delAgreeBtn);
+
         UpdateSubmitBtn = (Button) findViewById(R.id.updateInfoSubmitBtn);
         menuContainer = (LinearLayout) findViewById(R.id.menuItemLayoutUpdate);
         plusMenu = (ImageView) findViewById(R.id.plusMenuBtnUpdate);
@@ -107,30 +120,6 @@ public class InfoUpdateActivity extends AppCompatActivity {
         storeName = (EditText) findViewById(R.id.StoreNameUpdateTv);
 
         deleteBtn = (TextView) findViewById(R.id.deleteBtn);
-        deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/deleteStore.jsp?storeId=" + storeId;
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                StringRequest stringRequest = new StringRequest(Request.Method.GET,
-                        url,
-                        new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
-                                infoStoreActivity.finish();
-                                finish();
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-
-                            }
-                        });
-                requestQueue.add(stringRequest);
-            }
-        });
 
         infoUpdateFinBtn = (ImageView) findViewById(R.id.btn_back5);
 
@@ -155,6 +144,13 @@ public class InfoUpdateActivity extends AppCompatActivity {
 
         menus = new JSONArray();
 
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteWarningDialog.show();
+            }
+        });
+
         // 뒤로가기 버튼
         infoUpdateFinBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -162,6 +158,39 @@ public class InfoUpdateActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        deleteCancelBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteWarningDialog.dismiss();
+                return;
+            }
+        });
+
+        deleteAgreeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String url = "http://ec2-54-188-243-35.us-west-2.compute.amazonaws.com:8080/MukSaeGwonServer/deleteStore.jsp?storeId=" + storeId;
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                StringRequest stringRequest = new StringRequest(Request.Method.GET,
+                        url,
+                        new Response.Listener<String>() {
+                            @Override
+                            public void onResponse(String response) {
+                                Toast.makeText(getApplicationContext(), "삭제되었습니다.", Toast.LENGTH_LONG).show();
+                                infoStoreActivity.finish();
+                                finish();
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+
+                            }
+                        });
+                requestQueue.add(stringRequest);
+            }
+        }); // DeleteAgreeButton
 
         plusMenu.setOnClickListener(new View.OnClickListener() {
             @Override
