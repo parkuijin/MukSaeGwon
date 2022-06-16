@@ -129,9 +129,9 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
     private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
         try {
             account = completedTask.getResult(ApiException.class);
-
             Log.d(TAG, "Account received");
             updateInfo(account.getId(), account.getDisplayName());
+            Log.i("photoUrl", account.getPhotoUrl()+"");
             // Signed in successfully, show authenticated UI.
         } catch (ApiException e) {
             // The ApiException status code indicates the detailed failure reason.
@@ -168,8 +168,9 @@ public class IntroActivity extends AppCompatActivity implements ActivityCompat.O
         Preferences = getApplicationContext().getSharedPreferences("userInfo", MODE_PRIVATE);
         SharedPreferences.Editor editor = Preferences.edit();
         editor.putString("userId",id);
-        editor.putString("name",account.getDisplayName());
+        editor.putString("name",name);
         editor.putString("email",account.getEmail());
+
         editor.apply();
 
         permissionCheck();
